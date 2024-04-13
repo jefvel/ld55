@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://c3op2te8w84ty"
+path="res://.godot/imported/evil_eye.aseprite-8cedd9ed8c63ccfb70c6f0ba7f25331d.res"
+
+[deps]
+
+source_file="res://objects/enemies/evil_eye.aseprite"
+dest_files=["res://.godot/imported/evil_eye.aseprite-8cedd9ed8c63ccfb70c6f0ba7f25331d.res"]
+
+[params]
+

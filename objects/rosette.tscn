@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3 uid="uid://ruuaf1cph0f2"]
+
+[ext_resource type="Texture2D" uid="uid://brd8ctn5xgabn" path="res://objects/rosette.png" id="1_n3o8t"]
+
+[node name="Rosette" type="Sprite2D"]
+texture_filter = 1
+texture = ExtResource("1_n3o8t")
+metadata/_aseprite_wizard_config_ = {
+"i_mode": 1,
+"keep_anim_length": false,
+"layer": "",
+"o_ex_p": "",
+"o_folder": "",
+"o_name": "",
+"only_visible": false,
+"player": "",
+"slice": "",
+"source": "res://objects/rosette.aseprite"
+}

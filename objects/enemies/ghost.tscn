@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3 uid="uid://ddcj6bwskxw4q"]
+
+[ext_resource type="Texture2D" uid="uid://5mqrkupltn8r" path="res://objects/enemies/ghost.png" id="1_8j8kc"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gp3h1"]
+radius = 8.0
+
+[node name="Ghost" type="Area2D"]
+
+[node name="sprite" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_8j8kc")
+metadata/_aseprite_wizard_config_ = {
+"i_mode": 1,
+"keep_anim_length": false,
+"layer": "",
+"o_ex_p": "",
+"o_folder": "",
+"o_name": "",
+"only_visible": false,
+"player": "",
+"slice": "",
+"source": "res://objects/enemies/ghost.aseprite"
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_gp3h1")

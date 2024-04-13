@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://chla0etifb73g"
+path="res://.godot/imported/ghost.aseprite-5ac5c20104cd222fc09adb1ac77c2435.res"
+
+[deps]
+
+source_file="res://objects/enemies/ghost.aseprite"
+dest_files=["res://.godot/imported/ghost.aseprite-5ac5c20104cd222fc09adb1ac77c2435.res"]
+
+[params]
+

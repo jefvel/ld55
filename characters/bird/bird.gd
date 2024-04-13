@@ -1,4 +1,4 @@
-extends CharacterBody2D
+extends Node2D
 
 @onready var anim = $anim
 @onready var sprite = $Sprite
@@ -6,12 +6,21 @@ extends CharacterBody2D
 @export var cam: GameCamera;
 
 @export var gravity: float = 0.4;
+var velocity: Vector2
 
 signal on_start_flying;
 signal on_hit_wall;
 signal on_start_gliding;
 signal on_landed;
 signal on_died;
+
+@export var rope_attach_point: Node2D;
+@export var rope_container_node: Node2D;
+
+var rope_segments: Array[Rope]
+var current_rope: Rope;
+
+var max_height_per_row = 500.0;
 
 @export var left_x = -666;
 @export var right_x = 999 + 333;
@@ -34,18 +43,31 @@ var flapped = false;
 var boost = 0.0;
 
 # <-1     1 >
-var direction: int = 1;
+var direction: int = 1 if randf() > 0.5 else -1;
 
 func _ready():
 	var spawns = get_tree().get_nodes_in_group("PlayerSpawn").pick_random()
 	global_position = spawns.global_position
 	anim.play("idle")
-	_refresh()
+	_refresh();
+	_create_rope();
+	
+@onready var rope_end = $rope_end
+
+func _create_rope():
+	var rope = Rope.new()
+	rope_container_node.add_child(rope)
+	rope.end_node = rope_end;
+	rope.start_node = rope_attach_point
+	rope_segments.push_back(rope)
+	current_rope = rope;
+	pass
 
 func start_flying():
 	state = State.Flying;
 	on_start_flying.emit()
 	update_cam()
+	cam.deadzone_y = 85.0;
 	pass
 
 func crash():
@@ -56,7 +78,7 @@ func crash():
 	on_died.emit();
 	
 func update_cam():
-	var off_x = 100.0;
+	var off_x = 120.0;
 	const off_y = -16.0;
 	if direction < 0:
 		off_x = -off_x;
@@ -65,9 +87,15 @@ func update_cam():
 func land_on_wall():
 	if state == State.Sitting:
 		return
+	
+	cam.deadzone_y = 0.0;
 	state = State.Sitting
+	
 	velocity.x = 0;
 	velocity.y = 0;
+	
+	flapping = false;
+	flapped = false;
 	
 	anim.play("wallsit")
 	
@@ -81,8 +109,18 @@ func land_on_wall():
 	direction = -direction;
 	update_cam();
 
-	on_hit_wall.emit();
 
+	var n = ROSETTE.instantiate()
+	if direction < 0:
+		n.scale.x = -1;
+	rope_container_node.add_child(n)
+	n.global_position = rope_end.global_position
+	current_rope.end_node = n
+	rope_attach_point = n
+	_create_rope()
+	
+	on_hit_wall.emit();
+const ROSETTE = preload("res://objects/rosette.tscn")
 func _refresh():
 	if direction < 0:
 		sprite.scale.x = -1;
@@ -107,13 +145,14 @@ func _physics_process(_delta):
 	var gravity_scale = 1.0;
 	if !flap_down:
 		boost *= 0.5;
+		gravity_scale = 1.1;
 	else:
-		gravity_scale = 0.7;
+		gravity_scale = 0.6;
 		boost *= 0.99
 		
 	if state == State.Flying:
 		velocity.y += gravity * gravity_scale;
-		velocity.x = (1 + boost * 1.5) * direction * 4;
+		velocity.x = (1 + boost * 1.2) * direction * 4;
 		
 		rotation = direction * velocity.y * 0.01;
 		
@@ -131,6 +170,10 @@ func _physics_process(_delta):
 		else:
 			if flap_down and flap_released:
 				flap_request = true
+				
+		var dy = rope_attach_point.global_position.y - global_position.y;
+		if dy > max_height_per_row:
+			velocity.y += (dy - max_height_per_row) * 0.003
 			
 		velocity.y = clamp(velocity.y, -15, 30)
 		
@@ -138,7 +181,8 @@ func _physics_process(_delta):
 			anim.play("flap_down")
 			flapped = true;
 			
-		move_and_collide(velocity)
+		#move_and_collide(velocity)
+		position += velocity * _delta * 60.0;
 		
 		if (position.y >= floor_y):
 			crash()
@@ -152,3 +196,10 @@ func _physics_process(_delta):
 func _on_anim_animation_finished(anim_name:String):
 	if anim_name == "flap":
 		flapping = false;
+
+
+
+func _on_collision_area_entered(node):
+	if node is Item:
+		print("COllect")
+

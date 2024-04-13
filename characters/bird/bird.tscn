@@ -4,9 +4,6 @@
 [ext_resource type="Script" path="res://characters/bird/bird.gd" id="1_n1ar3"]
 [ext_resource type="Texture2D" uid="uid://mvimdxjtjryf" path="res://characters/bird/wand.png" id="2_5656g"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_h423x"]
-radius = 9.0
-
 [sub_resource type="Animation" id="Animation_woian"]
 length = 0.1
 loop_mode = 1
@@ -153,7 +150,9 @@ _data = {
 "wallsit": SubResource("Animation_larb0")
 }
 
-[node name="Bird" type="CharacterBody2D"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_h423x"]
+
+[node name="Bird" type="Node2D"]
 script = ExtResource("1_n1ar3")
 
 [node name="wand" type="Sprite2D" parent="."]
@@ -201,13 +200,19 @@ metadata/_aseprite_wizard_interface_config_ = {
 "slice_section": true
 }
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -12)
-shape = SubResource("CircleShape2D_h423x")
-
 [node name="anim" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_k2gsc")
 }
 
+[node name="rope_end" type="Node2D" parent="."]
+position = Vector2(0, -13)
+
+[node name="collision" type="Area2D" parent="."]
+
+[node name="collision" type="CollisionShape2D" parent="collision"]
+position = Vector2(0, -12)
+shape = SubResource("CircleShape2D_h423x")
+
 [connection signal="animation_finished" from="anim" to="." method="_on_anim_animation_finished"]
+[connection signal="area_entered" from="collision" to="." method="_on_collision_area_entered"]

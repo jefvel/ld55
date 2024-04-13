@@ -1,0 +1,69 @@
+[gd_scene load_steps=6 format=3 uid="uid://cmnqv61btt1l0"]
+
+[ext_resource type="Texture2D" uid="uid://bfbpbpwds3prn" path="res://objects/items.png" id="1_fvs6c"]
+[ext_resource type="Script" path="res://objects/item.gd" id="1_j4s1a"]
+
+[sub_resource type="Animation" id="Animation_8t6c1"]
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("sprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mk3b1"]
+_data = {
+"default": SubResource("Animation_8t6c1")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2urt5"]
+radius = 21.0238
+
+[node name="Item" type="Area2D"]
+script = ExtResource("1_j4s1a")
+
+[node name="sprite" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_fvs6c")
+hframes = 2
+vframes = 2
+metadata/_aseprite_wizard_config_ = {
+"i_mode": -1,
+"keep_anim_length": false,
+"layer": "",
+"o_ex_p": "",
+"o_folder": "",
+"o_name": "",
+"only_visible": false,
+"player": "anim",
+"slice": "",
+"source": "res://objects/items.aseprite"
+}
+
+[node name="anim" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_mk3b1")
+}
+
+[node name="collision" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_2urt5")

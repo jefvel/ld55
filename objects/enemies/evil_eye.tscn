@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://nffmctjemqjk"]
+
+[ext_resource type="Texture2D" uid="uid://cdc2gak8xd880" path="res://objects/enemies/evil_eye.png" id="1_ouui2"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_w61lr"]
+
+[node name="EvilEye" type="Area2D"]
+
+[node name="sprite" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_ouui2")
+metadata/_aseprite_wizard_config_ = {
+"i_mode": 1,
+"keep_anim_length": false,
+"layer": "",
+"o_ex_p": "",
+"o_folder": "",
+"o_name": "",
+"only_visible": false,
+"player": "",
+"slice": "",
+"source": "res://objects/enemies/evil_eye.aseprite"
+}
+
+[node name="collision" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_w61lr")
