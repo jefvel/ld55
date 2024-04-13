@@ -1,0 +1,16 @@
+[remap]
+
+importer="aseprite_wizard.plugin.static-texture"
+type="AtlasTexture"
+uid="uid://bw71ppi5id23s"
+path="res://.godot/imported/thread_thred.aseprite-b70c3da6db6168b6501862de60bd0941.res"
+
+[deps]
+
+source_file="res://objects/thread_thred.aseprite"
+dest_files=["res://.godot/imported/thread_thred.aseprite-b70c3da6db6168b6501862de60bd0941.res"]
+
+[params]
+
+exclude_layers_pattern=""
+only_visible_layers=false

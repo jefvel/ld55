@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3 uid="uid://p5dls0w74yvk"]
+
+[ext_resource type="PackedScene" uid="uid://ddcj6bwskxw4q" path="res://objects/enemies/ghost.tscn" id="1_k1mkn"]
+[ext_resource type="PackedScene" uid="uid://cmnqv61btt1l0" path="res://objects/item.tscn" id="2_qwq5y"]
+
+[node name="Oneenemy" type="Node2D"]
+
+[node name="Ghost" parent="." instance=ExtResource("1_k1mkn")]
+position = Vector2(-14, 36)
+
+[node name="Ghost2" parent="." instance=ExtResource("1_k1mkn")]
+position = Vector2(13, 60)
+
+[node name="Ghost4" parent="." instance=ExtResource("1_k1mkn")]
+position = Vector2(44, 60)
+
+[node name="Ghost6" parent="." instance=ExtResource("1_k1mkn")]
+position = Vector2(102, 60)
+
+[node name="Ghost5" parent="." instance=ExtResource("1_k1mkn")]
+position = Vector2(74, 60)
+
+[node name="Ghost3" parent="." instance=ExtResource("1_k1mkn")]
+position = Vector2(-41, 9)
+
+[node name="Item" parent="." instance=ExtResource("2_qwq5y")]
+position = Vector2(0, -1)

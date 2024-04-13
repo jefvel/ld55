@@ -1,7 +1,7 @@
 [remap]
 
-importer="aseprite_wizard.plugin.noop"
-type="PackedDataContainer"
+importer="aseprite_wizard.plugin.static-texture"
+type="AtlasTexture"
 uid="uid://brgbltel6wqvw"
 path="res://.godot/imported/thread.aseprite-d82fbb4a436964da360b475c04f770d2.res"
 
@@ -12,3 +12,5 @@ dest_files=["res://.godot/imported/thread.aseprite-d82fbb4a436964da360b475c04f77
 
 [params]
 
+exclude_layers_pattern=""
+only_visible_layers=true

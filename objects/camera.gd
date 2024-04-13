@@ -10,8 +10,7 @@ var deadzone_y = 80.0:
 		if abs(dz - deadzone_y) > 0.01:
 			if _t: _t.kill()
 			_t = get_tree().create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUART)
-			_t.tween_property(self, "_dz_y", dz, 0.5);
-			pass
+			_t.tween_property(self, "_dz_y", dz, 0.75);
 		deadzone_y = dz;
 
 func _process(_delta):
@@ -30,5 +29,5 @@ func tween_offset(off_x: float, off_y: float) -> void:
 	off_tween = get_tree().create_tween()
 	off_tween.set_ease(Tween.EASE_OUT)
 	off_tween.set_trans(Tween.TRANS_CUBIC)
-	off_tween.tween_property(self, "offset", Vector2(off_x, off_y), 0.35)
+	off_tween.tween_property(self, "offset", Vector2(off_x, off_y), 0.47)
 	off_tween.play()

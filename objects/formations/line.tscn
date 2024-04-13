@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://b65ovyeyi8cxl"]
+
+[ext_resource type="PackedScene" uid="uid://nffmctjemqjk" path="res://objects/enemies/evil_eye.tscn" id="1_bn85g"]
+[ext_resource type="PackedScene" uid="uid://cmnqv61btt1l0" path="res://objects/item.tscn" id="2_1a0hm"]
+
+[node name="Line" type="Node2D"]
+
+[node name="EvilEye" parent="." instance=ExtResource("1_bn85g")]
+position = Vector2(0, 52)
+
+[node name="EvilEye3" parent="." instance=ExtResource("1_bn85g")]
+position = Vector2(0, 106)
+
+[node name="EvilEye2" parent="." instance=ExtResource("1_bn85g")]
+position = Vector2(0, -56)
+
+[node name="EvilEye4" parent="." instance=ExtResource("1_bn85g")]
+position = Vector2(0, -101)
+
+[node name="Item" parent="." instance=ExtResource("2_1a0hm")]

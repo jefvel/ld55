@@ -1,4 +1,5 @@
 extends Node2D
+class_name Bird;
 
 @onready var anim = $anim
 @onready var sprite = $Sprite
@@ -17,10 +18,13 @@ signal on_died;
 @export var rope_attach_point: Node2D;
 @export var rope_container_node: Node2D;
 
+var thread_total = 100.0;
+var cur_thread = 100.0;
+
 var rope_segments: Array[Rope]
 var current_rope: Rope;
 
-var max_height_per_row = 500.0;
+var max_height_per_row = 300.0;
 
 @export var left_x = -666;
 @export var right_x = 999 + 333;
@@ -120,6 +124,7 @@ func land_on_wall():
 	_create_rope()
 	
 	on_hit_wall.emit();
+
 const ROSETTE = preload("res://objects/rosette.tscn")
 func _refresh():
 	if direction < 0:
@@ -145,7 +150,7 @@ func _physics_process(_delta):
 	var gravity_scale = 1.0;
 	if !flap_down:
 		boost *= 0.5;
-		gravity_scale = 1.1;
+		gravity_scale = 1.2;
 	else:
 		gravity_scale = 0.6;
 		boost *= 0.99
@@ -157,10 +162,10 @@ func _physics_process(_delta):
 		rotation = direction * velocity.y * 0.01;
 		
 		if !flapping and flap_request:
-			if velocity.y > 5:
-				velocity.y = -5;
+			if velocity.y > 2:
+				velocity.y = -6;
 			else:
-				velocity.y -= 10;
+				velocity.y -= 7;
 			boost = 1.0;
 			anim.play("flap")
 			flapping = true;
@@ -182,7 +187,10 @@ func _physics_process(_delta):
 			flapped = true;
 			
 		#move_and_collide(velocity)
-		position += velocity * _delta * 60.0;
+		var dv =  velocity * _delta * 60.0;
+		position += dv
+		
+		cur_thread -= velocity.length() * 0.01
 		
 		if (position.y >= floor_y):
 			crash()
@@ -197,9 +205,10 @@ func _on_anim_animation_finished(anim_name:String):
 	if anim_name == "flap":
 		flapping = false;
 
-
-
 func _on_collision_area_entered(node):
-	if node is Item:
-		print("COllect")
+	if node is Item and !node.picked_up:
+		node.pick_up()
+		cur_thread += 7.0
+		cur_thread = clamp(cur_thread, 0.0, thread_total)
+		current_rope.attach_to_rope(node)
 

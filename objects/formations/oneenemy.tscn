@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://cvbf18ddieohq"]
+
+[ext_resource type="PackedScene" uid="uid://ddcj6bwskxw4q" path="res://objects/enemies/ghost.tscn" id="1_5x703"]
+
+[node name="Oneenemy" type="Node2D"]
+
+[node name="Ghost" parent="." instance=ExtResource("1_5x703")]
+position = Vector2(0, 41)
+
+[node name="Ghost2" parent="." instance=ExtResource("1_5x703")]
+position = Vector2(0, -40)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://bnfujb6c4ngs1"]
+[gd_scene load_steps=19 format=3 uid="uid://bnfujb6c4ngs1"]
 
 [ext_resource type="Script" path="res://objects/camera.gd" id="1_6erm6"]
 [ext_resource type="Script" path="res://main.gd" id="1_21ljx"]
@@ -6,14 +6,15 @@
 [ext_resource type="Shader" path="res://objects/wall.gdshader" id="2_qcgk3"]
 [ext_resource type="PackedScene" uid="uid://can8qx4di6ugf" path="res://characters/bird/bird.tscn" id="2_v3qkl"]
 [ext_resource type="Texture2D" uid="uid://cg7ec48y7i1ic" path="res://objects/wall.png" id="3_drna8"]
+[ext_resource type="Script" path="res://objects/spawner.gd" id="4_b07sx"]
 [ext_resource type="Texture2D" uid="uid://47s583rio54u" path="res://white_rect.png" id="5_nnv47"]
 [ext_resource type="Script" path="res://objects/walls.gd" id="5_s74ek"]
-[ext_resource type="PackedScene" uid="uid://cmnqv61btt1l0" path="res://objects/item.tscn" id="5_t13br"]
-[ext_resource type="PackedScene" uid="uid://ddcj6bwskxw4q" path="res://objects/enemies/ghost.tscn" id="6_1k7ga"]
 [ext_resource type="Texture2D" uid="uid://x7k81dw156cr" path="res://spatula.png" id="6_pb8ct"]
-[ext_resource type="PackedScene" uid="uid://nffmctjemqjk" path="res://objects/enemies/evil_eye.tscn" id="7_jaqh8"]
 [ext_resource type="Texture2D" uid="uid://ccgv7qc42xo6a" path="res://objects/bubble.png" id="7_ru8tw"]
 [ext_resource type="Script" path="res://objects/ui.gd" id="9_hih1a"]
+[ext_resource type="Texture2D" uid="uid://brgbltel6wqvw" path="res://objects/thread.aseprite" id="13_0oclf"]
+[ext_resource type="Script" path="res://objects/thread_bar.gd" id="13_qg0h3"]
+[ext_resource type="Texture2D" uid="uid://dvht3db10rxva" path="res://objects/thread_thred.png" id="14_tsksd"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jl58f"]
 shader = ExtResource("2_qcgk3")
@@ -46,6 +47,14 @@ grow_vertical = 2
 texture = ExtResource("3_drna8")
 expand_mode = 1
 stretch_mode = 1
+metadata/_edit_lock_ = true
+
+[node name="Spawner" type="Node2D" parent="." node_paths=PackedStringArray("player", "left_wall", "right_wall", "item_layer")]
+script = ExtResource("4_b07sx")
+player = NodePath("../World/Bird")
+left_wall = NodePath("../World/Walls/LeftWall")
+right_wall = NodePath("../World/Walls/RightWall")
+item_layer = NodePath("../World/Items")
 
 [node name="World" type="Node2D" parent="."]
 
@@ -56,26 +65,9 @@ ignore_rotation = false
 script = ExtResource("1_6erm6")
 follow_target = NodePath("../Bird")
 
-[node name="Ropes" type="Node2D" parent="World"]
-
-[node name="Items" type="Node2D" parent="World"]
-
-[node name="Item" parent="World/Items" instance=ExtResource("5_t13br")]
-position = Vector2(110, 254)
-
-[node name="Item2" parent="World/Items" instance=ExtResource("5_t13br")]
-position = Vector2(610, 301)
-
-[node name="Item3" parent="World/Items" instance=ExtResource("5_t13br")]
-position = Vector2(709, 261)
-
 [node name="Enemies" type="Node2D" parent="World"]
 
-[node name="Ghost" parent="World/Enemies" instance=ExtResource("6_1k7ga")]
-position = Vector2(532, 246)
-
-[node name="Ghost2" parent="World/Enemies" instance=ExtResource("7_jaqh8")]
-position = Vector2(509, 247)
+[node name="Ropes" type="Node2D" parent="World"]
 
 [node name="Bird" parent="World" node_paths=PackedStringArray("cam", "rope_attach_point", "rope_container_node") instance=ExtResource("2_v3qkl")]
 position = Vector2(422, 392)
@@ -83,6 +75,8 @@ cam = NodePath("../Camera")
 rope_attach_point = NodePath("../Cauldron/spatula/ThreadAnchor")
 rope_container_node = NodePath("../Ropes")
 metadata/_edit_group_ = true
+
+[node name="Items" type="Node2D" parent="World"]
 
 [node name="Cauldron" type="Node2D" parent="World"]
 position = Vector2(333, 512)
@@ -190,18 +184,15 @@ texture = ExtResource("5_nnv47")
 
 [node name="UILayer" type="CanvasLayer" parent="."]
 
-[node name="UI" type="Control" parent="UILayer"]
+[node name="UI" type="Control" parent="UILayer" node_paths=PackedStringArray("bird")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -3.0
-offset_top = -23.0
-offset_right = -3.0
-offset_bottom = -23.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("9_hih1a")
+bird = NodePath("../../World/Bird")
 metadata/_edit_lock_ = true
 
 [node name="Label" type="Label" parent="UILayer/UI"]
@@ -213,6 +204,53 @@ offset_right = 153.0
 offset_bottom = 72.0
 text = "aaasdgasdaf"
 
+[node name="ThreadBar" type="Control" parent="UILayer/UI"]
+layout_mode = 1
+anchors_preset = 0
+offset_left = 9.0
+offset_top = 10.0
+offset_right = 41.0
+offset_bottom = 42.0
+script = ExtResource("13_qg0h3")
+value = 0.3
+
+[node name="sprite" type="TextureRect" parent="UILayer/UI/ThreadBar"]
+texture_filter = 1
+layout_mode = 1
+offset_right = 32.0
+offset_bottom = 32.0
+texture = ExtResource("13_0oclf")
+
+[node name="bar" type="ColorRect" parent="UILayer/UI/ThreadBar/sprite"]
+clip_children = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.844
+anchor_right = 0.5
+anchor_bottom = 0.844
+offset_left = -16.0
+offset_top = -21.008
+offset_right = 16.0
+offset_bottom = -0.00800133
+grow_horizontal = 2
+grow_vertical = 0
+pivot_offset = Vector2(16, 21)
+
+[node name="TextureRect" type="TextureRect" parent="UILayer/UI/ThreadBar/sprite/bar"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -16.0
+offset_top = -21.0
+offset_right = 16.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("14_tsksd")
+
 [node name="ColorRect" type="ColorRect" parent="UILayer/UI"]
 visible = false
 layout_mode = 1
@@ -222,3 +260,5 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.121569, 0.0196078, 0.0627451, 1)
+
+[connection signal="on_hit_wall" from="World/Bird" to="." method="_on_bird_on_hit_wall"]
