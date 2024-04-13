@@ -1,0 +1,16 @@
+[remap]
+
+importer="aseprite_wizard.plugin.static-texture"
+type="AtlasTexture"
+uid="uid://c3cljcem7fssl"
+path="res://.godot/imported/wall.aseprite-a57820876ef407f1307ffa3a84254f42.res"
+
+[deps]
+
+source_file="res://objects/wall.aseprite"
+dest_files=["res://.godot/imported/wall.aseprite-a57820876ef407f1307ffa3a84254f42.res"]
+
+[params]
+
+exclude_layers_pattern=""
+only_visible_layers=false

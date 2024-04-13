@@ -1,14 +1,198 @@
-[gd_scene load_steps=2 format=3 uid="uid://bnfujb6c4ngs1"]
+[gd_scene load_steps=15 format=3 uid="uid://bnfujb6c4ngs1"]
 
-[ext_resource type="Texture2D" uid="uid://bj8ccmljr0bbp" path="res://icon.svg" id="1_51y1l"]
+[ext_resource type="Script" path="res://objects/camera.gd" id="1_6erm6"]
+[ext_resource type="Script" path="res://main.gd" id="1_21ljx"]
+[ext_resource type="Texture2D" uid="uid://86vu7uj2f7xt" path="res://cauldron.png" id="2_54g6l"]
+[ext_resource type="Shader" path="res://objects/wall.gdshader" id="2_qcgk3"]
+[ext_resource type="PackedScene" uid="uid://can8qx4di6ugf" path="res://characters/bird/bird.tscn" id="2_v3qkl"]
+[ext_resource type="Texture2D" uid="uid://cg7ec48y7i1ic" path="res://objects/wall.png" id="3_drna8"]
+[ext_resource type="Texture2D" uid="uid://47s583rio54u" path="res://white_rect.png" id="5_nnv47"]
+[ext_resource type="Script" path="res://objects/walls.gd" id="5_s74ek"]
+[ext_resource type="Texture2D" uid="uid://x7k81dw156cr" path="res://spatula.png" id="6_pb8ct"]
+[ext_resource type="Texture2D" uid="uid://ccgv7qc42xo6a" path="res://objects/bubble.png" id="7_ru8tw"]
+[ext_resource type="Script" path="res://objects/ui.gd" id="9_hih1a"]
 
-[node name="Node2D" type="Node2D"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jl58f"]
+shader = ExtResource("2_qcgk3")
+shader_parameter/offset = Vector2(0, 0)
 
-[node name="Icon" type="Sprite2D" parent="."]
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_bmo35"]
+particles_animation = true
+particles_anim_h_frames = 2
+particles_anim_v_frames = 2
+particles_anim_loop = false
+
+[sub_resource type="Gradient" id="Gradient_1xqox"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_21ljx")
+
+[node name="BgLayer" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="bg" type="TextureRect" parent="BgLayer"]
+modulate = Color(0.725306, 0.688729, 0.786022, 1)
 texture_filter = 1
-position = Vector2(99, 93)
-texture = ExtResource("1_51y1l")
-metadata/_aseprite_wizard_interface_config_ = {
-"layer_section": false,
-"slice_section": false
+material = SubResource("ShaderMaterial_jl58f")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_drna8")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="World" type="Node2D" parent="."]
+
+[node name="Camera" type="Camera2D" parent="World" node_paths=PackedStringArray("follow_target")]
+position = Vector2(422, 392)
+offset = Vector2(0, -40)
+ignore_rotation = false
+script = ExtResource("1_6erm6")
+follow_target = NodePath("../Bird")
+
+[node name="Bird" parent="World" node_paths=PackedStringArray("cam") instance=ExtResource("2_v3qkl")]
+position = Vector2(422, 392)
+cam = NodePath("../Camera")
+metadata/_edit_group_ = true
+
+[node name="Cauldron" type="Node2D" parent="World"]
+position = Vector2(333, 512)
+
+[node name="spatula" type="Sprite2D" parent="World/Cauldron"]
+texture_filter = 1
+position = Vector2(-9, -116)
+texture = ExtResource("6_pb8ct")
+offset = Vector2(2, -13)
+metadata/_aseprite_wizard_config_ = {
+"i_mode": 1,
+"keep_anim_length": false,
+"layer": "",
+"o_ex_p": "",
+"o_folder": "",
+"o_name": "",
+"only_visible": false,
+"player": "",
+"slice": "",
+"source": "res://objects/spatula.aseprite"
 }
+
+[node name="ThreadAnchor" type="Node2D" parent="World/Cauldron/spatula"]
+position = Vector2(5, -9)
+
+[node name="bubbles" type="CPUParticles2D" parent="World/Cauldron"]
+texture_filter = 1
+material = SubResource("CanvasItemMaterial_bmo35")
+position = Vector2(-4, -116)
+texture = ExtResource("7_ru8tw")
+emission_shape = 3
+emission_rect_extents = Vector2(90, 10)
+direction = Vector2(0, -1)
+spread = 30.24
+gravity = Vector2(0, 0)
+initial_velocity_min = 5.46
+initial_velocity_max = 52.39
+linear_accel_min = 2.12
+linear_accel_max = 2.12
+damping_min = 5.108
+damping_max = 15.475
+color_ramp = SubResource("Gradient_1xqox")
+anim_offset_max = 1.0
+
+[node name="sprite" type="Sprite2D" parent="World/Cauldron"]
+texture_filter = 1
+texture = ExtResource("2_54g6l")
+metadata/_aseprite_wizard_config_ = {
+"i_mode": 1,
+"keep_anim_length": false,
+"layer": "",
+"o_ex_p": "",
+"o_folder": "",
+"o_name": "",
+"only_visible": true,
+"player": "",
+"slice": "",
+"source": "res://objects/cauldron/cauldron.aseprite"
+}
+metadata/_aseprite_wizard_interface_config_ = {
+"layer_section": true
+}
+
+[node name="SpawnPointLeft" type="Node2D" parent="World/Cauldron" groups=["PlayerSpawn"]]
+position = Vector2(-99, -120)
+
+[node name="SpawnPointCenter" type="Node2D" parent="World/Cauldron" groups=["PlayerSpawn"]]
+position = Vector2(46, -120)
+
+[node name="SpawnPointCenter2" type="Node2D" parent="World/Cauldron" groups=["PlayerSpawn"]]
+position = Vector2(-47, -120)
+
+[node name="SpawnPointRight" type="Node2D" parent="World/Cauldron" groups=["PlayerSpawn"]]
+position = Vector2(89, -120)
+
+[node name="Walls" type="Node2D" parent="World"]
+modulate = Color(0.192157, 0.0196078, 0.117647, 1)
+position = Vector2(0, 333)
+script = ExtResource("5_s74ek")
+
+[node name="LeftWall" type="Node2D" parent="World/Walls"]
+position = Vector2(-666, 0)
+
+[node name="Sprite2D2" type="Sprite2D" parent="World/Walls/LeftWall"]
+position = Vector2(-288.5, 1.00003)
+scale = Vector2(144.25, 221)
+texture = ExtResource("5_nnv47")
+
+[node name="RightWall" type="Node2D" parent="World/Walls"]
+position = Vector2(1332, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="World/Walls/RightWall"]
+position = Vector2(289, 0)
+scale = Vector2(144.25, 221)
+texture = ExtResource("5_nnv47")
+
+[node name="Floor" type="Node2D" parent="World"]
+modulate = Color(0.121569, 0.0196078, 0.0627451, 1)
+position = Vector2(333, 600)
+
+[node name="Sprite2D2" type="Sprite2D" parent="World/Floor"]
+position = Vector2(0, 600)
+scale = Vector2(1000, 300)
+texture = ExtResource("5_nnv47")
+
+[node name="UILayer" type="CanvasLayer" parent="."]
+
+[node name="UI" type="Control" parent="UILayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -3.0
+offset_top = -23.0
+offset_right = -3.0
+offset_bottom = -23.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("9_hih1a")
+metadata/_edit_lock_ = true
+
+[node name="Label" type="Label" parent="UILayer/UI"]
+visible = false
+layout_mode = 0
+offset_left = 56.0
+offset_top = 49.0
+offset_right = 153.0
+offset_bottom = 72.0
+text = "aaasdgasdaf"
+
+[node name="ColorRect" type="ColorRect" parent="UILayer/UI"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.121569, 0.0196078, 0.0627451, 1)
