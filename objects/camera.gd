@@ -43,7 +43,7 @@ func _reresh_pos():
 
 @export var wall_r = 900;
 @export var wall_l = -800;
-var _offset: Vector2
+var _offset: Vector2 = Vector2(0, -40)
 var off_tween: Tween;
 func tween_offset(off_x: float, off_y: float) -> void:
 	if off_tween:
