@@ -1,7 +1,7 @@
 extends Node2D
 
 @onready var bg = $BgLayer/bg
-@onready var camera = $World/Camera
+@export var camera:Camera2D
 
 @onready var spawner = $Spawner
 @onready var bird = $World/Bird

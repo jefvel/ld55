@@ -1,7 +1,7 @@
 extends Node
 
 var enemy_node: Node2D;
-
+var can_start = true;
 var bird: Bird;
 
 var frozen: bool:

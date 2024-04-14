@@ -30,6 +30,7 @@ func format_number(number: int) -> String:
 @onready var combo = $Score/combo
 	
 func _ready():
+	Game.can_start =true
 	color_rect.visible = true;
 	var t = get_tree().create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_SINE)
 	t.tween_property(color_rect, "modulate:a", 0, 0.1)
@@ -63,4 +64,15 @@ func show_win(birdcount = 0, score = 0):
 
 func _on_bird_on_wand_dropped():
 	thread_bar.disappear()
+	pass # Replace with function body.
+
+var hovelink =false
+func _on_link_button_mouse_entered():
+	hovelink = true
+	Game.can_start = false
+	pass # Replace with function body.
+
+func _on_link_button_mouse_exited():
+	hovelink = false
+	Game.can_start = true
 	pass # Replace with function body.

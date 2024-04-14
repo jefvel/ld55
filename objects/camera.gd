@@ -21,16 +21,17 @@ func shake():
 
 func _process(_delta):
 	if follow_target:
+		offset = _offset
 		position.x = follow_target.position.x
 		var dy = position.y - follow_target.position.y
-		position.x += _offset.x;
+	#	position.x += _offset.x;
 		#position.x = clamp(position.x, -999, 1000)
 		#print(position.x)
 		if abs(dy) > _dz_y:
 			var d = (abs(dy) - _dz_y) * sign(dy);
 			position.y -= d;
 	_reresh_pos()
-
+	pass
 			
 
 func _reresh_pos():
@@ -51,6 +52,6 @@ func tween_offset(off_x: float, off_y: float) -> void:
 	off_tween = get_tree().create_tween()
 	off_tween.set_ease(Tween.EASE_OUT)
 	off_tween.set_trans(Tween.TRANS_CUBIC)
-	off_tween.tween_property(self, "offset", Vector2(off_x, off_y), 0.47)
-	off_tween.step_finished.connect(_reresh_pos)
+	off_tween.tween_property(self, "_offset", Vector2(off_x, off_y), 0.47)
+	#off_tween.step_finished.connect(_reresh_pos)
 	off_tween.play()

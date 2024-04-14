@@ -25,7 +25,7 @@ var combo: int = 0;
 
 var initial_attach_point: Node2D
 
-var thread_total = 40.0;
+var thread_total = 45.0;
 var cur_thread = thread_total;
 
 var hurting = false;
@@ -212,6 +212,7 @@ func _physics_process(_delta):
 	_refresh()
 	if flap_pressed:
 		if state == State.Idle or state == State.Sitting:
+			if state == State.Idle and !Game.can_start: return
 			start_flying();
 		pass
 	
@@ -352,7 +353,7 @@ func _physics_process(_delta):
 					if slug is RopeBlob:
 						if slug.dead: continue
 						var d = slug.position - position;
-						if d.length_squared() < 40.0 * 40.0:
+						if d.length_squared() < 45.0 * 45.0:
 							if d.dot(velocity) > 0.1:
 								#slug.queue_free()
 								slug.punch();
@@ -408,7 +409,7 @@ func punch():
 
 func glide_switch_dir():
 	glide_rope_index -= 1;
-	glide_vel += 1.0;
+	glide_vel += 0.9;
 	_refresh()
 	update_cam()
 	pass
@@ -434,7 +435,7 @@ func thread_end():
 	state = State.Falling
 	slugify_enemies()
 	Game.hit_freeze(0.1)
-
+	$audio/spring.play()
 	drop_wand()
 	
 	cam.shake()

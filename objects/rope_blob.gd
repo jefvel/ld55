@@ -76,7 +76,7 @@ func _physics_process(delta):
 		rvel *= 0.96;
 		var b:Bird = Game.bird
 		if putting_into_pot:
-			if position.y > 300:
+			if position.y > 350:
 				on_put_into_pot.emit(level);
 				finito = true;
 				splash.play()

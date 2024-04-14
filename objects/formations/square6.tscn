@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=3 uid="uid://bfmayaenac312"]
+
+[ext_resource type="PackedScene" uid="uid://ddcj6bwskxw4q" path="res://objects/enemies/ghost.tscn" id="1_yie16"]
+[ext_resource type="PackedScene" uid="uid://cmnqv61btt1l0" path="res://objects/item.tscn" id="2_htt1m"]
+
+[node name="Oneenemy" type="Node2D"]
+
+[node name="Ghost" parent="." instance=ExtResource("1_yie16")]
+position = Vector2(1, -142)
+
+[node name="Ghost7" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("1_yie16")]
+position = Vector2(1, -49)
+sprite = NodePath("../Ghost/sprite")
+
+[node name="Ghost6" parent="." instance=ExtResource("1_yie16")]
+position = Vector2(1, -98)
+
+[node name="Ghost8" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("1_yie16")]
+position = Vector2(3, 98)
+sprite = NodePath("../Ghost6/sprite")
+
+[node name="Ghost5" parent="." instance=ExtResource("1_yie16")]
+position = Vector2(1, 0)
+
+[node name="Ghost3" parent="." instance=ExtResource("1_yie16")]
+position = Vector2(1, 136)
+
+[node name="Item2" parent="." instance=ExtResource("2_htt1m")]
+position = Vector2(0, 48)

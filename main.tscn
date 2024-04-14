@@ -32,8 +32,9 @@ particles_anim_loop = false
 [sub_resource type="Gradient" id="Gradient_1xqox"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
-[node name="Game" type="Node2D"]
+[node name="Game" type="Node2D" node_paths=PackedStringArray("camera")]
 script = ExtResource("1_21ljx")
+camera = NodePath("World/Camera")
 
 [node name="Music" type="Node" parent="."]
 script = ExtResource("2_6q12t")
@@ -73,7 +74,14 @@ enemy_layer = NodePath("../World/Enemies")
 
 [node name="World" type="Node2D" parent="."]
 
+[node name="Enemies" type="Node2D" parent="World"]
+
+[node name="Ropes" type="Node2D" parent="World"]
+
+[node name="Items" type="Node2D" parent="World"]
+
 [node name="Camera" type="Camera2D" parent="World" node_paths=PackedStringArray("follow_target")]
+process_priority = 3
 position = Vector2(422, 392)
 offset = Vector2(0, -40)
 ignore_rotation = false
@@ -82,12 +90,6 @@ script = ExtResource("1_6erm6")
 follow_target = NodePath("../Bird")
 wall_r = 1212
 wall_l = -547
-
-[node name="Enemies" type="Node2D" parent="World"]
-
-[node name="Ropes" type="Node2D" parent="World"]
-
-[node name="Items" type="Node2D" parent="World"]
 
 [node name="Bird" parent="World" node_paths=PackedStringArray("cam", "rope_attach_point", "rope_container_node") instance=ExtResource("2_v3qkl")]
 position = Vector2(422, 392)

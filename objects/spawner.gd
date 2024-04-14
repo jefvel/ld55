@@ -19,10 +19,13 @@ const formations = [
 	preload("res://objects/formations/square2.tscn"),
 	preload("res://objects/formations/square3.tscn"),
 	preload("res://objects/formations/square4.tscn"),
+	preload("res://objects/formations/square5.tscn"),
+	preload("res://objects/formations/square6.tscn"),
 ]
 
 var spawned = 0;
-
+var min_dist = 180.0;
+var init_spawns = 3;
 func spawn():
 	var end_point: Vector2;
 	end_point.x = left_wall.global_position.x if player.direction < 0 else right_wall.global_position.x
@@ -36,8 +39,8 @@ func spawn():
 	var d = (end_point - start_point)
 	
 	var total_len = d.length();
-	var min_dist = 180.0;
-	var max_spawns = 3;
+	
+	var max_spawns = init_spawns;
 	
 	var h_length = abs(end_point.x - start_point.x)
 	var min_spawns = 2;
@@ -49,10 +52,10 @@ func spawn():
 		max_spawns = 4
 	if spawned > 10:
 		max_spawns = 5;
-	if spawned > 20:
-		max_spawns += 1
-	if spawned > 6:
-		min_dist -= 1.0
+	if spawned > 14:
+		init_spawns += 1
+	if spawned > 4:
+		min_dist -= 3.0
 	
 	min_dist = max(min_dist, 60);
 	
