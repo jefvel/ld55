@@ -491,7 +491,8 @@ func _on_anim_animation_finished(anim_name:String):
 
 func add_score(s:int):
 	score += s * (1 +combo)
-	
+
+var pickups  =0
 func _on_collision_area_entered(node):
 	if state == State.Gliding and node is RopeBlob:
 		if node.dead:
@@ -510,6 +511,7 @@ func _on_collision_area_entered(node):
 			if item.picked_up: return
 			item.pick_up()
 			add_score(50)
+			pickups += 1;
 			combo += 1
 			pickupsfx.play()
 			pickupsfx.pitch_scale = randf_range(0.99, 1.02)

@@ -33,13 +33,13 @@ func _ready():
 	Game.can_start =true
 	color_rect.visible = true;
 	var t = get_tree().create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_SINE)
-	t.tween_property(color_rect, "modulate:a", 0, 0.1)
+	t.tween_property(color_rect, "modulate:a", 0, 0.2)
 	t.finished.connect(_finish)
 	uianim.play("RESET")
 
 func _physics_process(delta):
 	thread_bar.value = (bird.cur_thread / bird.thread_total)
-	scoretxt.text = format_number(bird.score)
+	scoretxt.text = format_number(bird.pickups)
 	if bird.combo > 1:
 		combo.text = 'X%s' % int(bird.combo)
 	else: combo.text = ''
@@ -57,7 +57,7 @@ func _on_bird_on_start_flying():
 	pass # Replace with function body.
 
 func show_win(birdcount = 0, score = 0):
-	$win/ColorRect/TextureRect/Label2.text = 'Score %s\nSummoned %s Friends' % [format_number(score), format_number(birdcount)]
+	$win/ColorRect/TextureRect/Label2.text = 'Score %s\nSummoned %s Friends' % [format_number(bird.pickups), format_number(birdcount)]
 	#$win/AudioStreamPlayer.play()
 	uianim.play("showwin")
 	pass
