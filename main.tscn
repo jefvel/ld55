@@ -224,6 +224,7 @@ bird = NodePath("../../World/Bird")
 
 [connection signal="on_died" from="World/Bird" to="Music" method="_on_bird_on_died"]
 [connection signal="on_hit_wall" from="World/Bird" to="." method="_on_bird_on_hit_wall"]
+[connection signal="on_landed" from="World/Bird" to="." method="_on_bird_on_landed"]
 [connection signal="on_landed" from="World/Bird" to="Music" method="_on_bird_on_landed"]
 [connection signal="on_start_falling" from="World/Bird" to="Music" method="_on_bird_on_start_falling"]
 [connection signal="on_start_flying" from="World/Bird" to="Music" method="_on_bird_on_start_flying"]

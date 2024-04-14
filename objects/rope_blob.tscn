@@ -1,9 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://bavyqhov4ksjg"]
+[gd_scene load_steps=12 format=3 uid="uid://bavyqhov4ksjg"]
 
 [ext_resource type="Script" path="res://objects/rope_blob.gd" id="1_agfyk"]
 [ext_resource type="Texture2D" uid="uid://db52r3vpon3ct" path="res://objects/rope_blob.png" id="1_ecy6b"]
+[ext_resource type="AudioStream" uid="uid://hbwxy4iwtjup" path="res://sfx/blob_land.wav" id="3_3uair"]
+[ext_resource type="AudioStream" uid="uid://cmcafwfwn0ss5" path="res://sfx/spawn1.wav" id="4_kwd0a"]
+[ext_resource type="AudioStream" uid="uid://dn2s4sdug8d2k" path="res://sfx/spawn2.wav" id="5_dr1og"]
+[ext_resource type="AudioStream" uid="uid://r5q8y7u8px4j" path="res://sfx/spawn3.wav" id="6_hyymq"]
 
-[sub_resource type="Animation" id="Animation_3yl3s"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_y2htl"]
+radius = 15.0
+
+[sub_resource type="Animation" id="Animation_pcorr"]
 length = 0.1
 loop_mode = 1
 tracks/0/type = "value"
@@ -31,18 +38,79 @@ tracks/1/keys = {
 "values": [0]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_mldps"]
-_data = {
-"default": SubResource("Animation_3yl3s")
+[sub_resource type="Animation" id="Animation_a5d2a"]
+length = 0.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("sprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
 }
 
-[node name="RopeBlob" type="Node2D"]
+[sub_resource type="Animation" id="Animation_prl2k"]
+length = 0.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("sprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vcfn3"]
+_data = {
+"large": SubResource("Animation_prl2k"),
+"medium": SubResource("Animation_a5d2a"),
+"small": SubResource("Animation_pcorr")
+}
+
+[node name="RopeBlob" type="Area2D" groups=["Slug"]]
 script = ExtResource("1_agfyk")
 
 [node name="sprite" type="Sprite2D" parent="."]
 texture_filter = 1
-position = Vector2(0, -6)
+position = Vector2(0, -11)
 texture = ExtResource("1_ecy6b")
+offset = Vector2(0, -5)
+hframes = 2
+vframes = 2
 metadata/_aseprite_wizard_config_ = {
 "i_mode": -1,
 "keep_anim_length": false,
@@ -56,7 +124,27 @@ metadata/_aseprite_wizard_config_ = {
 "source": "res://objects/rope_blob.aseprite"
 }
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -8)
+shape = SubResource("CircleShape2D_y2htl")
+
 [node name="anim" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_mldps")
+"": SubResource("AnimationLibrary_vcfn3")
 }
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_3uair")
+volume_db = -3.0
+
+[node name="spawn1" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_kwd0a")
+volume_db = -4.0
+
+[node name="spawn2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_dr1og")
+volume_db = -4.0
+
+[node name="spawn3" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_hyymq")
+volume_db = -4.0

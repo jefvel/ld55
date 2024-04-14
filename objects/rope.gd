@@ -23,7 +23,9 @@ func reposition_items():
 	#	if is_instance_valid(attached_objects[i]):
 	#		attached_objects[i].global_position = d * attached_lengths[i] + p0
 	pass
-	
+
+var rope_blobs: Array[RopeBlob] = []
+
 var p_left = p0 if p0.x < p1.x else p1
 var p_right = p1 if p1.x > p0.x else p0
 var p_d : Vector2;

@@ -47,9 +47,13 @@ func turn_into_slug(delay:float = 0.0):
 	turning = true
 	until_turn = delay
 	pass
-
+	
+const ROPE_BLOB = preload("res://objects/rope_blob.tscn")
 func activate_turn():
 	var par = get_parent()
+	var blob = ROPE_BLOB.instantiate()
+	blob.position = position
+	par.add_child(blob)
 	queue_free()
 	pass
 

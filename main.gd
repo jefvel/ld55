@@ -22,3 +22,7 @@ func _physics_process(delta):
 func _on_bird_on_hit_wall():
 	spawner.spawn()
 	pass # Replace with function body.
+
+
+func _on_bird_on_landed():
+	pass # Replace with function body.

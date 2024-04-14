@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://can8qx4di6ugf"]
+[gd_scene load_steps=25 format=3 uid="uid://can8qx4di6ugf"]
 
 [ext_resource type="Texture2D" uid="uid://cy8gst8by2ef4" path="res://characters/bird/bird.png" id="1_kjx1p"]
 [ext_resource type="Script" path="res://characters/bird/bird.gd" id="1_n1ar3"]
@@ -9,6 +9,9 @@
 [ext_resource type="AudioStream" uid="uid://dds7qxeyggu7d" path="res://sfx/hurt.wav" id="6_wdbr1"]
 [ext_resource type="AudioStream" uid="uid://cawlce3k25fp4" path="res://sfx/hurt2.wav" id="7_caoku"]
 [ext_resource type="AudioStream" uid="uid://bw41wt4dkax5a" path="res://sfx/hurt3.wav" id="8_ll8yy"]
+[ext_resource type="AudioStream" uid="uid://cmcy41ctmpbhf" path="res://sfx/swing.wav" id="10_75h3y"]
+[ext_resource type="AudioStream" uid="uid://mp2uwov8y7s" path="res://sfx/punch.wav" id="11_my4yl"]
+[ext_resource type="AudioStream" uid="uid://dta7jonioyobo" path="res://sfx/pickup.wav" id="12_8imen"]
 
 [sub_resource type="Animation" id="Animation_woian"]
 length = 0.1
@@ -381,6 +384,18 @@ volume_db = -2.0
 
 [node name="hurt3" type="AudioStreamPlayer" parent="audio"]
 stream = ExtResource("8_ll8yy")
+volume_db = -2.0
+
+[node name="swing" type="AudioStreamPlayer" parent="audio"]
+stream = ExtResource("10_75h3y")
+volume_db = -2.0
+
+[node name="punch" type="AudioStreamPlayer" parent="audio"]
+stream = ExtResource("11_my4yl")
+volume_db = -2.0
+
+[node name="pickup" type="AudioStreamPlayer" parent="audio"]
+stream = ExtResource("12_8imen")
 volume_db = -2.0
 
 [connection signal="animation_finished" from="anim" to="." method="_on_anim_animation_finished"]

@@ -101,6 +101,7 @@ func crash():
 	on_died.emit();
 	$audio/crash.play()
 	#Game.hit_freeze(0.1)
+	slugify_enemies(0)
 	cam.shake()
 	
 func update_cam():
@@ -199,6 +200,7 @@ func _physics_process(_delta):
 		flap_released = true;
 	
 	if Game.frozen:
+		punch_time -= _delta
 		return
 	
 	_refresh()
@@ -333,6 +335,23 @@ func _physics_process(_delta):
 		if punching:
 			anim.play("slap")
 			punch_time -= _delta
+			if punch_time > 0.04:
+				for slug in get_tree().get_nodes_in_group("Slug"):
+					if slug is RopeBlob:
+						if slug.dead: continue
+						var d = slug.position - position;
+						if d.length_squared() < 40.0 * 40.0:
+							if d.dot(velocity) > 0.1:
+								#slug.queue_free()
+								slug.punch();
+								punched_slugs.push_back(slug)
+								punchsfx.play()
+								punchsfx.pitch_scale = randf_range(0.99, 1.02)
+								Game.hit_freeze()
+								cam.shake()
+								pass
+						pass
+			
 			if punch_time <= 0:
 				punching = false;
 		else: 
@@ -347,8 +366,17 @@ func _physics_process(_delta):
 			anim.play("slide")
 		else:
 			anim.play("idle")
+			finish_landing();
 	pass
 
+
+func finish_landing():
+	if landed : return
+	landed = true
+	on_landed.emit()
+
+var landed = false;
+var punched_slugs: Array[RopeBlob] = [];
 var punching = false;
 var punch_time = 0.1;
 func punch(): 
@@ -356,7 +384,12 @@ func punch():
 	punch_time = 0.1;
 	anim.play("slap")
 	punching = true;
+	swingsfx.play()
+	swingsfx.pitch_scale = randf_range(0.99, 1.02)
+	
 	pass
+@onready var swingsfx = $audio/swing
+@onready var punchsfx = $audio/punch
 
 func glide_switch_dir():
 	glide_rope_index -= 1;
@@ -371,7 +404,7 @@ func finish_glide():
 	else: velocity = Vector2(-5, 0)
 	cam.tween_offset(0, -30)
 	position.y = spawn_pos.y
-	on_landed.emit();
+	finish_landing()
 
 func drop_wand():
 	if wand.dropped: return
@@ -438,6 +471,7 @@ func _on_anim_animation_finished(anim_name:String):
 	if anim_name == "flap" or anim_name == "ouch":
 		flapping = false;
 		hurting = false;
+@onready var pickupsfx = $audio/pickup
 
 func _on_collision_area_entered(node):
 	if node is EnemyHitbox:
@@ -449,6 +483,8 @@ func _on_collision_area_entered(node):
 			if !is_instance_valid(current_rope): return
 			if item.picked_up: return
 			item.pick_up()
+			pickupsfx.play()
+			pickupsfx.pitch_scale = randf_range(0.99, 1.02)
 			cur_thread += 7.0
 			cur_thread = clamp(cur_thread, 0.0, thread_total)
 			#current_rope.attach_to_rope(item)
