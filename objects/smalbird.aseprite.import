@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://wivsb84brcbo"
+path="res://.godot/imported/smalbird.aseprite-332f0250c751a70d4b838fc494efcc1b.res"
+
+[deps]
+
+source_file="res://objects/smalbird.aseprite"
+dest_files=["res://.godot/imported/smalbird.aseprite-332f0250c751a70d4b838fc494efcc1b.res"]
+
+[params]
+

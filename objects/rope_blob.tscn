@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bavyqhov4ksjg"]
+[gd_scene load_steps=13 format=3 uid="uid://bavyqhov4ksjg"]
 
 [ext_resource type="Script" path="res://objects/rope_blob.gd" id="1_agfyk"]
 [ext_resource type="Texture2D" uid="uid://db52r3vpon3ct" path="res://objects/rope_blob.png" id="1_ecy6b"]
@@ -6,11 +6,12 @@
 [ext_resource type="AudioStream" uid="uid://cmcafwfwn0ss5" path="res://sfx/spawn1.wav" id="4_kwd0a"]
 [ext_resource type="AudioStream" uid="uid://dn2s4sdug8d2k" path="res://sfx/spawn2.wav" id="5_dr1og"]
 [ext_resource type="AudioStream" uid="uid://r5q8y7u8px4j" path="res://sfx/spawn3.wav" id="6_hyymq"]
+[ext_resource type="AudioStream" uid="uid://cjpsx4ebafflu" path="res://sfx/splash.wav" id="7_cxna3"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_y2htl"]
-radius = 15.0
+radius = 8.0
 
-[sub_resource type="Animation" id="Animation_pcorr"]
+[sub_resource type="Animation" id="Animation_prl2k"]
 length = 0.1
 loop_mode = 1
 tracks/0/type = "value"
@@ -35,7 +36,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [0]
+"values": [2]
 }
 
 [sub_resource type="Animation" id="Animation_a5d2a"]
@@ -66,7 +67,7 @@ tracks/1/keys = {
 "values": [1]
 }
 
-[sub_resource type="Animation" id="Animation_prl2k"]
+[sub_resource type="Animation" id="Animation_pcorr"]
 length = 0.1
 loop_mode = 1
 tracks/0/type = "value"
@@ -91,7 +92,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [2]
+"values": [0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_vcfn3"]
@@ -125,7 +126,7 @@ metadata/_aseprite_wizard_config_ = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -8)
+position = Vector2(0, -10)
 shape = SubResource("CircleShape2D_y2htl")
 
 [node name="anim" type="AnimationPlayer" parent="."]
@@ -148,3 +149,7 @@ volume_db = -4.0
 [node name="spawn3" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_hyymq")
 volume_db = -4.0
+
+[node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_cxna3")
+volume_db = -2.0

@@ -1,50 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://bhwf5prdoha0j"]
+[gd_scene load_steps=13 format=3 uid="uid://bhwf5prdoha0j"]
 
 [ext_resource type="Script" path="res://objects/ui.gd" id="1_7awwx"]
 [ext_resource type="FontFile" uid="uid://y55ybctrc4dr" path="res://fonts/x16y32pxGridGazer.ttf" id="2_eqvbc"]
 [ext_resource type="PackedScene" uid="uid://b7wk44r4cvtjh" path="res://objects/thread_bar.tscn" id="3_fciim"]
-
-[sub_resource type="Animation" id="Animation_4akko"]
-resource_name = "start_game"
-step = 0.0333333
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("GameTitleContainer/GameTitle:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.166667),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-tracks/1/type = "method"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("GameTitleContainer/GameTitle")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.2),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"queue_free"
-}]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("GameTitleContainer/GameTitle:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(-67, -13)]
-}
+[ext_resource type="FontFile" uid="uid://bfnnv2mvy0li8" path="res://fonts/FutilePro.ttf" id="4_6ki1e"]
+[ext_resource type="Texture2D" uid="uid://025xifuqeync" path="res://objects/thanksforplay.png" id="5_23h45"]
+[ext_resource type="AudioStream" uid="uid://c8wp5xo5nrr6o" path="res://music/win_music.ogg" id="6_dtblh"]
 
 [sub_resource type="Animation" id="Animation_oo76l"]
 resource_name = "RESET"
@@ -72,10 +33,201 @@ tracks/1/keys = {
 "update": 0,
 "values": [Vector2(-67, -13)]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Score:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("flashrect:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("retry:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("win:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("win/ColorRect/TextureRect:modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_1tlwi"]
+resource_name = "flash"
+step = 0.0333333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("flashrect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.466667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_1miri"]
+resource_name = "show_retry"
+length = 0.20001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("retry:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_4akko"]
+resource_name = "start_game"
+step = 0.0333333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GameTitleContainer/GameTitle:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.166667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GameTitleContainer/GameTitle")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.3),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("GameTitleContainer/GameTitle:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-67, -13)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Score:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.0666667, 0.266667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_dmas8"]
+resource_name = "showwin"
+step = 0.0333333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("win:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("win/ColorRect/TextureRect:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1, 0.233333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("win/AudioStreamPlayer")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.6993),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [0.0],
+"method": &"play"
+}]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_we4j7"]
 _data = {
 "RESET": SubResource("Animation_oo76l"),
+"flash": SubResource("Animation_1tlwi"),
+"show_retry": SubResource("Animation_1miri"),
+"showwin": SubResource("Animation_dmas8"),
 "start_game": SubResource("Animation_4akko")
 }
 
@@ -139,9 +291,9 @@ text = "BIRD SOUP"
 horizontal_alignment = 1
 
 [node name="ThreadBar" parent="." instance=ExtResource("3_fciim")]
-offset_left = 15.0
+offset_left = 16.0
 offset_top = 16.0
-offset_right = 47.0
+offset_right = 48.0
 offset_bottom = 48.0
 
 [node name="ColorRect" type="ColorRect" parent="."]
@@ -154,7 +306,139 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.121569, 0.0196078, 0.0627451, 1)
 
+[node name="flashrect" type="ColorRect" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
 [node name="uianim" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_we4j7")
 }
+
+[node name="Score" type="Label" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -268.0
+offset_top = 16.0
+offset_right = -16.0
+offset_bottom = 30.0
+grow_horizontal = 0
+theme_override_fonts/font = ExtResource("4_6ki1e")
+theme_override_font_sizes/font_size = 16
+text = "1 000 000"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="combo" type="Label" parent="Score"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -252.0
+offset_top = 13.0
+offset_bottom = 27.0
+grow_horizontal = 0
+theme_override_fonts/font = ExtResource("4_6ki1e")
+theme_override_font_sizes/font_size = 16
+text = "1 000 000"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="retry" type="Label" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -62.5
+offset_top = -91.0
+offset_right = 62.5
+offset_bottom = -68.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("4_6ki1e")
+text = "CLICK TO RETRY"
+horizontal_alignment = 1
+
+[node name="win" type="Control" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="win"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="win/ColorRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -81.0
+offset_right = 64.0
+offset_bottom = 47.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_23h45")
+
+[node name="Label" type="Label" parent="win/ColorRect/TextureRect"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -141.0
+offset_top = -60.0
+offset_right = 139.0
+offset_bottom = -28.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.0745098, 0.00784314, 0.0313726, 1)
+theme_override_fonts/font = ExtResource("4_6ki1e")
+theme_override_font_sizes/font_size = 16
+text = "-- You Won --
+Thanks For Playing!"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="Label2" type="Label" parent="win/ColorRect/TextureRect"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -140.0
+offset_top = 43.0
+offset_right = 140.0
+offset_bottom = 75.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.0745098, 0.00784314, 0.0313726, 1)
+theme_override_fonts/font = ExtResource("4_6ki1e")
+theme_override_font_sizes/font_size = 16
+text = "Score 3 130 123
+Summoned 13 Birds"
+horizontal_alignment = 1
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="win"]
+stream = ExtResource("6_dtblh")

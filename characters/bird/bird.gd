@@ -17,6 +17,9 @@ signal on_wand_dropped;
 signal on_landed;
 signal on_died;
 
+var score: int = 0;
+var combo: int = 0;
+
 @export var rope_attach_point: Node2D;
 @export var rope_container_node: Node2D;
 
@@ -156,9 +159,12 @@ func slugify_enemies(timescale = 1.0):
 		de += 0.1 * timescale;
 	collected_enemies.clear()
 
+var hurt_time = 0.0;
 @onready var hurt_sounds = [$audio/hurt1, $audio/hurt2, $audio/hurt3]
 func hurt():
+	combo = 0;
 	hurting = true;
+	hurt_time = 0.1
 	cur_thread -= 10.0;
 	anim.play("ouch")
 	Game.hit_freeze()
@@ -275,7 +281,7 @@ func _physics_process(_delta):
 			land_on_wall();
 	
 	if state == State.Falling:
-		velocity.y += gravity * gravity_scale;
+		velocity.y += gravity * gravity_scale * 0.7;
 		#velocity.x = -sign(direction) * 4;
 		velocity.y = clamp(velocity.y, -15, 30)
 		
@@ -283,12 +289,12 @@ func _physics_process(_delta):
 		var dv =  velocity * _delta * 60.0;
 		position += dv
 		
-		if velocity.x > 0 and position.x > right_x:
-			velocity.x *= -0.5;
-			position.x = right_x
-		if velocity.x < 0 and position.x < left_x:
-			velocity.x *= -0.5;
-			position.x = left_x
+		if velocity.x > 0 and position.x > right_x - 40:
+			velocity.x *= 0.5;
+			position.x = min(position.x, right_x - 20)
+		if velocity.x < 0 and position.x < left_x + 40:
+			velocity.x *= 0.5;
+			position.x = max(position.x, left_x + 20)
 		for i in range(rope_segments.size()):
 			var r = rope_segments[i]
 			var gpos = global_position
@@ -304,10 +310,16 @@ func _physics_process(_delta):
 		pass
 	
 	if state == State.Gliding:
+		glide_time += _delta
+		if glide_time > 0.8: glide_vel = max(glide_vel, 6.0)
 		var rope = rope_segments[glide_rope_index]
 		#print(glide_vel)
 		#glide_vel += rope.dir_normalized.y * 0.2;
-		glide_vel = clamp(glide_vel, 2.0, 20.0)
+		glide_vel = clamp(glide_vel, 0.0, 20.0)
+		
+		if hurting:
+			hurt_time -= _delta
+			if hurt_time <= 0: hurting = false;
 		
 		var rot = rope.dir_normalized.angle()
 		rotation = rot + PI
@@ -344,6 +356,8 @@ func _physics_process(_delta):
 							if d.dot(velocity) > 0.1:
 								#slug.queue_free()
 								slug.punch();
+								add_score(slug.level * 200)
+								combo += 1
 								punched_slugs.push_back(slug)
 								punchsfx.play()
 								punchsfx.pitch_scale = randf_range(0.99, 1.02)
@@ -354,7 +368,7 @@ func _physics_process(_delta):
 			
 			if punch_time <= 0:
 				punching = false;
-		else: 
+		elif !hurting: 
 			anim.play("glide")
 	
 	if state == State.Finished:
@@ -369,6 +383,7 @@ func _physics_process(_delta):
 			finish_landing();
 	pass
 
+var glide_time = 0.0
 
 func finish_landing():
 	if landed : return
@@ -437,15 +452,15 @@ func thread_end():
 		if i is Item:
 			i.prepare()
 	
-	velocity.y = -randf_range(1, 4)
-	velocity.x = -direction * randf_range(7.0, 10.0)
+	velocity.y = -randf_range(8, 9)
+	velocity.x = -direction * randf_range(18, 23.0)
 	anim.play("threadout")
 	on_start_falling.emit()
 	pass
 
 @onready var wand = $Sprite/wand
 
-var glide_vel = 6.0;
+var glide_vel = 0.001;
 func land_on_rope():
 	state = State.Gliding;
 	anim.play("glide")
@@ -473,7 +488,17 @@ func _on_anim_animation_finished(anim_name:String):
 		hurting = false;
 @onready var pickupsfx = $audio/pickup
 
+func add_score(s:int):
+	score += s * (1 +combo)
+	
 func _on_collision_area_entered(node):
+	if state == State.Gliding and node is RopeBlob:
+		if node.dead:
+			return
+	#	print("huh")
+		#if node.rope == current_rope:
+		hurt()
+		pass
 	if node is EnemyHitbox:
 		if node.target is Enemy and !node.target.dead:
 			node.target.hurt(self)
@@ -483,6 +508,8 @@ func _on_collision_area_entered(node):
 			if !is_instance_valid(current_rope): return
 			if item.picked_up: return
 			item.pick_up()
+			add_score(50)
+			combo += 1
 			pickupsfx.play()
 			pickupsfx.pitch_scale = randf_range(0.99, 1.02)
 			cur_thread += 7.0

@@ -57,17 +57,31 @@ func embiggen():
 		sprite.frame = 2;
 		#anim.play("large");
 		#print("Playing large")
+@onready var splash = $AudioStreamPlayer2
 
+var putting_into_pot = false;
+var finito = false;
 var old_pos: Vector2;
+signal on_put_into_pot(level:int);
 func _physics_process(delta):
 	position += velocity;
 	velocity *= 0.99;
-	
+	if finito:
+		if !splash.playing:
+			queue_free()
+		return
 	if falling or dead:
 		velocity.y += 0.3;
 		sprite.rotation += rvel;
 		rvel *= 0.96;
 		var b:Bird = Game.bird
+		if putting_into_pot:
+			if position.y > 300:
+				on_put_into_pot.emit(level);
+				finito = true;
+				splash.play()
+				splash.pitch_scale = randf_range(0.99, 1.01)
+				
 		if velocity.y > 0 and !dead:
 			for rope in b.rope_segments:
 				if !rope.is_under(old_pos) and rope.is_under(position):

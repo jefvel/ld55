@@ -29,7 +29,19 @@ func _process(_delta):
 		if abs(dy) > _dz_y:
 			var d = (abs(dy) - _dz_y) * sign(dy);
 			position.y -= d;
+	_reresh_pos()
 
+			
+
+func _reresh_pos():
+	if position.x + offset.x > wall_r:
+		position.x = wall_r - offset.x
+	if position.x + offset.x < wall_l:
+		position.x = wall_l - offset.x
+
+
+@export var wall_r = 900;
+@export var wall_l = -800;
 var _offset: Vector2
 var off_tween: Tween;
 func tween_offset(off_x: float, off_y: float) -> void:
@@ -40,4 +52,5 @@ func tween_offset(off_x: float, off_y: float) -> void:
 	off_tween.set_ease(Tween.EASE_OUT)
 	off_tween.set_trans(Tween.TRANS_CUBIC)
 	off_tween.tween_property(self, "offset", Vector2(off_x, off_y), 0.47)
+	off_tween.step_finished.connect(_reresh_pos)
 	off_tween.play()

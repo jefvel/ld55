@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://bnfujb6c4ngs1"]
+[gd_scene load_steps=22 format=3 uid="uid://bnfujb6c4ngs1"]
 
 [ext_resource type="Script" path="res://objects/camera.gd" id="1_6erm6"]
 [ext_resource type="Script" path="res://main.gd" id="1_21ljx"]
@@ -15,6 +15,8 @@
 [ext_resource type="Texture2D" uid="uid://x7k81dw156cr" path="res://spatula.png" id="6_pb8ct"]
 [ext_resource type="Texture2D" uid="uid://ccgv7qc42xo6a" path="res://objects/bubble.png" id="7_ru8tw"]
 [ext_resource type="Texture2D" uid="uid://bjumb1d1fcvon" path="res://cauldronholder.png" id="12_e1b36"]
+[ext_resource type="PackedScene" uid="uid://cg1mkrfaum3sq" path="res://objects/bar.tscn" id="12_komqy"]
+[ext_resource type="AudioStream" uid="uid://gtei4cjdmjco" path="res://sfx/brew.wav" id="14_5dkwe"]
 [ext_resource type="PackedScene" uid="uid://bhwf5prdoha0j" path="res://objects/ui.tscn" id="14_qv8pl"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jl58f"]
@@ -75,8 +77,11 @@ enemy_layer = NodePath("../World/Enemies")
 position = Vector2(422, 392)
 offset = Vector2(0, -40)
 ignore_rotation = false
+limit_left = -882
 script = ExtResource("1_6erm6")
 follow_target = NodePath("../Bird")
+wall_r = 1212
+wall_l = -547
 
 [node name="Enemies" type="Node2D" parent="World"]
 
@@ -134,6 +139,9 @@ metadata/_aseprite_wizard_interface_config_ = {
 "layer_section": true
 }
 
+[node name="bar" parent="World/Cauldron/sprite" instance=ExtResource("12_komqy")]
+position = Vector2(-62, -230)
+
 [node name="spatula" type="Sprite2D" parent="World/Cauldron/sprite"]
 z_index = -1
 texture_filter = 1
@@ -167,6 +175,9 @@ position = Vector2(-46, -165)
 
 [node name="SpawnPointRight" type="Node2D" parent="World/Cauldron/sprite" groups=["PlayerSpawn"]]
 position = Vector2(90, -165)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="World/Cauldron/sprite"]
+stream = ExtResource("14_5dkwe")
 
 [node name="holder" type="Sprite2D" parent="World/Cauldron"]
 texture_filter = 1
@@ -222,6 +233,7 @@ texture = ExtResource("5_nnv47")
 [node name="UI" parent="UILayer" node_paths=PackedStringArray("bird") instance=ExtResource("14_qv8pl")]
 bird = NodePath("../../World/Bird")
 
+[connection signal="on_died" from="World/Bird" to="." method="_on_bird_on_died"]
 [connection signal="on_died" from="World/Bird" to="Music" method="_on_bird_on_died"]
 [connection signal="on_hit_wall" from="World/Bird" to="." method="_on_bird_on_hit_wall"]
 [connection signal="on_landed" from="World/Bird" to="." method="_on_bird_on_landed"]
