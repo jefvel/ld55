@@ -18,6 +18,8 @@ const formations = [
 	preload("res://objects/formations/square2.tscn"),
 ]
 
+var spawned = 0;
+
 func spawn():
 	var end_point: Vector2;
 	end_point.x = left_wall.global_position.x if player.direction < 0 else right_wall.global_position.x
@@ -29,23 +31,36 @@ func spawn():
 	
 	var dir = sign(end_point.x - start_point.x)
 	var d = (end_point - start_point)
-	var total_len = d.length();
 	
-	var max_spawns = 6;
+	var total_len = d.length();
+	var min_dist = 180.0;
+	var max_spawns = 3;
+	
 	var h_length = abs(end_point.x - start_point.x)
 	var min_spawns = 2;
 	if h_length < 1200:
 		max_spawns = 2;
 		min_spawns = 1
-
+	
+	if spawned > 5:
+		max_spawns = 4
+	if spawned > 10:
+		max_spawns = 5;
+	if spawned > 20:
+		max_spawns += 1
+	if spawned > 6:
+		min_dist -= 1.0
+	
+	min_dist = max(min_dist, 100);
+	
 	var items_to_spawn = randi_range(min_spawns, max_spawns)
 
 	var dd = d.normalized()
-
+	spawned += 1
 	for i in range(items_to_spawn):
 		var item = formations.pick_random().instantiate()
-		len += randf_range(180, 450)
-		print(total_len- dz)
+		len += randf_range(min_dist, 450)
+		# print(total_len- dz)
 		if len > total_len - dz:
 			break
 		item_layer.add_child(item)

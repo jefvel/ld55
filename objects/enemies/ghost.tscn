@@ -1,11 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://ddcj6bwskxw4q"]
+[gd_scene load_steps=4 format=3 uid="uid://ddcj6bwskxw4q"]
 
+[ext_resource type="Script" path="res://objects/enemies/enemy.gd" id="1_2n28v"]
 [ext_resource type="Texture2D" uid="uid://5mqrkupltn8r" path="res://objects/enemies/ghost.png" id="1_8j8kc"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gp3h1"]
 radius = 8.0
 
-[node name="Ghost" type="Area2D"]
+[node name="Ghost" type="Area2D" node_paths=PackedStringArray("sprite") groups=["Enemy"]]
+script = ExtResource("1_2n28v")
+sprite = NodePath("sprite")
 
 [node name="sprite" type="Sprite2D" parent="."]
 texture_filter = 1

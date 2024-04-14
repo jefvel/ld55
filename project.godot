@@ -19,6 +19,10 @@ boot_splash/fullsize=false
 boot_splash/use_filter=false
 config/icon="res://icon.svg"
 
+[autoload]
+
+Game="*res://objects/game.gd"
+
 [display]
 
 window/size/viewport_width=888

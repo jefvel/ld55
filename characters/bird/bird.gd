@@ -18,10 +18,13 @@ signal on_died;
 @export var rope_attach_point: Node2D;
 @export var rope_container_node: Node2D;
 
-var thread_total = 100.0;
-var cur_thread = 100.0;
+var thread_total = 20.0;
+var cur_thread = thread_total;
+
+var hurting = false;
 
 var rope_segments: Array[Rope]
+var glide_rope_index: int = 0;
 var current_rope: Rope;
 
 var max_height_per_row = 300.0;
@@ -35,7 +38,9 @@ enum State {
 	Idle,
 	Sitting,
 	Flying,
+	Falling,
 	Gliding,
+	Finished,
 	Crashed,
 }
 
@@ -49,8 +54,10 @@ var boost = 0.0;
 # <-1     1 >
 var direction: int = 1 if randf() > 0.5 else -1;
 
+var spawn_pos: Vector2;
 func _ready():
 	var spawns = get_tree().get_nodes_in_group("PlayerSpawn").pick_random()
+	spawn_pos = spawns.global_position
 	global_position = spawns.global_position
 	anim.play("idle")
 	_refresh();
@@ -59,11 +66,13 @@ func _ready():
 @onready var rope_end = $rope_end
 
 func _create_rope():
+	if current_rope:
+		rope_segments.push_back(current_rope)
 	var rope = Rope.new()
 	rope_container_node.add_child(rope)
 	rope.end_node = rope_end;
 	rope.start_node = rope_attach_point
-	rope_segments.push_back(rope)
+	#rope_segments.push_back(rope)
 	current_rope = rope;
 	pass
 
@@ -80,6 +89,8 @@ func crash():
 	position.y = floor_y
 	anim.play("dead")
 	on_died.emit();
+	#Game.hit_freeze(0.1)
+	cam.shake()
 	
 func update_cam():
 	var off_x = 120.0;
@@ -124,6 +135,13 @@ func land_on_wall():
 	_create_rope()
 	
 	on_hit_wall.emit();
+	
+func hurt():
+	hurting = true;
+	cur_thread -= 10.0;
+	anim.play("ouch")
+	Game.hit_freeze()
+	cam.shake()
 
 const ROSETTE = preload("res://objects/rosette.tscn")
 func _refresh():
@@ -140,6 +158,9 @@ func _physics_process(_delta):
 	
 	if !flap_down:
 		flap_released = true;
+	
+	if Game.frozen:
+		return
 	
 	_refresh()
 	if flap_pressed:
@@ -167,7 +188,8 @@ func _physics_process(_delta):
 			else:
 				velocity.y -= 7;
 			boost = 1.0;
-			anim.play("flap")
+			if !hurting:
+				anim.play("flap")
 			flapping = true;
 			flapped = false;
 			flap_request = false;
@@ -179,31 +201,122 @@ func _physics_process(_delta):
 		var dy = rope_attach_point.global_position.y - global_position.y;
 		if dy > max_height_per_row:
 			velocity.y += (dy - max_height_per_row) * 0.003
-			
-		velocity.y = clamp(velocity.y, -15, 30)
+
 		
-		if velocity.y > 0 and !flapping and !flapped and !flap_down:
+		if velocity.y > 0 and !flapping and !flapped and !flap_down and !hurting:
 			anim.play("flap_down")
 			flapped = true;
-			
+		
+		velocity.y = clamp(velocity.y, -15, 30)
 		#move_and_collide(velocity)
 		var dv =  velocity * _delta * 60.0;
 		position += dv
 		
-		cur_thread -= velocity.length() * 0.01
+		cur_thread -= velocity.length() * 0.0075
 		
 		if (position.y >= floor_y):
 			crash()
+		elif cur_thread <= 0.0:
+			thread_end()
 		elif direction > 0 and position.x >= right_x:
 			land_on_wall();
 		elif direction < 0 and position.x <= left_x:
 			land_on_wall();
+	
+	if state == State.Falling:
+		velocity.y += gravity * gravity_scale;
+		#velocity.x = -sign(direction) * 4;
+		velocity.y = clamp(velocity.y, -15, 30)
+		
+		#move_and_collide(velocity)
+		var dv =  velocity * _delta * 60.0;
+		position += dv
+		
+		if velocity.x > 0 and position.x > right_x:
+			velocity.x *= -0.5;
+			position.x = right_x
+		if velocity.x < 0 and position.x < left_x:
+			velocity.x *= -0.5;
+			position.x = left_x
+		for i in range(rope_segments.size()):
+			var r = rope_segments[i]
+			var gpos = global_position
+			if !is_instance_valid(r):
+				continue
+			if r.is_under(gpos):
+				#print("UNDA")
+				#r.queue_free()
+				glide_rope_index = i
+				land_on_rope()
+		if (position.y >= floor_y):
+			crash()
+		pass
+	
+	if state == State.Gliding:
+		var rope = rope_segments[glide_rope_index]
+		#print(glide_vel)
+		glide_vel += rope.dir_normalized.y * 0.3;
+		
+		velocity = rope.dir_normalized * glide_vel
+		var dv =  velocity * _delta * 60.0;
+		position += dv
+		direction = sign(velocity.x)
+		position.y = rope.get_position_at_x(position).y
+		if position.x > rope.p_right.x:
+			position.x = rope.p_right.x
+			glide_rope_index -= 1;
+			direction = -sign(rope.dir_normalized.x)
+			_refresh()
+			update_cam()
+		if position.x < rope.p_left.x:
+			position.x = rope.p_left.x
+			glide_rope_index -= 1;
+			direction = -sign(rope.dir_normalized.x)
+			_refresh()
+			update_cam()
+		if glide_rope_index < 0:
+			finish_glide();
+	
+	if state == State.Finished:
+		velocity *= 0.92;
+		var dv =  velocity * _delta * 60.0;
+		position += dv
+		rotation = 0
+		if abs(velocity.x) > 0.1:
+			anim.play("slide")
+		else:
+			anim.play("idle")
 	pass
 
+func finish_glide():
+	state = State.Finished
+	if velocity.x > 0: velocity = Vector2(5, 0)
+	else: velocity = Vector2(-5, 0)
+	cam.tween_offset(0, -30)
+	position.y = spawn_pos.y
+
+func thread_end():
+	if state == State.Falling: return
+	Game.hit_freeze(0.1)
+	cam.shake()
+	state = State.Falling
+	velocity.y = -randf_range(1, 4)
+	velocity.x = -direction * randf_range(7.0, 10.0)
+	anim.play("threadout")
+	pass
+
+var glide_vel = 0.0;
+func land_on_rope():
+	state = State.Gliding;
+	anim.play("glide")
+	cam.deadzone_y = 10
+	
+	pass
 
 func _on_anim_animation_finished(anim_name:String):
-	if anim_name == "flap":
+	if anim_name == "flap" or anim_name == "ouch":
 		flapping = false;
+		hurting = false;
 
 func _on_collision_area_entered(node):
 	if node is Item and !node.picked_up:
@@ -211,4 +324,7 @@ func _on_collision_area_entered(node):
 		cur_thread += 7.0
 		cur_thread = clamp(cur_thread, 0.0, thread_total)
 		current_rope.attach_to_rope(node)
+	elif node is Enemy:
+		node.hurt(self)
+		hurt()
 

@@ -1,10 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://nffmctjemqjk"]
+[gd_scene load_steps=4 format=3 uid="uid://nffmctjemqjk"]
 
+[ext_resource type="Script" path="res://objects/enemies/enemy.gd" id="1_4s12v"]
 [ext_resource type="Texture2D" uid="uid://cdc2gak8xd880" path="res://objects/enemies/evil_eye.png" id="1_ouui2"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_w61lr"]
 
-[node name="EvilEye" type="Area2D"]
+[node name="EvilEye" type="Area2D" node_paths=PackedStringArray("sprite") groups=["Enemy"]]
+script = ExtResource("1_4s12v")
+sprite = NodePath("sprite")
 
 [node name="sprite" type="Sprite2D" parent="."]
 texture_filter = 1
