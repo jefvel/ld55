@@ -12,7 +12,11 @@ var sy = 6;
 
 var cur_v: float = 1.0;
 
+func appear():
+	anim.play("appear")
+
 func _ready():
+	$sprite.modulate.a = 0.0
 	value = value
 
 func _physics_process(delta):

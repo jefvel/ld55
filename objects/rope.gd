@@ -28,6 +28,7 @@ var p_right = p1 if p1.x > p0.x else p0
 var p_d : Vector2;
 var dir_normalized: Vector2;
 func _physics_process(delta):
+	
 	var np0 = start_node.global_position;
 	var np1 = end_node.global_position
 	if np0.distance_squared_to(p0) > 0 or np1.distance_squared_to(p1) > 0:
@@ -46,6 +47,18 @@ func _physics_process(delta):
 
 func _draw():
 	draw_line(p0, p1, Color.WHITE, 1)
+	pass
+
+var snapped = false;
+func snap_off():
+	if snapped: return
+	snapped = true
+	
+	for i in attached_objects:
+		if i is Item:
+			i.drop()
+	
+	queue_free()
 	pass
 
 func get_position_at_x(po:Vector2) :

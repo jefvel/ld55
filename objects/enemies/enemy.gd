@@ -6,6 +6,13 @@ class_name Enemy
 var dead = false;
 var velocity: Vector2;
 var rv: float;
+
+func fade_out():
+	if dead: return
+	dead = true
+	dead_time = randf_range(0.0, 0.3)
+	pass
+
 func hurt(e: Bird):
 	if dead: return
 	dead = true

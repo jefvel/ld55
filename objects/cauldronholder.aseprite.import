@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://b52q21q30n3ok"
+path="res://.godot/imported/cauldronholder.aseprite-7fbe1cc485213aad534f0a9270b2b820.res"
+
+[deps]
+
+source_file="res://objects/cauldronholder.aseprite"
+dest_files=["res://.godot/imported/cauldronholder.aseprite-7fbe1cc485213aad534f0a9270b2b820.res"]
+
+[params]
+

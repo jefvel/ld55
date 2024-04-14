@@ -1,0 +1,124 @@
+[gd_scene load_steps=6 format=3 uid="uid://bhwf5prdoha0j"]
+
+[ext_resource type="Script" path="res://objects/ui.gd" id="1_7awwx"]
+[ext_resource type="FontFile" uid="uid://y55ybctrc4dr" path="res://fonts/x16y32pxGridGazer.ttf" id="2_eqvbc"]
+[ext_resource type="PackedScene" uid="uid://b7wk44r4cvtjh" path="res://objects/thread_bar.tscn" id="3_fciim"]
+
+[sub_resource type="Animation" id="Animation_4akko"]
+resource_name = "start_game"
+step = 0.0333333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GameTitleContainer/GameTitle:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.166667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GameTitleContainer/GameTitle")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("GameTitleContainer/GameTitle:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.166667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(4.5, 0), Vector2(4.5, -8)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_we4j7"]
+_data = {
+"start_game": SubResource("Animation_4akko")
+}
+
+[node name="UI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_7awwx")
+metadata/_edit_lock_ = true
+
+[node name="GameTitleContainer" type="Control" parent="."]
+layout_mode = 1
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -73.0
+offset_top = 155.0
+offset_right = 72.0
+offset_bottom = -138.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GameTitle" type="Label" parent="GameTitleContainer"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -68.0
+offset_top = -4.8
+offset_right = 68.0
+offset_bottom = 27.2
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.0745098, 0.00784314, 0.0313726, 1)
+theme_override_fonts/font = ExtResource("2_eqvbc")
+theme_override_font_sizes/font_size = 32
+text = "BIRD SOUP"
+
+[node name="GameTitle2" type="Label" parent="GameTitleContainer/GameTitle"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -69.0
+offset_top = -3.0
+offset_right = 67.0
+offset_bottom = 29.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("2_eqvbc")
+theme_override_font_sizes/font_size = 32
+text = "BIRD SOUP"
+
+[node name="ThreadBar" parent="." instance=ExtResource("3_fciim")]
+offset_left = 15.0
+offset_top = 16.0
+offset_right = 47.0
+offset_bottom = 48.0
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.121569, 0.0196078, 0.0627451, 1)
+
+[node name="uianim" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_we4j7")
+}

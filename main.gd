@@ -8,6 +8,7 @@ extends Node2D
 
 
 func _ready():
+	DisplayServer.window_set_min_size(Vector2i(888,666))
 	spawner.spawn()
 
 func _process(_D):

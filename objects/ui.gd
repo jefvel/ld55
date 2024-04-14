@@ -4,6 +4,7 @@ extends Control
 
 @onready var thread_bar = $ThreadBar
 @onready var color_rect = $ColorRect
+@onready var uianim = $uianim
 
 func _ready():
 	color_rect.visible = true;
@@ -17,3 +18,9 @@ func _physics_process(delta):
 func _finish():
 	color_rect.visible = false;
 	pass
+
+
+func _on_bird_on_start_flying():
+	thread_bar.appear()
+	uianim.play("start_game")
+	pass # Replace with function body.

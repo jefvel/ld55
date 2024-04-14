@@ -1,8 +1,13 @@
-[gd_scene load_steps=15 format=3 uid="uid://can8qx4di6ugf"]
+[gd_scene load_steps=20 format=3 uid="uid://can8qx4di6ugf"]
 
 [ext_resource type="Texture2D" uid="uid://cy8gst8by2ef4" path="res://characters/bird/bird.png" id="1_kjx1p"]
 [ext_resource type="Script" path="res://characters/bird/bird.gd" id="1_n1ar3"]
 [ext_resource type="Texture2D" uid="uid://mvimdxjtjryf" path="res://characters/bird/wand.png" id="2_5656g"]
+[ext_resource type="AudioStream" uid="uid://b8wo1i40i4o0x" path="res://sfx/crash.wav" id="4_r1bqk"]
+[ext_resource type="AudioStream" uid="uid://dffsb361dwwq5" path="res://sfx/flap.wav" id="5_3dx7p"]
+[ext_resource type="AudioStream" uid="uid://dds7qxeyggu7d" path="res://sfx/hurt.wav" id="6_wdbr1"]
+[ext_resource type="AudioStream" uid="uid://cawlce3k25fp4" path="res://sfx/hurt2.wav" id="7_caoku"]
+[ext_resource type="AudioStream" uid="uid://bw41wt4dkax5a" path="res://sfx/hurt3.wav" id="8_ll8yy"]
 
 [sub_resource type="Animation" id="Animation_woian"]
 length = 0.1
@@ -326,6 +331,27 @@ position = Vector2(0, -13)
 [node name="collision" type="CollisionShape2D" parent="collision"]
 position = Vector2(0, -12)
 shape = SubResource("CircleShape2D_h423x")
+
+[node name="audio" type="Node" parent="."]
+
+[node name="crash" type="AudioStreamPlayer" parent="audio"]
+stream = ExtResource("4_r1bqk")
+
+[node name="flap" type="AudioStreamPlayer" parent="audio"]
+stream = ExtResource("5_3dx7p")
+volume_db = -2.0
+
+[node name="hurt1" type="AudioStreamPlayer" parent="audio"]
+stream = ExtResource("6_wdbr1")
+volume_db = -2.0
+
+[node name="hurt2" type="AudioStreamPlayer" parent="audio"]
+stream = ExtResource("7_caoku")
+volume_db = -2.0
+
+[node name="hurt3" type="AudioStreamPlayer" parent="audio"]
+stream = ExtResource("8_ll8yy")
+volume_db = -2.0
 
 [connection signal="animation_finished" from="anim" to="." method="_on_anim_animation_finished"]
 [connection signal="area_entered" from="collision" to="." method="_on_collision_area_entered"]
