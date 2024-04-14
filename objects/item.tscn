@@ -1,11 +1,13 @@
-[gd_scene load_steps=12 format=3 uid="uid://cmnqv61btt1l0"]
+[gd_scene load_steps=16 format=3 uid="uid://cmnqv61btt1l0"]
 
 [ext_resource type="Texture2D" uid="uid://bfbpbpwds3prn" path="res://objects/items.png" id="1_fvs6c"]
 [ext_resource type="Script" path="res://objects/item.gd" id="1_j4s1a"]
+[ext_resource type="Texture2D" uid="uid://4fq3opsfmeej" path="res://objects/spark.png" id="2_4cbu7"]
 [ext_resource type="Script" path="res://objects/enemies/EnemyHitbox.gd" id="3_66b8w"]
+[ext_resource type="AudioStream" uid="uid://dbf050iivavyt" path="res://sfx/slap_mag.wav" id="4_lvwfw"]
 
 [sub_resource type="Animation" id="Animation_8t6c1"]
-length = 0.6
+length = 0.3
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -26,10 +28,10 @@ tracks/1/path = NodePath("sprite:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = false
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [0, 1, 2, 3, 4, 5]
+"values": [0, 1, 2]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_mk3b1"]
@@ -54,7 +56,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.0333333, 0.1, 0.166667, 0.233333, 0.3, 0.366667, 0.433333),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
 "update": 0,
-"values": [0.0, 0.261799, -0.20944, 0.174533, -0.139626, 0.10472, -0.0523599, 0.0]
+"values": [0.261799, 0.0, -0.20944, 0.174533, -0.139626, 0.10472, -0.0523599, 0.0]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -63,10 +65,10 @@ tracks/1/path = NodePath("sprite:scale")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.133333),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.0666667, 0.166667, 0.333333),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(1.5, 1.5), Vector2(1, 1)]
+"values": [Vector2(2, 2), Vector2(2, 2), Vector2(0.9, 0.9), Vector2(1, 1)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -75,10 +77,10 @@ tracks/2/path = NodePath("sprite:modulate")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0.333333, 0.566667),
+"times": PackedFloat32Array(0.0666667, 0.2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0.486275)]
+"values": [Color(1, 1, 1, 1), Color(1, 0.509804, 0.454902, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_fynyd"]
@@ -119,6 +121,18 @@ tracks/2/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 1)]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("sparks:emitting")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_txb4a"]
 resource_name = "prepare"
@@ -135,24 +149,80 @@ tracks/0/keys = {
 "values": [Color(1, 1, 1, 1)]
 }
 
+[sub_resource type="Animation" id="Animation_mp285"]
+resource_name = "remove"
+step = 0.0333333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0666667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0, 0)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("sparks:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ot1vr"]
 _data = {
 "RESET": SubResource("Animation_fynyd"),
 "pickup": SubResource("Animation_ln6f6"),
-"prepare": SubResource("Animation_txb4a")
+"prepare": SubResource("Animation_txb4a"),
+"remove": SubResource("Animation_mp285")
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_17sxl"]
-radius = 24.0832
+radius = 28.0713
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_torko"]
+radius = 11.0
 
 [node name="Item" type="RigidBody2D" groups=["Item"]]
 script = ExtResource("1_j4s1a")
 
+[node name="sparks" type="CPUParticles2D" parent="."]
+visible = false
+texture_filter = 1
+texture = ExtResource("2_4cbu7")
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 3.0
+initial_velocity_max = 20.0
+
 [node name="sprite" type="Sprite2D" parent="."]
 texture_filter = 1
 texture = ExtResource("1_fvs6c")
-hframes = 3
+hframes = 2
 vframes = 2
+frame = 1
 metadata/_aseprite_wizard_config_ = {
 "i_mode": -1,
 "keep_anim_length": false,
@@ -185,3 +255,12 @@ target = NodePath("..")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 shape = SubResource("CircleShape2D_17sxl")
+
+[node name="GobelinHitbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GobelinHitbox"]
+shape = SubResource("CircleShape2D_torko")
+
+[node name="hit" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_lvwfw")
+volume_db = -2.0

@@ -1,0 +1,16 @@
+[remap]
+
+importer="aseprite_wizard.plugin.static-texture"
+type="AtlasTexture"
+uid="uid://c8vf4cg7eohnt"
+path="res://.godot/imported/spark.aseprite-fdbfc8d33eb471b5b31883e288b749aa.res"
+
+[deps]
+
+source_file="res://objects/spark.aseprite"
+dest_files=["res://.godot/imported/spark.aseprite-fdbfc8d33eb471b5b31883e288b749aa.res"]
+
+[params]
+
+exclude_layers_pattern=""
+only_visible_layers=false

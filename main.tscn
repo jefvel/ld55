@@ -61,12 +61,13 @@ expand_mode = 1
 stretch_mode = 1
 metadata/_edit_lock_ = true
 
-[node name="Spawner" type="Node2D" parent="." node_paths=PackedStringArray("player", "left_wall", "right_wall", "item_layer")]
+[node name="Spawner" type="Node2D" parent="." node_paths=PackedStringArray("player", "left_wall", "right_wall", "item_layer", "enemy_layer")]
 script = ExtResource("4_b07sx")
 player = NodePath("../World/Bird")
 left_wall = NodePath("../World/Walls/LeftWall")
 right_wall = NodePath("../World/Walls/RightWall")
 item_layer = NodePath("../World/Items")
+enemy_layer = NodePath("../World/Enemies")
 
 [node name="World" type="Node2D" parent="."]
 
@@ -223,6 +224,7 @@ bird = NodePath("../../World/Bird")
 
 [connection signal="on_died" from="World/Bird" to="Music" method="_on_bird_on_died"]
 [connection signal="on_hit_wall" from="World/Bird" to="." method="_on_bird_on_hit_wall"]
+[connection signal="on_landed" from="World/Bird" to="Music" method="_on_bird_on_landed"]
 [connection signal="on_start_falling" from="World/Bird" to="Music" method="_on_bird_on_start_falling"]
 [connection signal="on_start_flying" from="World/Bird" to="Music" method="_on_bird_on_start_flying"]
 [connection signal="on_start_flying" from="World/Bird" to="UILayer/UI" method="_on_bird_on_start_flying"]

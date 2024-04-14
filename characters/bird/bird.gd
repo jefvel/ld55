@@ -135,6 +135,8 @@ func land_on_wall():
 	direction = -direction;
 	update_cam();
 	
+	slugify_enemies()
+	
 	var n = ROSETTE.instantiate()
 	if direction < 0:
 		n.scale.x = -1;
@@ -145,7 +147,14 @@ func land_on_wall():
 	_create_rope()
 	
 	on_hit_wall.emit();
-	
+
+func slugify_enemies(timescale = 1.0):
+	var de = 0.4 * timescale;
+	for e in collected_enemies:
+		e.turn_into_slug(de)
+		de += 0.1 * timescale;
+	collected_enemies.clear()
+
 @onready var hurt_sounds = [$audio/hurt1, $audio/hurt2, $audio/hurt3]
 func hurt():
 	hurting = true;
@@ -375,7 +384,7 @@ func drop_wand():
 func thread_end():
 	if state == State.Falling: return
 	state = State.Falling
-	
+	slugify_enemies()
 	Game.hit_freeze(0.1)
 
 	drop_wand()
@@ -408,8 +417,21 @@ func land_on_rope():
 	state = State.Gliding;
 	anim.play("glide")
 	cam.deadzone_y = 10
+	
 	update_cam()
+	
 	on_start_gliding.emit()
+	pass
+
+var collected_enemies: Array[Enemy] = []
+func get_queue_position(i):
+	if i < 0: return position
+	if i >= collected_enemies.size():
+		return position
+	return collected_enemies[i].position
+func enemy_collected(e: Enemy):
+	collected_enemies.push_back(e)
+	e.collect_queue_index = collected_enemies.size() - 1
 	pass
 
 func _on_anim_animation_finished(anim_name:String):
@@ -425,6 +447,7 @@ func _on_collision_area_entered(node):
 		elif node.target is Item:
 			var item:Item = node.target;
 			if !is_instance_valid(current_rope): return
+			if item.picked_up: return
 			item.pick_up()
 			cur_thread += 7.0
 			cur_thread = clamp(cur_thread, 0.0, thread_total)

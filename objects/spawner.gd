@@ -5,6 +5,7 @@ extends Node2D
 @export var right_wall: Node2D;
 
 @export var item_layer: Node2D;
+@export var enemy_layer:Node2D;
 
 const ITEM = preload("res://objects/item.tscn")
 
@@ -60,7 +61,7 @@ func spawn():
 	var dd = d.normalized()
 	spawned += 1
 	for i in range(items_to_spawn):
-		var item = formations.pick_random().instantiate()
+		var item:Node2D = formations.pick_random().instantiate()
 		len += randf_range(min_dist, 450)
 		# print(total_len- dz)
 		if len > total_len - dz:
@@ -68,5 +69,11 @@ func spawn():
 		item_layer.add_child(item)
 		item.global_position = start_point + dd * len
 		item.position.y -= randf_range(50, 150)
+		for node in item.get_children():
+			if node is Enemy:
+				node.reparent(enemy_layer)
+			if node is Item: node.reparent(item_layer)
+			
+		item.queue_free()
 		pass
 	pass
