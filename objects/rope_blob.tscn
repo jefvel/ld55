@@ -153,3 +153,4 @@ volume_db = -4.0
 [node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("7_cxna3")
 volume_db = -2.0
+max_polyphony = 2

@@ -45,7 +45,7 @@ func spawn():
 	var h_length = abs(end_point.x - start_point.x)
 	var min_spawns = 2;
 	if h_length < 1200:
-		max_spawns = 2;
+		max_spawns = 1;
 		min_spawns = 1
 	
 	if spawned > 5:
