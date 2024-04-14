@@ -13,6 +13,7 @@ signal on_start_flying;
 signal on_hit_wall;
 signal on_start_falling;
 signal on_start_gliding;
+signal on_wand_dropped;
 signal on_landed;
 signal on_died;
 
@@ -95,6 +96,7 @@ func crash():
 	state = State.Crashed
 	position.y = floor_y
 	anim.play("dead")
+	drop_wand()
 	on_died.emit();
 	$audio/crash.play()
 	#Game.hit_freeze(0.1)
@@ -292,7 +294,7 @@ func _physics_process(_delta):
 	if state == State.Gliding:
 		var rope = rope_segments[glide_rope_index]
 		#print(glide_vel)
-		glide_vel += rope.dir_normalized.y * 0.2;
+		#glide_vel += rope.dir_normalized.y * 0.2;
 		glide_vel = clamp(glide_vel, 2.0, 20.0)
 		
 		var rot = rope.dir_normalized.angle()
@@ -307,16 +309,12 @@ func _physics_process(_delta):
 		position.y = rope.get_position_at_x(position).y
 		if position.x > rope.p_right.x:
 			position.x = rope.p_right.x
-			glide_rope_index -= 1;
 			direction = -sign(rope.dir_normalized.x)
-			_refresh()
-			update_cam()
+			glide_switch_dir()
 		if position.x < rope.p_left.x:
 			position.x = rope.p_left.x
-			glide_rope_index -= 1;
 			direction = -sign(rope.dir_normalized.x)
-			_refresh()
-			update_cam()
+			glide_switch_dir()
 		if glide_rope_index < 0:
 			finish_glide();
 	
@@ -331,6 +329,13 @@ func _physics_process(_delta):
 			anim.play("idle")
 	pass
 
+func glide_switch_dir():
+	glide_rope_index -= 1;
+	glide_vel += 1.0;
+	_refresh()
+	update_cam()
+	pass
+
 func finish_glide():
 	state = State.Finished
 	if velocity.x > 0: velocity = Vector2(5, 0)
@@ -339,11 +344,21 @@ func finish_glide():
 	position.y = spawn_pos.y
 	on_landed.emit();
 
+func drop_wand():
+	if wand.dropped: return
+	var wandpos = wand.global_position;
+	wand.reparent(get_parent())
+	wand.global_position = wandpos
+	wand.drop();
+	on_wand_dropped.emit()
+
 func thread_end():
 	if state == State.Falling: return
 	state = State.Falling
 	
 	Game.hit_freeze(0.1)
+
+	drop_wand()
 	
 	cam.shake()
 	cam.tween_offset(0.0, 0.0)
@@ -364,9 +379,12 @@ func thread_end():
 	velocity.x = -direction * randf_range(7.0, 10.0)
 	anim.play("threadout")
 	on_start_falling.emit()
+	
 	pass
 
-var glide_vel = 0.0;
+@onready var wand = $Sprite/wand
+
+var glide_vel = 6.0;
 func land_on_rope():
 	state = State.Gliding;
 	anim.play("glide")

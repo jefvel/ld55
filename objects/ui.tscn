@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://bhwf5prdoha0j"]
+[gd_scene load_steps=7 format=3 uid="uid://bhwf5prdoha0j"]
 
 [ext_resource type="Script" path="res://objects/ui.gd" id="1_7awwx"]
 [ext_resource type="FontFile" uid="uid://y55ybctrc4dr" path="res://fonts/x16y32pxGridGazer.ttf" id="2_eqvbc"]
@@ -43,11 +43,39 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0, 0.166667),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(4.5, 0), Vector2(4.5, -8)]
+"values": [Vector2(0, 0), Vector2(0, -8)]
+}
+
+[sub_resource type="Animation" id="Animation_oo76l"]
+resource_name = "RESET"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GameTitleContainer/GameTitle:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GameTitleContainer/GameTitle:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_we4j7"]
 _data = {
+"RESET": SubResource("Animation_oo76l"),
 "start_game": SubResource("Animation_4akko")
 }
 
@@ -78,10 +106,9 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -68.0
-offset_top = -4.8
-offset_right = 68.0
-offset_bottom = 27.2
+offset_left = -72.5
+offset_right = 63.5
+offset_bottom = 32.0
 grow_horizontal = 2
 theme_override_colors/font_color = Color(0.0745098, 0.00784314, 0.0313726, 1)
 theme_override_fonts/font = ExtResource("2_eqvbc")

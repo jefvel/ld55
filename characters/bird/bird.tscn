@@ -1,8 +1,9 @@
-[gd_scene load_steps=20 format=3 uid="uid://can8qx4di6ugf"]
+[gd_scene load_steps=21 format=3 uid="uid://can8qx4di6ugf"]
 
 [ext_resource type="Texture2D" uid="uid://cy8gst8by2ef4" path="res://characters/bird/bird.png" id="1_kjx1p"]
 [ext_resource type="Script" path="res://characters/bird/bird.gd" id="1_n1ar3"]
 [ext_resource type="Texture2D" uid="uid://mvimdxjtjryf" path="res://characters/bird/wand.png" id="2_5656g"]
+[ext_resource type="Script" path="res://characters/bird/wand.gd" id="4_b5vas"]
 [ext_resource type="AudioStream" uid="uid://b8wo1i40i4o0x" path="res://sfx/crash.wav" id="4_r1bqk"]
 [ext_resource type="AudioStream" uid="uid://dffsb361dwwq5" path="res://sfx/flap.wav" id="5_3dx7p"]
 [ext_resource type="AudioStream" uid="uid://dds7qxeyggu7d" path="res://sfx/hurt.wav" id="6_wdbr1"]
@@ -273,26 +274,6 @@ _data = {
 [node name="Bird" type="Node2D"]
 script = ExtResource("1_n1ar3")
 
-[node name="wand" type="Sprite2D" parent="."]
-visible = false
-texture_filter = 1
-position = Vector2(13, -21)
-rotation = 0.448373
-texture = ExtResource("2_5656g")
-offset = Vector2(1, -1)
-metadata/_aseprite_wizard_config_ = {
-"i_mode": 1,
-"keep_anim_length": false,
-"layer": "",
-"o_ex_p": "",
-"o_folder": "",
-"o_name": "",
-"only_visible": false,
-"player": "",
-"slice": "",
-"source": "res://characters/bird/wand.aseprite"
-}
-
 [node name="Sprite" type="Sprite2D" parent="."]
 texture_filter = 1
 position = Vector2(0, -16.1)
@@ -316,6 +297,27 @@ metadata/_aseprite_wizard_interface_config_ = {
 "layer_section": true,
 "output_section": true,
 "slice_section": true
+}
+
+[node name="wand" type="Sprite2D" parent="Sprite"]
+z_index = -1
+texture_filter = 1
+position = Vector2(13, -4.9)
+rotation = 0.448373
+texture = ExtResource("2_5656g")
+offset = Vector2(1, -1)
+script = ExtResource("4_b5vas")
+metadata/_aseprite_wizard_config_ = {
+"i_mode": 1,
+"keep_anim_length": false,
+"layer": "",
+"o_ex_p": "",
+"o_folder": "",
+"o_name": "",
+"only_visible": false,
+"player": "",
+"slice": "",
+"source": "res://characters/bird/wand.aseprite"
 }
 
 [node name="anim" type="AnimationPlayer" parent="."]

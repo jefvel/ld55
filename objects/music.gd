@@ -18,14 +18,10 @@ func _on_bird_on_died():
 var vol_tw: Tween;
 func _on_bird_on_start_falling():
 	vol_tw = get_tree().create_tween()
-	vol_tw.tween_property(fly_music, "volume_db", -19, 0.3)
+	vol_tw.tween_property(fly_music, "volume_db", -12, 0.3)
 	pass # Replace with function body.
-
-
 
 func _on_bird_on_start_gliding():
 	vol_tw = get_tree().create_tween()
 	vol_tw.tween_property(fly_music, "volume_db", -99999, 0.1)
-	#vol_tw.tween_property(fast_music, "volume_db", -4, 0.1)
 	fast_music.play()
-	pass # Replace with function body.

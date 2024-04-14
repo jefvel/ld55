@@ -24,3 +24,8 @@ func _on_bird_on_start_flying():
 	thread_bar.appear()
 	uianim.play("start_game")
 	pass # Replace with function body.
+
+
+func _on_bird_on_wand_dropped():
+	thread_bar.disappear()
+	pass # Replace with function body.

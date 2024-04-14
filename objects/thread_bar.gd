@@ -15,9 +15,13 @@ var cur_v: float = 1.0;
 func appear():
 	anim.play("appear")
 
+func disappear():
+	anim.play("disappear")
+
 func _ready():
 	$sprite.modulate.a = 0.0
 	value = value
+	
 
 func _physics_process(delta):
 	cur_v = lerp(cur_v, value, 0.3)
