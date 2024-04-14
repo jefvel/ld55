@@ -60,6 +60,7 @@ var direction: int = 1 if randf() > 0.5 else -1;
 
 var spawn_pos: Vector2;
 func _ready():
+	Game.bird = self;
 	var spawns = get_tree().get_nodes_in_group("PlayerSpawn").pick_random()
 	spawn_pos = spawns.global_position
 	global_position = spawns.global_position
@@ -317,6 +318,16 @@ func _physics_process(_delta):
 			glide_switch_dir()
 		if glide_rope_index < 0:
 			finish_glide();
+		
+		if !punching && flap_pressed:
+			punch()
+		if punching:
+			anim.play("slap")
+			punch_time -= _delta
+			if punch_time <= 0:
+				punching = false;
+		else: 
+			anim.play("glide")
 	
 	if state == State.Finished:
 		velocity *= 0.92;
@@ -327,6 +338,15 @@ func _physics_process(_delta):
 			anim.play("slide")
 		else:
 			anim.play("idle")
+	pass
+
+var punching = false;
+var punch_time = 0.1;
+func punch(): 
+	if punching: return
+	punch_time = 0.1;
+	anim.play("slap")
+	punching = true;
 	pass
 
 func glide_switch_dir():
@@ -379,7 +399,6 @@ func thread_end():
 	velocity.x = -direction * randf_range(7.0, 10.0)
 	anim.play("threadout")
 	on_start_falling.emit()
-	
 	pass
 
 @onready var wand = $Sprite/wand
@@ -399,13 +418,14 @@ func _on_anim_animation_finished(anim_name:String):
 		hurting = false;
 
 func _on_collision_area_entered(node):
-	if node is Item and !node.picked_up:
-		if !is_instance_valid(current_rope): return
-		node.pick_up()
-		cur_thread += 7.0
-		cur_thread = clamp(cur_thread, 0.0, thread_total)
-		current_rope.attach_to_rope(node)
-	elif node is Enemy:
-		node.hurt(self)
-		hurt()
-
+	if node is EnemyHitbox:
+		if node.target is Enemy and !node.target.dead:
+			node.target.hurt(self)
+			hurt()
+		elif node.target is Item:
+			var item:Item = node.target;
+			if !is_instance_valid(current_rope): return
+			item.pick_up()
+			cur_thread += 7.0
+			cur_thread = clamp(cur_thread, 0.0, thread_total)
+			#current_rope.attach_to_rope(item)

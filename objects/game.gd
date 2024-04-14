@@ -2,6 +2,7 @@ extends Node
 
 var enemy_node: Node2D;
 
+var bird: Bird;
 
 var frozen: bool:
 	get: return freeze_time > 0

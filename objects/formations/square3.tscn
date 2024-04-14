@@ -1,0 +1,42 @@
+[gd_scene load_steps=3 format=3 uid="uid://blkubyujuckr5"]
+
+[ext_resource type="PackedScene" uid="uid://ddcj6bwskxw4q" path="res://objects/enemies/ghost.tscn" id="1_jcrqj"]
+[ext_resource type="PackedScene" uid="uid://cmnqv61btt1l0" path="res://objects/item.tscn" id="2_tro5b"]
+
+[node name="Oneenemy" type="Node2D"]
+
+[node name="Ghost" parent="." instance=ExtResource("1_jcrqj")]
+position = Vector2(-52, -30)
+
+[node name="Ghost7" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("1_jcrqj")]
+position = Vector2(-16, 42)
+sprite = NodePath("../Ghost/sprite")
+
+[node name="Ghost2" parent="." instance=ExtResource("1_jcrqj")]
+position = Vector2(-52, 42)
+
+[node name="Ghost4" parent="." instance=ExtResource("1_jcrqj")]
+position = Vector2(20, 42)
+
+[node name="Ghost6" parent="." instance=ExtResource("1_jcrqj")]
+position = Vector2(11, -66)
+
+[node name="Ghost8" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("1_jcrqj")]
+position = Vector2(42, -50)
+sprite = NodePath("../Ghost6/sprite")
+
+[node name="Ghost9" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("1_jcrqj")]
+position = Vector2(76, -37)
+sprite = NodePath("../Ghost6/sprite")
+
+[node name="Ghost5" parent="." instance=ExtResource("1_jcrqj")]
+position = Vector2(57, 44)
+
+[node name="Ghost3" parent="." instance=ExtResource("1_jcrqj")]
+position = Vector2(-27, -59)
+
+[node name="Item" parent="." instance=ExtResource("2_tro5b")]
+position = Vector2(-7, -16)
+
+[node name="Item2" parent="." instance=ExtResource("2_tro5b")]
+position = Vector2(43, -1)

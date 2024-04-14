@@ -19,8 +19,9 @@ func attach_to_rope(object: Node2D):
 	
 func reposition_items():
 	var d = (p1 - p0).normalized()
-	for i in range(attached_objects.size()):
-		attached_objects[i].global_position = d * attached_lengths[i] + p0
+	#for i in range(attached_objects.size()):
+	#	if is_instance_valid(attached_objects[i]):
+	#		attached_objects[i].global_position = d * attached_lengths[i] + p0
 	pass
 	
 var p_left = p0 if p0.x < p1.x else p1

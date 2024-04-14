@@ -16,6 +16,8 @@ const formations = [
 	preload("res://objects/formations/oneenemy.tscn"),
 	preload("res://objects/formations/square.tscn"),
 	preload("res://objects/formations/square2.tscn"),
+	preload("res://objects/formations/square3.tscn"),
+	preload("res://objects/formations/square4.tscn"),
 ]
 
 var spawned = 0;

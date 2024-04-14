@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://cmnqv61btt1l0"]
+[gd_scene load_steps=12 format=3 uid="uid://cmnqv61btt1l0"]
 
 [ext_resource type="Texture2D" uid="uid://bfbpbpwds3prn" path="res://objects/items.png" id="1_fvs6c"]
 [ext_resource type="Script" path="res://objects/item.gd" id="1_j4s1a"]
+[ext_resource type="Script" path="res://objects/enemies/EnemyHitbox.gd" id="3_66b8w"]
 
 [sub_resource type="Animation" id="Animation_8t6c1"]
 length = 0.6
@@ -37,7 +38,7 @@ _data = {
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_2urt5"]
-radius = 26.0192
+radius = 29.1548
 
 [sub_resource type="Animation" id="Animation_ln6f6"]
 resource_name = "pickup"
@@ -141,7 +142,10 @@ _data = {
 "prepare": SubResource("Animation_txb4a")
 }
 
-[node name="Item" type="Area2D" groups=["Item"]]
+[sub_resource type="CircleShape2D" id="CircleShape2D_17sxl"]
+radius = 24.0832
+
+[node name="Item" type="RigidBody2D" groups=["Item"]]
 script = ExtResource("1_j4s1a")
 
 [node name="sprite" type="Sprite2D" parent="."]
@@ -174,3 +178,10 @@ shape = SubResource("CircleShape2D_2urt5")
 libraries = {
 "": SubResource("AnimationLibrary_ot1vr")
 }
+
+[node name="Hitbox" type="Area2D" parent="." node_paths=PackedStringArray("target")]
+script = ExtResource("3_66b8w")
+target = NodePath("..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("CircleShape2D_17sxl")

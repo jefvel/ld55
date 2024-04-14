@@ -8,8 +8,12 @@
 [node name="Ghost" parent="." instance=ExtResource("1_k1mkn")]
 position = Vector2(-14, 36)
 
+[node name="Ghost7" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("1_k1mkn")]
+position = Vector2(5, 64)
+sprite = NodePath("../Ghost/sprite")
+
 [node name="Ghost2" parent="." instance=ExtResource("1_k1mkn")]
-position = Vector2(13, 60)
+position = Vector2(16, 61)
 
 [node name="Ghost4" parent="." instance=ExtResource("1_k1mkn")]
 position = Vector2(44, 60)

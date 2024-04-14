@@ -13,7 +13,6 @@ func _ready():
 
 func _process(_D):
 	var pos = round(camera.position * 0.98 + camera.offset);
-	#bg.position = round(pos - get_viewport_rect().size * 0.5);
 	bg.material.set_shader_parameter("offset", pos)
 	
 func _physics_process(delta):

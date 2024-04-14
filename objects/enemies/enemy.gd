@@ -1,4 +1,4 @@
-extends Area2D 
+extends RigidBody2D
 class_name Enemy
 
 @export var sprite: Sprite2D
@@ -7,16 +7,21 @@ var dead = false;
 var velocity: Vector2;
 var rv: float;
 
+
+func _ready():
+	#sleeping = false;
+	pass
+
 func fade_out():
 	if dead: return
 	dead = true
 	dead_time = randf_range(0.0, 0.3)
 	pass
 
-func hurt(e: Bird):
+func hurt(e):
 	if dead: return
 	dead = true
-	collision_layer = 0;
+	
 	velocity = e.velocity
 	rv = randf_range(-0.1, 0.1)
 	pass

@@ -1,12 +1,18 @@
-[gd_scene load_steps=4 format=3 uid="uid://ddcj6bwskxw4q"]
+[gd_scene load_steps=6 format=3 uid="uid://ddcj6bwskxw4q"]
 
 [ext_resource type="Script" path="res://objects/enemies/enemy.gd" id="1_2n28v"]
 [ext_resource type="Texture2D" uid="uid://5mqrkupltn8r" path="res://objects/enemies/ghost.png" id="1_8j8kc"]
+[ext_resource type="Script" path="res://objects/enemies/EnemyHitbox.gd" id="3_mrn47"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_gp3h1"]
-radius = 8.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_4qa5m"]
+radius = 18.0
 
-[node name="Ghost" type="Area2D" node_paths=PackedStringArray("sprite") groups=["Enemy"]]
+[sub_resource type="CircleShape2D" id="CircleShape2D_mcu4o"]
+radius = 7.0
+
+[node name="Ghost" type="RigidBody2D" node_paths=PackedStringArray("sprite") groups=["Enemy"]]
+lock_rotation = true
+freeze_mode = 1
 script = ExtResource("1_2n28v")
 sprite = NodePath("sprite")
 
@@ -27,4 +33,12 @@ metadata/_aseprite_wizard_config_ = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_gp3h1")
+shape = SubResource("CircleShape2D_4qa5m")
+
+[node name="EnemyHitbox" type="Area2D" parent="." node_paths=PackedStringArray("target")]
+visible = false
+script = ExtResource("3_mrn47")
+target = NodePath("..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyHitbox"]
+shape = SubResource("CircleShape2D_mcu4o")

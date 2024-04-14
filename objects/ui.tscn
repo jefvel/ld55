@@ -40,10 +40,10 @@ tracks/2/path = NodePath("GameTitleContainer/GameTitle:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.166667),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0, 0), Vector2(0, -8)]
+"values": [Vector2(0, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_oo76l"]
@@ -91,43 +91,45 @@ metadata/_edit_lock_ = true
 
 [node name="GameTitleContainer" type="Control" parent="."]
 layout_mode = 1
-anchor_left = 0.5
-anchor_right = 0.5
+anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -73.0
-offset_top = 155.0
-offset_right = 72.0
-offset_bottom = -138.0
+offset_top = 137.0
+offset_bottom = -196.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="GameTitle" type="Label" parent="GameTitleContainer"]
 layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -72.5
-offset_right = 63.5
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_right = 888.0
 offset_bottom = 32.0
 grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(67, 13)
 theme_override_colors/font_color = Color(0.0745098, 0.00784314, 0.0313726, 1)
 theme_override_fonts/font = ExtResource("2_eqvbc")
 theme_override_font_sizes/font_size = 32
 text = "BIRD SOUP"
+horizontal_alignment = 1
 
 [node name="GameTitle2" type="Label" parent="GameTitleContainer/GameTitle"]
 layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -69.0
-offset_top = -3.0
-offset_right = 67.0
-offset_bottom = 29.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1.0
+offset_top = -2.0
+offset_right = -1.0
+offset_bottom = -2.0
 grow_horizontal = 2
+grow_vertical = 2
 theme_override_fonts/font = ExtResource("2_eqvbc")
 theme_override_font_sizes/font_size = 32
 text = "BIRD SOUP"
+horizontal_alignment = 1
 
 [node name="ThreadBar" parent="." instance=ExtResource("3_fciim")]
 offset_left = 15.0

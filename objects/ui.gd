@@ -11,6 +11,7 @@ func _ready():
 	var t = get_tree().create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_SINE)
 	t.tween_property(color_rect, "modulate:a", 0, 0.1)
 	t.finished.connect(_finish)
+	uianim.play("RESET")
 
 func _physics_process(delta):
 	thread_bar.value = (bird.cur_thread / bird.thread_total)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://can8qx4di6ugf"]
+[gd_scene load_steps=22 format=3 uid="uid://can8qx4di6ugf"]
 
 [ext_resource type="Texture2D" uid="uid://cy8gst8by2ef4" path="res://characters/bird/bird.png" id="1_kjx1p"]
 [ext_resource type="Script" path="res://characters/bird/bird.gd" id="1_n1ar3"]
@@ -175,7 +175,7 @@ tracks/1/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_rnr4l"]
-length = 0.1
+length = 0.3
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -196,10 +196,10 @@ tracks/1/path = NodePath("Sprite:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = false
 tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.15),
+"transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [10]
+"values": [10, 11]
 }
 
 [sub_resource type="Animation" id="Animation_wp6bc"]
@@ -226,7 +226,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [11]
+"values": [12]
 }
 
 [sub_resource type="Animation" id="Animation_pv8jh"]
@@ -253,7 +253,34 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [12]
+"values": [13]
+}
+
+[sub_resource type="Animation" id="Animation_mlqgt"]
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [14]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_k2gsc"]
@@ -264,6 +291,7 @@ _data = {
 "glide": SubResource("Animation_rnr4l"),
 "idle": SubResource("Animation_woian"),
 "ouch": SubResource("Animation_goc3c"),
+"slap": SubResource("Animation_mlqgt"),
 "slide": SubResource("Animation_pv8jh"),
 "threadout": SubResource("Animation_wp6bc"),
 "wallsit": SubResource("Animation_larb0")
@@ -357,3 +385,4 @@ volume_db = -2.0
 
 [connection signal="animation_finished" from="anim" to="." method="_on_anim_animation_finished"]
 [connection signal="area_entered" from="collision" to="." method="_on_collision_area_entered"]
+[connection signal="body_entered" from="collision" to="." method="_on_collision_body_entered"]
