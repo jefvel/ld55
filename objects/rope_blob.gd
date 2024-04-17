@@ -15,7 +15,9 @@ var rvel = 0.0;
 var dead = false;
 
 var falling = true
+var base_offset: Vector2
 func _ready():
+	base_offset = sprite.offset
 	#anim.play("small")
 	anim.stop()
 	sprite.frame = 0;
@@ -59,11 +61,17 @@ func embiggen():
 		#print("Playing large")
 @onready var splash = $AudioStreamPlayer2
 
+var hit_player: bool = false;
+
 var putting_into_pot = false;
 var finito = false;
 var old_pos: Vector2;
 signal on_put_into_pot(level:int);
 func _physics_process(delta):
+	if Game.frozen:
+		if dead:
+			sprite.offset = base_offset + Vector2.from_angle(randf() * TAU) * randf_range(0, 5)
+		return
 	position += velocity;
 	velocity *= 0.99;
 	if finito:

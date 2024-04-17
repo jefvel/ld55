@@ -10,6 +10,9 @@ var attached_lengths: Array[float] = [];
 var p0: Vector2;
 var p1: Vector2;
 
+func _ready():
+	process_physics_priority = 100
+
 func attach_to_rope(object: Node2D):
 	var d = object.global_position - p0;
 	var l = d.length()
@@ -31,7 +34,6 @@ var p_right = p1 if p1.x > p0.x else p0
 var p_d : Vector2;
 var dir_normalized: Vector2;
 func _physics_process(delta):
-	
 	var np0 = start_node.global_position;
 	var np1 = end_node.global_position
 	if np0.distance_squared_to(p0) > 0 or np1.distance_squared_to(p1) > 0:

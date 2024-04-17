@@ -22,6 +22,9 @@ var finished = false;
 var until_drop = 1.0;
 var total = 0;
 var left = 0;
+
+var total_blob_score = 0;
+
 func intoPot(level: int = 1):
 	total += 1;
 	var sprite = $World/Cauldron/sprite
@@ -32,6 +35,7 @@ func intoPot(level: int = 1):
 	if left <= 0:
 		finish();
 	pass
+
 func _physics_process(delta):
 	if OS.is_debug_build():
 		if Input.is_action_just_pressed("Win"):
@@ -57,6 +61,7 @@ func _physics_process(delta):
 				blob.velocity = Vector2(0, 0.1)
 				blob.putting_into_pot = true
 				left += 1
+				total_blob_score += blob.level
 				blob.on_put_into_pot.connect(intoPot)
 			
 			
@@ -109,6 +114,7 @@ func spawn_bird():
 	current_birds += 1;
 	bar.value = (current_birds / required_birds)
 	pass
+
 func _on_bird_on_hit_wall():
 	spawner.spawn()
 	pass # Replace with function body.

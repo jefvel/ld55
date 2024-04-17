@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://can8qx4di6ugf"]
+[gd_scene load_steps=27 format=3 uid="uid://can8qx4di6ugf"]
 
 [ext_resource type="Texture2D" uid="uid://cy8gst8by2ef4" path="res://characters/bird/bird.png" id="1_kjx1p"]
 [ext_resource type="Script" path="res://characters/bird/bird.gd" id="1_n1ar3"]
@@ -13,6 +13,21 @@
 [ext_resource type="AudioStream" uid="uid://mp2uwov8y7s" path="res://sfx/punch.wav" id="11_my4yl"]
 [ext_resource type="AudioStream" uid="uid://dta7jonioyobo" path="res://sfx/pickup.wav" id="12_8imen"]
 [ext_resource type="AudioStream" uid="uid://bncw48pr7xb5n" path="res://sfx/sprintg.wav" id="13_hs8y0"]
+
+[sub_resource type="Animation" id="Animation_refw7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite/wand:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(13, -2)]
+}
 
 [sub_resource type="Animation" id="Animation_y7xxa"]
 length = 0.3
@@ -43,6 +58,7 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id="Animation_jkyvw"]
 length = 0.15
+step = 0.025
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -66,6 +82,18 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [1, 2, 3]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite/wand:position")
+tracks/2/interp = 0
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.15),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(14, -3), Vector2(14, -5), Vector2(14, -4)]
 }
 
 [sub_resource type="Animation" id="Animation_cupa6"]
@@ -93,6 +121,18 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [4, 5]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite/wand:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(14, -3)]
 }
 
 [sub_resource type="Animation" id="Animation_rnr4l"]
@@ -122,6 +162,18 @@ tracks/1/keys = {
 "update": 1,
 "values": [10, 11]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite/wand:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(20, -4.76837e-07)]
+}
 
 [sub_resource type="Animation" id="Animation_woian"]
 length = 0.1
@@ -150,6 +202,18 @@ tracks/1/keys = {
 "update": 1,
 "values": [0]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite/wand:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(13, -2)]
+}
 
 [sub_resource type="Animation" id="Animation_goc3c"]
 length = 0.1
@@ -177,9 +241,23 @@ tracks/1/keys = {
 "update": 1,
 "values": [9]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite/wand:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(13, -4)]
+}
 
 [sub_resource type="Animation" id="Animation_mlqgt"]
-length = 0.1
+length = 1.05
+loop_mode = 1
+step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -199,10 +277,22 @@ tracks/1/path = NodePath("Sprite:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = false
 tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.025, 0.05),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [14]
+"values": [14, 15, 16]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite/wand:position")
+tracks/2/interp = 0
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.05),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(13, -6), Vector2(18, -5)]
 }
 
 [sub_resource type="Animation" id="Animation_pv8jh"]
@@ -231,6 +321,18 @@ tracks/1/keys = {
 "update": 1,
 "values": [13]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite/wand:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-4, -5)]
+}
 
 [sub_resource type="Animation" id="Animation_wp6bc"]
 length = 0.1
@@ -257,6 +359,18 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [12]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite/wand:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(10, -4)]
 }
 
 [sub_resource type="Animation" id="Animation_larb0"]
@@ -286,9 +400,22 @@ tracks/1/keys = {
 "update": 1,
 "values": [6]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite/wand:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(19, -9)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_k2gsc"]
 _data = {
+"RESET": SubResource("Animation_refw7"),
 "dead": SubResource("Animation_y7xxa"),
 "flap": SubResource("Animation_jkyvw"),
 "flap_down": SubResource("Animation_cupa6"),
@@ -308,10 +435,11 @@ script = ExtResource("1_n1ar3")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 texture_filter = 1
-position = Vector2(0, -16.1)
+position = Vector2(0, -16)
 texture = ExtResource("1_kjx1p")
-hframes = 4
+hframes = 5
 vframes = 4
+frame = 3
 metadata/_aseprite_wizard_config_ = {
 "i_mode": -1,
 "keep_anim_length": false,
@@ -334,8 +462,7 @@ metadata/_aseprite_wizard_interface_config_ = {
 [node name="wand" type="Sprite2D" parent="Sprite"]
 z_index = -1
 texture_filter = 1
-position = Vector2(13, -4.9)
-rotation = 0.448373
+position = Vector2(13, -2)
 texture = ExtResource("2_5656g")
 offset = Vector2(1, -1)
 script = ExtResource("4_b5vas")
@@ -352,13 +479,13 @@ metadata/_aseprite_wizard_config_ = {
 "source": "res://characters/bird/wand.aseprite"
 }
 
+[node name="rope_end" type="Node2D" parent="Sprite/wand"]
+position = Vector2(-4, 2)
+
 [node name="anim" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_k2gsc")
 }
-
-[node name="rope_end" type="Node2D" parent="."]
-position = Vector2(0, -13)
 
 [node name="collision" type="Area2D" parent="."]
 

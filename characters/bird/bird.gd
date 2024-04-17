@@ -72,7 +72,7 @@ func _ready():
 	_refresh();
 	_create_rope();
 	
-@onready var rope_end = $rope_end
+@onready var rope_end = $Sprite/wand/rope_end
 
 func _create_rope():
 	if current_rope:
@@ -162,7 +162,7 @@ func slugify_enemies(timescale = 1.0):
 var hurt_time = 0.0;
 @onready var hurt_sounds = [$audio/hurt1, $audio/hurt2, $audio/hurt3]
 func hurt():
-	combo = 0;
+	# combo = 0;
 	hurting = true;
 	hurt_time = 0.1
 	cur_thread -= 10.0;
@@ -198,13 +198,17 @@ func flap():
 	
 var flap_request = false;
 var flap_released = false;
+var time_since_punch_press = 100.0;
 func _physics_process(_delta):
+	time_since_punch_press += _delta;
 	var flap_pressed = Input.is_action_just_pressed("FLAP")
 	var flap_down = Input.is_action_pressed("FLAP")
 	
 	if !flap_down:
 		flap_released = true;
-	
+		
+	if flap_pressed:
+		time_since_punch_press = 0.0;
 	if Game.frozen:
 		punch_time -= _delta
 		return
@@ -343,7 +347,8 @@ func _physics_process(_delta):
 		if glide_rope_index < 0:
 			finish_glide();
 		
-		if !punching && flap_pressed:
+		
+		if !punching and time_since_punch_press < 0.15:
 			punch()
 		if punching:
 			anim.play("slap")
@@ -352,13 +357,15 @@ func _physics_process(_delta):
 				for slug in get_tree().get_nodes_in_group("Slug"):
 					if slug is RopeBlob:
 						if slug.dead: continue
+						if slug.hit_player: continue
 						var d = slug.position - position;
-						if d.length_squared() < 45.0 * 45.0:
+						var slap_range = 50.0;
+						if d.length_squared() < slap_range * slap_range:
 							if d.dot(velocity) > 0.1:
 								#slug.queue_free()
 								slug.punch();
 								add_score(slug.level * 200)
-								combo += 1
+								combo += slug.level
 								punched_slugs.push_back(slug)
 								punchsfx.play()
 								punchsfx.pitch_scale = randf_range(0.99, 1.02)
@@ -397,7 +404,9 @@ var punching = false;
 var punch_time = 0.1;
 func punch(): 
 	if punching: return
+	time_since_punch_press = 1000.0
 	punch_time = 0.1;
+	anim.stop()
 	anim.play("slap")
 	punching = true;
 	swingsfx.play()
@@ -490,16 +499,17 @@ func _on_anim_animation_finished(anim_name:String):
 @onready var pickupsfx = $audio/pickup
 
 func add_score(s:int):
-	score += s * (1 +combo)
+	# score += s * (1 + combo)
+	pass
 
 var pickups  =0
 func _on_collision_area_entered(node):
-	if state == State.Gliding and node is RopeBlob:
-		if node.dead:
-			return
-	#	print("huh")
-		#if node.rope == current_rope:
-		hurt()
+	if state == State.Gliding:
+		if node is RopeBlob:
+			if node.dead:
+				return
+			node.hit_player = true;
+			hurt()
 		pass
 	if node is EnemyHitbox:
 		if node.target is Enemy and !node.target.dead:
@@ -512,7 +522,7 @@ func _on_collision_area_entered(node):
 			item.pick_up()
 			add_score(50)
 			pickups += 1;
-			combo += 1
+			#combo += 1
 			pickupsfx.play()
 			pickupsfx.pitch_scale = randf_range(0.99, 1.02)
 			cur_thread += 7.0

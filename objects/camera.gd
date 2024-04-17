@@ -19,6 +19,7 @@ func shake():
 	tr.tween_property(self, "rotation", 0.0, 0.1)
 	pass
 
+
 func _process(_delta):
 	if follow_target:
 		offset = _offset

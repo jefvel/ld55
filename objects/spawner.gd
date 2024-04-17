@@ -33,7 +33,7 @@ func spawn():
 	
 	var start_point = player.global_position;
 	var dz = 150.0;
-	var len = dz;
+	var len = dz + randf_range(0.0, 100.0);
 	
 	var dir = sign(end_point.x - start_point.x)
 	var d = (end_point - start_point)
