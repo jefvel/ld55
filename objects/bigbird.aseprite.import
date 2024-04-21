@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://ckvkubueta607"
+path="res://.godot/imported/bigbird.aseprite-634aeb50de5ba9a6ef04352d136379a0.res"
+
+[deps]
+
+source_file="res://objects/bigbird.aseprite"
+dest_files=["res://.godot/imported/bigbird.aseprite-634aeb50de5ba9a6ef04352d136379a0.res"]
+
+[params]
+

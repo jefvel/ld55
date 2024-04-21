@@ -27,7 +27,7 @@ func _ready():
 	pass
 	
 func _enter_tree():
-	velocity.x = randf_range(1.0, 8.0)
+	velocity.x = randf_range(3.0, 18.0)
 	if position.x > center:
 		velocity.x *= -1
 	velocity.y = -randf_range(8., 12.)
@@ -67,6 +67,8 @@ var putting_into_pot = false;
 var finito = false;
 var old_pos: Vector2;
 signal on_put_into_pot(level:int);
+var avoid_range = randf_range(80.0, 100.0)
+
 func _physics_process(delta):
 	if Game.frozen:
 		if dead:
@@ -105,9 +107,18 @@ func _physics_process(delta):
 			return;
 		var rot = rope.dir_normalized.angle()
 		sprite.rotation = rot
+		
+		var border = 100.0
+		if position.x < left_x + border:
+			position.x = left_x + border
+		elif position.x > right_x - border:
+			position.x = right_x - border
+		
 		if rope.dir_normalized.x < 0:
 			sprite.rotation += PI
 		position = rope.get_position_at_x(position)
+		
+
 		
 		for b in rope.rope_blobs:
 			if b == self:
@@ -115,14 +126,16 @@ func _physics_process(delta):
 			if !is_instance_valid(b):
 				continue;
 			var d:Vector2 = b.position - position;
-			if d.length_squared() < 80 * 80:
+			var rr = avoid_range * avoid_range
+			if d.length_squared() < rr:
 				d *= 0.5;
-				if b.level != level:
-					position -= d * 0.1
+				if true or b.level != level:
+					position -= d * 0.05
+					b.position += d * 0.05
 					return
 				position += d * 0.2;
 				if d.length() < 10.0:
-					level += b.level;
+					level += b.level
 					#print("Merge", level)
 					b.queue_free()
 					embiggen()

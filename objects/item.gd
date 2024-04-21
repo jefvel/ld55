@@ -87,15 +87,13 @@ func _physics_process(delta):
 	if !picked_up and !Game.frozen:
 		time += delta * 2;
 		sprite.position.y = round(sin(time) * 2.9)
-	
+	if hit_target:
+		if !is_instance_valid(target):
+			if animation_player.current_animation != "remove" : animation_player.play("remove")
 	if picked_up and target:
 		check -= 1
 		if check < 0: find_target()
-		if !is_instance_valid(target):
-			if !hit_target:
-				return
-			if animation_player.current_animation != "remove" : animation_player.play("remove")
-			return
+
 		if !hit_target:
 			var d = (target.global_position - global_position).normalized() * 1500
 			apply_force(d)

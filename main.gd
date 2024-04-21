@@ -24,14 +24,18 @@ var total = 0;
 var left = 0;
 
 var total_blob_score = 0;
-
+var base_score = 0;
 func intoPot(level: int = 1):
-	total += 1;
 	var sprite = $World/Cauldron/sprite
 	sprite.rotation = randf_range(0.01, -0.01);
 	var t = get_tree().create_tween().set_trans(Tween.TRANS_ELASTIC)
 	t.tween_property(sprite, "rotation", 0, 0.1)
 	left -= 1;
+	var scr = bird.pickups
+
+	bird.pickups += base_score * level;
+	bird.combo -= level;
+	total = bird.pickups
 	if left <= 0:
 		finish();
 	pass
@@ -50,14 +54,18 @@ func _physics_process(delta):
 		until_drop -= delta;
 		if until_drop <= 0:
 			until_drop = 0.15;
+			if blobs.size() > 25:
+				until_drop = 0.05
+			elif blobs.size() > 10:
+				until_drop = 0.1
 			if blobs.size() > 0:
 				var blob = blobs[0];
 				blobs.remove_at(0)
 				if !is_instance_valid(blob):return
 				
 				blob.global_position = spatula.global_position
-				blob.position.y -= 400.0;
-				blob.position.x += randf_range(-40, 40)
+				blob.position.y = -300.0;
+				blob.position.x += randf_range(-60, 60)
 				blob.velocity = Vector2(0, 0.1)
 				blob.putting_into_pot = true
 				left += 1
@@ -67,10 +75,17 @@ func _physics_process(delta):
 			
 @onready var ui = $UILayer/UI
 
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_WM_CLOSE_REQUEST:
+		print("QQ")
+		get_tree().quit()
+		pass
+	pass
+
 func to(d: float = 0.5):
 	return get_tree().create_timer(d).timeout
 	
-var required_birds = 10.0;
+var required_score = 200.0;
 var current_birds = 0.0;
 var fff = false
 func finish():
@@ -81,6 +96,7 @@ func finish():
 		enable_retry()
 		return
 	
+	
 	await to(1.0)
 	ui.flash()
 	$World/Cauldron/sprite/AudioStreamPlayer.play()
@@ -88,31 +104,41 @@ func finish():
 	bar.showw()
 	await to(0.4)
 	
-	
-	for i in range(total):
+	#var bird_count = max(1, floor(float(total) / 10.0))
+	#for i in range(bird_count):
+	while total > 0:
 		spawn_bird();
 		if total > 50:
 			await to(0.05)
 		else: await to(0.1)
 		pass
 	
-	if current_birds >= required_birds:
+	if current_birds >= required_score:
 		show_win();
 	else:
 		enable_retry()
-	
 	pass
 @onready var bar = $World/Cauldron/sprite/bar
-
+const BIG_BIRD = preload("res://objects/big_bird.tscn")
 const SMALL_BIRD = preload("res://objects/small_bird.tscn")
 func spawn_bird():
-	var b = SMALL_BIRD.instantiate()
+	var b
+	if total >= 150:
+		b = BIG_BIRD.instantiate()
+		total -= 150
+		current_birds += 150
+	elif total >= 10:
+		total -= 10;
+		current_birds += 10
+		b = SMALL_BIRD.instantiate()
+	else:
+		total = 0
+		return
 	items.add_child(b)
 	b.global_position = spatula.global_position
 	b.position.y -= 2;
 	b.position.x += randf_range(-90, 90)
-	current_birds += 1;
-	bar.value = (current_birds / required_birds)
+	bar.value = (current_birds / required_score)
 	pass
 
 func _on_bird_on_hit_wall():
@@ -128,6 +154,7 @@ func show_win():
 var blobs: Array[RopeBlob] = []
 func _on_bird_on_landed():
 	finished = true;
+	base_score = bird.pickups
 	blobs = bird.punched_slugs
 	if blobs.size() == 0:
 		await to(0.5)

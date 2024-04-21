@@ -1,10 +1,49 @@
-[gd_scene load_steps=2 format=3 uid="uid://ruuaf1cph0f2"]
+[gd_scene load_steps=6 format=3 uid="uid://ruuaf1cph0f2"]
 
 [ext_resource type="Texture2D" uid="uid://brd8ctn5xgabn" path="res://objects/rosette.png" id="1_n3o8t"]
+[ext_resource type="Script" path="res://objects/rosette.gd" id="2_ingm8"]
+
+[sub_resource type="Animation" id="Animation_fgf2a"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 4
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_1qack"]
+resource_name = "create"
+step = 0.0333333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 4
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0666667, 0.166667, 0.333333),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [-0.261728, 6.62135, 6.18109, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ni2y3"]
+_data = {
+"RESET": SubResource("Animation_fgf2a"),
+"create": SubResource("Animation_1qack")
+}
 
 [node name="Rosette" type="Sprite2D"]
 texture_filter = 1
 texture = ExtResource("1_n3o8t")
+script = ExtResource("2_ingm8")
 metadata/_aseprite_wizard_config_ = {
 "i_mode": 1,
 "keep_anim_length": false,
@@ -16,4 +55,9 @@ metadata/_aseprite_wizard_config_ = {
 "player": "",
 "slice": "",
 "source": "res://objects/rosette.aseprite"
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ni2y3")
 }

@@ -1,0 +1,110 @@
+[gd_scene load_steps=9 format=3 uid="uid://dfavwe1qxhur3"]
+
+[ext_resource type="Script" path="res://objects/small_bird.gd" id="1_ujpa3"]
+[ext_resource type="Texture2D" uid="uid://djgn3o685ivvm" path="res://objects/bigbird.png" id="2_kv6wt"]
+[ext_resource type="AudioStream" uid="uid://pij1j0g1lh0s" path="res://sfx/chirp.wav" id="3_swfr6"]
+
+[sub_resource type="Animation" id="Animation_q58yt"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -5)]
+}
+
+[sub_resource type="Animation" id="Animation_nu7g7"]
+resource_name = "spawn"
+step = 0.0333333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.266667, 0.333333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 14), Vector2(0, -10), Vector2(0, -5), Vector2(0, -7), Vector2(0, -5)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gktmd"]
+_data = {
+"RESET": SubResource("Animation_q58yt"),
+"spawn": SubResource("Animation_nu7g7")
+}
+
+[sub_resource type="Animation" id="Animation_jf3ie"]
+length = 0.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8wjm3"]
+_data = {
+"default": SubResource("Animation_jf3ie")
+}
+
+[node name="BigBird" type="Node2D"]
+script = ExtResource("1_ujpa3")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, -5)
+texture = ExtResource("2_kv6wt")
+offset = Vector2(0, -7)
+metadata/_aseprite_wizard_config_ = {
+"i_mode": -1,
+"keep_anim_length": false,
+"layer": "",
+"o_ex_p": "",
+"o_folder": "",
+"o_name": "",
+"only_visible": false,
+"player": "bab",
+"slice": "",
+"source": "res://objects/bigbird.aseprite"
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_gktmd")
+}
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_swfr6")
+volume_db = -3.0
+
+[node name="bab" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_8wjm3")
+}

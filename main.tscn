@@ -88,8 +88,8 @@ ignore_rotation = false
 limit_left = -882
 script = ExtResource("1_6erm6")
 follow_target = NodePath("../Bird")
-wall_r = 1212
-wall_l = -547
+wall_r = 1150
+wall_l = -470
 
 [node name="Bird" parent="World" node_paths=PackedStringArray("cam", "rope_attach_point", "rope_container_node") instance=ExtResource("2_v3qkl")]
 position = Vector2(422, 392)

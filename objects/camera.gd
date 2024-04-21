@@ -3,6 +3,10 @@ class_name GameCamera
 
 @export var follow_target: Node2D;
 
+func _ready():
+	process_priority = 99
+	process_physics_priority = 99
+
 var _dz_y: float = 80.0;
 var _t: Tween
 var deadzone_y = 80.0:
@@ -20,7 +24,7 @@ func shake():
 	pass
 
 
-func _process(_delta):
+func _physics_process(_delta):
 	if follow_target:
 		offset = _offset
 		position.x = follow_target.position.x

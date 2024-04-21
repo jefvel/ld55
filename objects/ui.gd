@@ -40,6 +40,7 @@ func _ready():
 func _physics_process(delta):
 	thread_bar.value = (bird.cur_thread / bird.thread_total)
 	scoretxt.text = format_number(bird.pickups)
+	#scoretxt.text = "test text 1023\ntest row 2"
 	if bird.combo > 1:
 		combo.text = 'X%s' % int(bird.combo)
 	else: combo.text = ''

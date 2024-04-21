@@ -4,9 +4,9 @@
 [ext_resource type="FontFile" uid="uid://y55ybctrc4dr" path="res://fonts/x16y32pxGridGazer.ttf" id="2_eqvbc"]
 [ext_resource type="PackedScene" uid="uid://b7wk44r4cvtjh" path="res://objects/thread_bar.tscn" id="3_fciim"]
 [ext_resource type="FontFile" uid="uid://bfnnv2mvy0li8" path="res://fonts/FutilePro.ttf" id="4_6ki1e"]
-[ext_resource type="Material" uid="uid://cdvcv1a4fesjy" path="res://objects/wobely.tres" id="4_55etg"]
 [ext_resource type="Texture2D" uid="uid://025xifuqeync" path="res://objects/thanksforplay.png" id="5_23h45"]
 [ext_resource type="AudioStream" uid="uid://c8wp5xo5nrr6o" path="res://music/win_music.ogg" id="6_dtblh"]
+[ext_resource type="Material" uid="uid://cdvcv1a4fesjy" path="res://objects/wobely.tres" id="6_itwyu"]
 [ext_resource type="Script" path="res://objects/blob_text.gd" id="7_7exn6"]
 
 [sub_resource type="Animation" id="Animation_oo76l"]
@@ -397,7 +397,7 @@ libraries = {
 [node name="Score" type="Label" parent="."]
 modulate = Color(1, 1, 1, 0)
 texture_filter = 1
-material = ExtResource("4_55etg")
+material = ExtResource("6_itwyu")
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -416,7 +416,7 @@ script = ExtResource("7_7exn6")
 
 [node name="combo" type="Label" parent="Score"]
 texture_filter = 1
-material = ExtResource("4_55etg")
+material = ExtResource("6_itwyu")
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -431,6 +431,7 @@ theme_override_font_sizes/font_size = 32
 text = "1 000 000"
 horizontal_alignment = 2
 vertical_alignment = 1
+script = ExtResource("7_7exn6")
 
 [node name="retry" type="Label" parent="."]
 modulate = Color(1, 1, 1, 0)

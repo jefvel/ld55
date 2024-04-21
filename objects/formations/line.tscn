@@ -5,16 +5,20 @@
 
 [node name="Line" type="Node2D"]
 
-[node name="EvilEye" parent="." instance=ExtResource("1_bn85g")]
+[node name="EvilEye" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("1_bn85g")]
 position = Vector2(0, 52)
+sprite = NodePath("sprite")
 
-[node name="EvilEye3" parent="." instance=ExtResource("1_bn85g")]
+[node name="EvilEye3" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("1_bn85g")]
 position = Vector2(0, 106)
+sprite = NodePath("sprite")
 
-[node name="EvilEye2" parent="." instance=ExtResource("1_bn85g")]
+[node name="EvilEye2" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("1_bn85g")]
 position = Vector2(0, -56)
+sprite = NodePath("sprite")
 
-[node name="EvilEye4" parent="." instance=ExtResource("1_bn85g")]
+[node name="EvilEye4" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("1_bn85g")]
 position = Vector2(0, -101)
+sprite = NodePath("sprite")
 
 [node name="Item" parent="." instance=ExtResource("2_1a0hm")]

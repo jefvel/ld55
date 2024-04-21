@@ -18,7 +18,7 @@ signal on_landed;
 signal on_died;
 
 var score: int = 0;
-var combo: int = 0;
+var combo: int = 1;
 
 @export var rope_attach_point: Node2D;
 @export var rope_container_node: Node2D;
@@ -144,8 +144,10 @@ func land_on_wall():
 	var n = ROSETTE.instantiate()
 	if direction < 0:
 		n.scale.x = -1;
-	rope_container_node.add_child(n)
+	get_parent().add_child(n)
+	rope_end.global_position.x = global_position.x
 	n.global_position = rope_end.global_position
+	print
 	current_rope.end_node = n
 	rope_attach_point = n
 	_create_rope()
@@ -359,9 +361,9 @@ func _physics_process(_delta):
 						if slug.dead: continue
 						if slug.hit_player: continue
 						var d = slug.position - position;
-						var slap_range = 50.0;
+						var slap_range = 58.0;
 						if d.length_squared() < slap_range * slap_range:
-							if d.dot(velocity) > 0.1:
+							if d.normalized().dot(velocity.normalized()) > 0.6:
 								#slug.queue_free()
 								slug.punch();
 								add_score(slug.level * 200)
