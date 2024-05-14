@@ -72,7 +72,7 @@ func _ready():
 	_refresh();
 	_create_rope();
 	
-@onready var rope_end = $Sprite/wand/rope_end
+@onready var rope_end = $Sprite/hand/rope_end
 
 func _create_rope():
 	if current_rope:
@@ -147,7 +147,6 @@ func land_on_wall():
 	get_parent().add_child(n)
 	rope_end.global_position.x = global_position.x
 	n.global_position = rope_end.global_position
-	print
 	current_rope.end_node = n
 	rope_attach_point = n
 	_create_rope()
@@ -213,7 +212,12 @@ func _physics_process(_delta):
 		time_since_punch_press = 0.0;
 	if Game.frozen:
 		punch_time -= _delta
+		#particles.speed_scale = 0.1;
+		smash.speed_scale = 0.1
 		return
+	else:
+		smash.speed_scale = 1.0
+		#particles.speed_scale = 1.0;
 	
 	_refresh()
 	if flap_pressed:
@@ -366,6 +370,18 @@ func _physics_process(_delta):
 							if d.normalized().dot(velocity.normalized()) > 0.6:
 								#slug.queue_free()
 								slug.punch();
+								
+								particles.reparent(get_parent())
+								particles.emitting = true;
+								
+								particles.global_position = smash_particle.global_position;
+								
+								particles.rotation = sprite.rotation + randf_range(-0.01,0.01)
+								smash.restart()
+								if sprite.scale.x < 0:
+									particles.rotation += PI
+								particles.restart();
+								
 								add_score(slug.level * 200)
 								combo += slug.level
 								punched_slugs.push_back(slug)
@@ -393,6 +409,10 @@ func _physics_process(_delta):
 			finish_landing();
 	pass
 
+@onready var smash_particle: Node2D = $Sprite/SmashParticle
+@onready var particles: CPUParticles2D = $Sprite/SmashParticle/Particles
+@onready var smash: CPUParticles2D = $Sprite/SmashParticle/Particles/smash
+
 var glide_time = 0.0
 
 func finish_landing():
@@ -407,7 +427,7 @@ var punch_time = 0.1;
 func punch(): 
 	if punching: return
 	time_since_punch_press = 1000.0
-	punch_time = 0.1;
+	punch_time = 0.13;
 	anim.stop()
 	anim.play("slap")
 	punching = true;
@@ -470,7 +490,7 @@ func thread_end():
 	on_start_falling.emit()
 	pass
 
-@onready var wand = $Sprite/wand
+@onready var wand = $Sprite/hand/wand
 
 var glide_vel = 0.001;
 func land_on_rope():

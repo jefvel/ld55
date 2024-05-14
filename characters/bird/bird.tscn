@@ -1,8 +1,10 @@
-[gd_scene load_steps=27 format=3 uid="uid://can8qx4di6ugf"]
+[gd_scene load_steps=35 format=3 uid="uid://can8qx4di6ugf"]
 
 [ext_resource type="Texture2D" uid="uid://cy8gst8by2ef4" path="res://characters/bird/bird.png" id="1_kjx1p"]
 [ext_resource type="Script" path="res://characters/bird/bird.gd" id="1_n1ar3"]
 [ext_resource type="Texture2D" uid="uid://mvimdxjtjryf" path="res://characters/bird/wand.png" id="2_5656g"]
+[ext_resource type="Texture2D" uid="uid://dusn8hmhwm0xa" path="res://objects/smashparticle.png" id="3_xkmlb"]
+[ext_resource type="Texture2D" uid="uid://5nqsamxlyb86" path="res://objects/smashes.png" id="4_55wsk"]
 [ext_resource type="Script" path="res://characters/bird/wand.gd" id="4_b5vas"]
 [ext_resource type="AudioStream" uid="uid://b8wo1i40i4o0x" path="res://sfx/crash.wav" id="4_r1bqk"]
 [ext_resource type="AudioStream" uid="uid://dffsb361dwwq5" path="res://sfx/flap.wav" id="5_3dx7p"]
@@ -14,12 +16,43 @@
 [ext_resource type="AudioStream" uid="uid://dta7jonioyobo" path="res://sfx/pickup.wav" id="12_8imen"]
 [ext_resource type="AudioStream" uid="uid://bncw48pr7xb5n" path="res://sfx/sprintg.wav" id="13_hs8y0"]
 
+[sub_resource type="Curve" id="Curve_3p6qq"]
+min_value = -200.0
+max_value = 200.0
+_data = [Vector2(0, 9.62993), 0.0, 0.0, 0, 0, Vector2(1, -200), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_p0uc4"]
+min_value = -200.0
+max_value = 200.0
+_data = [Vector2(0.0164319, 200), 0.0, 0.0, 0, 0, Vector2(1, -197.29), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_4tuur"]
+max_value = 100.0
+_data = [Vector2(0.0234742, 39.2161), 0.0, 249.236, 0, 0, Vector2(1, 75.4278), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_ubhkr"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.622066, 0.446478), -0.0665559, -0.0665559, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_0wyq2"]
+particles_animation = true
+particles_anim_h_frames = 2
+particles_anim_v_frames = 2
+particles_anim_loop = false
+
+[sub_resource type="Curve" id="Curve_g521y"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
 [sub_resource type="Animation" id="Animation_refw7"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite/wand:position")
+tracks/0/path = NodePath("Sprite/hand:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -31,7 +64,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite/wand:rotation")
+tracks/1/path = NodePath("Sprite/hand:rotation")
 tracks/1/interp = 3
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -74,7 +107,7 @@ step = 0.025
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite/wand:position")
+tracks/0/path = NodePath("Sprite/hand:position")
 tracks/0/interp = 0
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -113,7 +146,7 @@ length = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite/wand:position")
+tracks/0/path = NodePath("Sprite/hand:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -153,7 +186,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite/wand:position")
+tracks/0/path = NodePath("Sprite/hand:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -194,7 +227,7 @@ step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite/wand:position")
+tracks/0/path = NodePath("Sprite/hand:position")
 tracks/0/interp = 0
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -230,7 +263,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Sprite/wand:rotation")
+tracks/3/path = NodePath("Sprite/hand:rotation")
 tracks/3/interp = 3
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -245,7 +278,7 @@ length = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite/wand:position")
+tracks/0/path = NodePath("Sprite/hand:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -286,7 +319,7 @@ step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite/wand:position")
+tracks/0/path = NodePath("Sprite/hand:position")
 tracks/0/interp = 0
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -325,7 +358,7 @@ length = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite/wand:position")
+tracks/0/path = NodePath("Sprite/hand:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -364,7 +397,7 @@ length = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite/wand:position")
+tracks/0/path = NodePath("Sprite/hand:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -404,7 +437,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite/wand:position")
+tracks/0/path = NodePath("Sprite/hand:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -464,7 +497,7 @@ position = Vector2(0, -16)
 texture = ExtResource("1_kjx1p")
 hframes = 5
 vframes = 4
-frame = 1
+frame = 7
 metadata/_aseprite_wizard_config_ = {
 "i_mode": -1,
 "keep_anim_length": false,
@@ -484,10 +517,79 @@ metadata/_aseprite_wizard_interface_config_ = {
 "slice_section": true
 }
 
-[node name="wand" type="Sprite2D" parent="Sprite"]
+[node name="SmashParticle" type="Node2D" parent="Sprite"]
+position = Vector2(22, -4)
+
+[node name="Particles" type="CPUParticles2D" parent="Sprite/SmashParticle"]
+z_index = -1
+emitting = false
+amount = 6
+lifetime = 0.15
+one_shot = true
+explosiveness = 1.0
+randomness = 0.1
+lifetime_randomness = 0.61
+texture = ExtResource("3_xkmlb")
+emission_shape = 1
+emission_sphere_radius = 6.0
+particle_flag_align_y = true
+gravity = Vector2(2.08165e-12, 2.08165e-12)
+initial_velocity_min = 500.0
+initial_velocity_max = 868.64
+linear_accel_min = -89.83
+linear_accel_max = 100.0
+linear_accel_curve = SubResource("Curve_3p6qq")
+tangential_accel_min = -87.8
+tangential_accel_max = 86.1
+tangential_accel_curve = SubResource("Curve_p0uc4")
+damping_min = 12.288
+damping_max = 12.288
+damping_curve = SubResource("Curve_4tuur")
+scale_amount_curve = SubResource("Curve_ubhkr")
+
+[node name="smash" type="CPUParticles2D" parent="Sprite/SmashParticle/Particles"]
+texture_filter = 1
+material = SubResource("CanvasItemMaterial_0wyq2")
+position = Vector2(13, 0)
+emitting = false
+amount = 2
+lifetime = 0.07
+one_shot = true
+explosiveness = 1.0
+randomness = 0.11
+texture = ExtResource("4_55wsk")
+emission_shape = 1
+emission_sphere_radius = 15.0
+gravity = Vector2(2.08165e-12, 2.08165e-12)
+angle_min = -384.4
+scale_amount_max = 1.3
+scale_amount_curve = SubResource("Curve_g521y")
+anim_offset_max = 1.0
+
+[node name="ParticleAnim" type="AnimationPlayer" parent="Sprite/SmashParticle"]
+
+[node name="hand" type="Node2D" parent="Sprite"]
 z_index = -1
 texture_filter = 1
 position = Vector2(13, -2)
+metadata/_aseprite_wizard_config_ = {
+"i_mode": 1,
+"keep_anim_length": false,
+"layer": "",
+"o_ex_p": "",
+"o_folder": "",
+"o_name": "",
+"only_visible": false,
+"player": "",
+"slice": "",
+"source": "res://characters/bird/wand.aseprite"
+}
+
+[node name="rope_end" type="Node2D" parent="Sprite/hand"]
+position = Vector2(-4, 2)
+
+[node name="wand" type="Sprite2D" parent="Sprite/hand"]
+texture_filter = 1
 texture = ExtResource("2_5656g")
 offset = Vector2(1, -1)
 script = ExtResource("4_b5vas")
@@ -503,9 +605,6 @@ metadata/_aseprite_wizard_config_ = {
 "slice": "",
 "source": "res://characters/bird/wand.aseprite"
 }
-
-[node name="rope_end" type="Node2D" parent="Sprite/wand"]
-position = Vector2(-4, 2)
 
 [node name="anim" type="AnimationPlayer" parent="."]
 libraries = {

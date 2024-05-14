@@ -42,6 +42,6 @@ func _on_bird_on_start_gliding():
 func _on_bird_on_landed():
 	if fast_music.playing:
 		vol_tw = get_tree().create_tween()
-		vol_tw.tween_property(fast_music, "pitch_scale", 0.0, 1.2)
+		vol_tw.tween_property(fast_music, "pitch_scale", 0.01, 1.2)
 		vol_tw.finished.connect(fast_music.stop, CONNECT_ONE_SHOT)
 	pass # Replace with function body.

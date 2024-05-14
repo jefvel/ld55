@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://ddcj6bwskxw4q"]
 
 [ext_resource type="Script" path="res://objects/enemies/enemy.gd" id="1_2n28v"]
-[ext_resource type="Texture2D" uid="uid://5mqrkupltn8r" path="res://objects/enemies/ghost.png" id="1_8j8kc"]
+[ext_resource type="Texture2D" uid="uid://cdc2gak8xd880" path="res://objects/enemies/evil_eye.png" id="2_d6ukl"]
 [ext_resource type="Script" path="res://objects/enemies/EnemyHitbox.gd" id="3_mrn47"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4qa5m"]
@@ -18,7 +18,7 @@ sprite = NodePath("sprite")
 
 [node name="sprite" type="Sprite2D" parent="."]
 texture_filter = 1
-texture = ExtResource("1_8j8kc")
+texture = ExtResource("2_d6ukl")
 metadata/_aseprite_wizard_config_ = {
 "i_mode": 1,
 "keep_anim_length": false,
@@ -29,7 +29,7 @@ metadata/_aseprite_wizard_config_ = {
 "only_visible": false,
 "player": "",
 "slice": "",
-"source": "res://objects/enemies/ghost.aseprite"
+"source": "res://objects/enemies/evil_eye.aseprite"
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

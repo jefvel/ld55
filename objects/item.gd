@@ -90,16 +90,20 @@ func _physics_process(delta):
 	if hit_target:
 		if !is_instance_valid(target):
 			if animation_player.current_animation != "remove" : animation_player.play("remove")
-	if picked_up and target:
+	if picked_up:
 		check -= 1
 		if check < 0: find_target()
+	if picked_up and target:
+
 
 		if !hit_target:
 			var d = (target.global_position - global_position).normalized() * 1500
 			apply_force(d)
-		else:
+		elif is_instance_valid(target):
 			global_position += (target.global_position - global_position) * 0.9
 			linear_velocity *= 0.1;
+		else:
+			target = null;
 		pass
 	
 	if falling:

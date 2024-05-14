@@ -9,7 +9,7 @@
 [ext_resource type="AudioStream" uid="uid://cjpsx4ebafflu" path="res://sfx/splash.wav" id="7_cxna3"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_y2htl"]
-radius = 8.0
+radius = 3.0
 
 [sub_resource type="Animation" id="Animation_prl2k"]
 length = 0.1
@@ -103,6 +103,7 @@ _data = {
 }
 
 [node name="RopeBlob" type="Area2D" groups=["Slug"]]
+z_index = -1
 script = ExtResource("1_agfyk")
 
 [node name="sprite" type="Sprite2D" parent="."]

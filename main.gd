@@ -103,6 +103,7 @@ func finish():
 	await to(0.6)
 	bar.showw()
 	await to(0.4)
+	NG.scoreboard_submit(NewgroundsIds.ScoreboardId.BestSoup, bird.pickups)
 	
 	#var bird_count = max(1, floor(float(total) / 10.0))
 	#for i in range(bird_count):
@@ -118,6 +119,7 @@ func finish():
 	else:
 		enable_retry()
 	pass
+
 @onready var bar = $World/Cauldron/sprite/bar
 const BIG_BIRD = preload("res://objects/big_bird.tscn")
 const SMALL_BIRD = preload("res://objects/small_bird.tscn")
@@ -151,6 +153,7 @@ func show_win():
 	await to(0.2)
 	can_retry = true
 	pass
+
 var blobs: Array[RopeBlob] = []
 func _on_bird_on_landed():
 	finished = true;

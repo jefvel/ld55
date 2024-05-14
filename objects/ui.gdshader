@@ -12,10 +12,11 @@ void vertex() {
 }
 
 void fragment() {
-	vec4 col = texture(TEXTURE, UV);
-	COLOR = col;
-	vec4 shadow = texture(TEXTURE, UV - vec2(TEXTURE_PIXEL_SIZE * -1.0));
-	COLOR = mix(COLOR, vec4(0.0, 0.0, 0.0, 1.0),  max(0.0, col.a - shadow.a));
+	//vec4 col = texture(TEXTURE, UV);
+	//COLOR = col;
+	//vec4 shadow = texture(TEXTURE, UV - vec2(TEXTURE_PIXEL_SIZE * -1.0));
+	//COLOR = mix(COLOR, vec4(0.0, 0.0, 0.0, 1.0),  max(0.0, col.a - shadow.a));
+
 	// COLOR = vec4(1.0, 1.0, 1.0, 1.0);
 	// Called for every pixel the material is visible on.
 }

@@ -40,7 +40,7 @@ func _draw():
 	var ascent = font.get_ascent(32);
 	var i = 0;
 	
-	for char in text:
+	for c in text:
 		if i >= letter_scales.size(): letter_scales.push_back(Vector2.ZERO)
 		var p = letter_scales[i].x * 0.05
 		var scl = p + 1;
@@ -67,6 +67,6 @@ func _draw():
 		draw_set_transform_matrix(tform)
 		#draw_set_transform(pos + size * 0.5);
 		#draw_set_transform(Vector2.ZERO, 0.1 + sin(i + time), Vector2.ONE)
-		draw_string(font, Vector2.ZERO, char, HORIZONTAL_ALIGNMENT_FILL, -1, 32, modulate, justification_flags)
+		draw_string(font, Vector2.ZERO, c, HORIZONTAL_ALIGNMENT_FILL, -1, 32, modulate, justification_flags)
 		i += 1
 	pass

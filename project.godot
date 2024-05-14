@@ -25,6 +25,8 @@ config/icon="res://icon.png"
 [autoload]
 
 Game="*res://objects/game.gd"
+NG="*res://addons/newgrounds/scripts/newgrounds.tscn"
+NGCloudSave="*res://addons/newgrounds/scripts/newgrounds_cloudsave.gd"
 
 [display]
 
@@ -37,7 +39,11 @@ window/dpi/allow_hidpi=false
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/AsepriteWizard/plugin.cfg", "res://addons/PaletteTools/plugin.cfg")
+enabled=PackedStringArray("res://addons/AsepriteWizard/plugin.cfg", "res://addons/PaletteTools/plugin.cfg", "res://addons/newgrounds/plugin.cfg")
+
+[global_group]
+
+CloudSave="Newgrounds Cloudsave"
 
 [input]
 
@@ -58,6 +64,12 @@ Win={
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":87,"key_label":0,"unicode":119,"location":0,"echo":false,"script":null)
 ]
 }
+
+[newgrounds.io]
+
+app_id="58204:SPdGVm4k"
+AES-128_key="RLZse9Ldfi/VbMIM0yi1eg=="
+opened_getting_started_page=true
 
 [physics]
 
