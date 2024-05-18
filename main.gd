@@ -1,7 +1,7 @@
 extends Node2D
 
 @onready var bg = $BgLayer/bg
-@export var camera:Camera2D
+@export var camera:GameCamera
 
 @onready var spawner = $Spawner
 @onready var bird = $World/Bird
@@ -88,6 +88,8 @@ func to(d: float = 0.5):
 var required_score = 200.0;
 var current_birds = 0.0;
 var fff = false
+@onready var cauldron: Node2D = $World/Cauldron
+
 func finish():
 	if fff:return
 	fff = true
@@ -96,10 +98,12 @@ func finish():
 		enable_retry()
 		return
 	
-	
-	await to(1.0)
+	await to(0.5)
+	cauldron.start_shaking()
+	await cauldron.finished_shaking;
 	ui.flash()
-	$World/Cauldron/sprite/AudioStreamPlayer.play()
+	cauldron.erupt();
+	camera.shake()
 	await to(0.6)
 	bar.showw()
 	await to(0.4)
@@ -159,6 +163,9 @@ func _on_bird_on_landed():
 	finished = true;
 	base_score = bird.pickups
 	blobs = bird.punched_slugs
+	var b_pos = bird.global_position
+	bird.reparent($World/Cauldron/sprite)
+	bird.global_position = b_pos
 	if blobs.size() == 0:
 		await to(0.5)
 		finish()

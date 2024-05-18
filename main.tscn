@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://bnfujb6c4ngs1"]
+[gd_scene load_steps=29 format=3 uid="uid://bnfujb6c4ngs1"]
 
 [ext_resource type="Script" path="res://objects/camera.gd" id="1_6erm6"]
 [ext_resource type="Script" path="res://main.gd" id="1_21ljx"]
@@ -14,10 +14,12 @@
 [ext_resource type="Script" path="res://objects/walls.gd" id="5_s74ek"]
 [ext_resource type="Texture2D" uid="uid://x7k81dw156cr" path="res://spatula.png" id="6_pb8ct"]
 [ext_resource type="Texture2D" uid="uid://ccgv7qc42xo6a" path="res://objects/bubble.png" id="7_ru8tw"]
+[ext_resource type="Script" path="res://objects/cauldron.gd" id="10_52bap"]
 [ext_resource type="Texture2D" uid="uid://bjumb1d1fcvon" path="res://cauldronholder.png" id="12_e1b36"]
 [ext_resource type="PackedScene" uid="uid://cg1mkrfaum3sq" path="res://objects/bar.tscn" id="12_komqy"]
 [ext_resource type="AudioStream" uid="uid://gtei4cjdmjco" path="res://sfx/brew.wav" id="14_5dkwe"]
 [ext_resource type="PackedScene" uid="uid://bhwf5prdoha0j" path="res://objects/ui.tscn" id="14_qv8pl"]
+[ext_resource type="AudioStream" uid="uid://gro3rd58vqdl" path="res://sfx/rumble.wav" id="17_spet3"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jl58f"]
 shader = ExtResource("2_qcgk3")
@@ -31,6 +33,128 @@ particles_anim_loop = false
 
 [sub_resource type="Gradient" id="Gradient_1xqox"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="Animation" id="Animation_ib4t5"]
+resource_name = "RESET"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_mv68p"]
+resource_name = "shake"
+length = 2.3
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(1.998),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_finished_shaking"
+}]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("sprite:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.998),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.96, 1)]
+}
+tracks/2/type = "audio"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("rumble_sfx")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("17_spet3")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/2/use_blend = true
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:shake_power")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1.9647, 1.998),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 1.0, 2.08165e-12]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".:shaking")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 1.998),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_kc8di"]
+resource_name = "erupt"
+length = 2.66667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0666667, 0.133333, 0.233333, 0.366667, 0.533333, 0.7, 0.9, 1.6, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0.96, 1), Vector2(0.725771, 1.27714), Vector2(1.24031, 0.890013), Vector2(0.939513, 1.12654), Vector2(1.05265, 0.954465), Vector2(0.870809, 1.00839), Vector2(1.04683, 0.954666), Vector2(0.970324, 1.02683), Vector2(1.01596, 0.985207), Vector2(1, 1)]
+}
+tracks/1/type = "audio"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("erupt_sfx")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("14_5dkwe")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/1/use_blend = true
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4q8pe"]
+_data = {
+"RESET": SubResource("Animation_ib4t5"),
+"erupt": SubResource("Animation_kc8di"),
+"shake": SubResource("Animation_mv68p")
+}
 
 [sub_resource type="GDScript" id="GDScript_gbj14"]
 script/source = "@icon(\"res://addons/newgrounds/icons/medal.png\")
@@ -139,6 +263,7 @@ metadata/_edit_group_ = true
 
 [node name="Cauldron" type="Node2D" parent="World"]
 position = Vector2(333, 512)
+script = ExtResource("10_52bap")
 
 [node name="bubbles" type="CPUParticles2D" parent="World/Cauldron"]
 texture_filter = 1
@@ -217,9 +342,6 @@ position = Vector2(-46, -164)
 [node name="SpawnPointRight" type="Node2D" parent="World/Cauldron/sprite" groups=["PlayerSpawn"]]
 position = Vector2(90, -164)
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="World/Cauldron/sprite"]
-stream = ExtResource("14_5dkwe")
-
 [node name="holder" type="Sprite2D" parent="World/Cauldron"]
 texture_filter = 1
 texture = ExtResource("12_e1b36")
@@ -238,6 +360,15 @@ metadata/_aseprite_wizard_config_ = {
 metadata/_aseprite_wizard_interface_config_ = {
 "layer_section": true
 }
+
+[node name="CauldronAnim" type="AnimationPlayer" parent="World/Cauldron"]
+libraries = {
+"": SubResource("AnimationLibrary_4q8pe")
+}
+
+[node name="erupt_sfx" type="AudioStreamPlayer" parent="World/Cauldron"]
+
+[node name="rumble_sfx" type="AudioStreamPlayer" parent="World/Cauldron"]
 
 [node name="Walls" type="Node2D" parent="World"]
 modulate = Color(0.192157, 0.0196078, 0.117647, 1)

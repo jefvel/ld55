@@ -27,8 +27,8 @@ func shake():
 func _physics_process(_delta):
 	if follow_target:
 		offset = _offset
-		position.x = follow_target.position.x
-		var dy = position.y - follow_target.position.y
+		position.x = follow_target.global_position.x
+		var dy = position.y - follow_target.global_position.y
 	#	position.x += _offset.x;
 		#position.x = clamp(position.x, -999, 1000)
 		#print(position.x)

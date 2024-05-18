@@ -353,8 +353,8 @@ func _physics_process(_delta):
 		if glide_rope_index < 0:
 			finish_glide();
 		
-		
-		if !punching and time_since_punch_press < 0.15:
+		var missing_punch = anim.current_animation == &"miss"
+		if !punching and time_since_punch_press < 0.15 and !missing_punch:
 			punch()
 		if punching:
 			anim.play("slap")
@@ -370,6 +370,7 @@ func _physics_process(_delta):
 							if d.normalized().dot(velocity.normalized()) > 0.6:
 								#slug.queue_free()
 								slug.punch();
+								hit_something_during_punch = true;
 								
 								particles.reparent(get_parent())
 								particles.emitting = true;
@@ -394,6 +395,11 @@ func _physics_process(_delta):
 			
 			if punch_time <= 0:
 				punching = false;
+				if !hit_something_during_punch:
+					missed_punch();
+		elif missing_punch:
+			#print("missing")
+			pass
 		elif !hurting: 
 			anim.play("glide")
 	
@@ -408,6 +414,12 @@ func _physics_process(_delta):
 			anim.play("idle")
 			finish_landing();
 	pass
+@onready var miss_sfx: AudioStreamPlayer = $audio/miss
+
+func missed_punch():
+	miss_sfx.play()
+	hit_something_during_punch = false;
+	anim.play("miss")
 
 @onready var smash_particle: Node2D = $Sprite/SmashParticle
 @onready var particles: CPUParticles2D = $Sprite/SmashParticle/Particles
@@ -424,6 +436,7 @@ var landed = false;
 var punched_slugs: Array[RopeBlob] = [];
 var punching = false;
 var punch_time = 0.1;
+var hit_something_during_punch = false
 func punch(): 
 	if punching: return
 	time_since_punch_press = 1000.0
@@ -432,6 +445,7 @@ func punch():
 	anim.play("slap")
 	punching = true;
 	swingsfx.play()
+	hit_something_during_punch = false;
 	swingsfx.pitch_scale = randf_range(0.99, 1.02)
 	
 	pass
@@ -518,13 +532,15 @@ func _on_anim_animation_finished(anim_name:String):
 	if anim_name == "flap" or anim_name == "ouch":
 		flapping = false;
 		hurting = false;
+	if anim_name == &"miss":
+		anim.play("glide")
 @onready var pickupsfx = $audio/pickup
 
 func add_score(s:int):
 	# score += s * (1 + combo)
 	pass
 
-var pickups  =0
+var pickups = 0
 func _on_collision_area_entered(node):
 	if state == State.Gliding:
 		if node is RopeBlob:
