@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://bnfujb6c4ngs1"]
+[gd_scene load_steps=30 format=3 uid="uid://bnfujb6c4ngs1"]
 
 [ext_resource type="Script" path="res://objects/camera.gd" id="1_6erm6"]
 [ext_resource type="Script" path="res://main.gd" id="1_21ljx"]
@@ -20,6 +20,7 @@
 [ext_resource type="AudioStream" uid="uid://gtei4cjdmjco" path="res://sfx/brew.wav" id="14_5dkwe"]
 [ext_resource type="PackedScene" uid="uid://bhwf5prdoha0j" path="res://objects/ui.tscn" id="14_qv8pl"]
 [ext_resource type="AudioStream" uid="uid://gro3rd58vqdl" path="res://sfx/rumble.wav" id="17_spet3"]
+[ext_resource type="Texture2D" uid="uid://dw4cv0pgpyh47" path="res://orb.png" id="20_jqmrf"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jl58f"]
 shader = ExtResource("2_qcgk3")
@@ -48,6 +49,37 @@ tracks/0/keys = {
 "update": 0,
 "values": [Vector2(1, 1)]
 }
+
+[sub_resource type="Animation" id="Animation_kc8di"]
+resource_name = "erupt"
+length = 2.66667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0666667, 0.133333, 0.233333, 0.366667, 0.533333, 0.7, 0.9, 1.6, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0.96, 1), Vector2(0.725771, 1.27714), Vector2(1.24031, 0.890013), Vector2(0.939513, 1.12654), Vector2(1.05265, 0.954465), Vector2(0.870809, 1.00839), Vector2(1.04683, 0.954666), Vector2(0.970324, 1.02683), Vector2(1.01596, 0.985207), Vector2(1, 1)]
+}
+tracks/1/type = "audio"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("erupt_sfx")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("14_5dkwe")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/1/use_blend = true
 
 [sub_resource type="Animation" id="Animation_mv68p"]
 resource_name = "shake"
@@ -117,37 +149,6 @@ tracks/4/keys = {
 "update": 1,
 "values": [true, false]
 }
-
-[sub_resource type="Animation" id="Animation_kc8di"]
-resource_name = "erupt"
-length = 2.66667
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("sprite:scale")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.0666667, 0.133333, 0.233333, 0.366667, 0.533333, 0.7, 0.9, 1.6, 2),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
-"update": 0,
-"values": [Vector2(0.96, 1), Vector2(0.725771, 1.27714), Vector2(1.24031, 0.890013), Vector2(0.939513, 1.12654), Vector2(1.05265, 0.954465), Vector2(0.870809, 1.00839), Vector2(1.04683, 0.954666), Vector2(0.970324, 1.02683), Vector2(1.01596, 0.985207), Vector2(1, 1)]
-}
-tracks/1/type = "audio"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("erupt_sfx")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"clips": [{
-"end_offset": 0.0,
-"start_offset": 0.0,
-"stream": ExtResource("14_5dkwe")
-}],
-"times": PackedFloat32Array(0)
-}
-tracks/1/use_blend = true
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_4q8pe"]
 _data = {
@@ -399,6 +400,24 @@ position = Vector2(333, 600)
 position = Vector2(0, 600)
 scale = Vector2(1000, 300)
 texture = ExtResource("5_nnv47")
+
+[node name="Sprite2D" type="Sprite2D" parent="World"]
+texture_filter = 1
+position = Vector2(425, 347)
+texture = ExtResource("20_jqmrf")
+metadata/_aseprite_wizard_config_ = {
+"i_mode": 1,
+"keep_anim_length": false,
+"layer": "",
+"o_ex_p": "",
+"o_folder": "",
+"o_name": "",
+"only_visible": false,
+"player": "",
+"slice": "",
+"source": "res://objects/orb.aseprite"
+}
+metadata/_aseprite_wizard_source_file_hash_ = "90a7e3e0e1e451c9cb65ab7e5afe933c"
 
 [node name="UILayer" type="CanvasLayer" parent="."]
 

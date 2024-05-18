@@ -75,13 +75,6 @@ func _physics_process(delta):
 			
 @onready var ui = $UILayer/UI
 
-func _notification(what: int) -> void:
-	if what == NOTIFICATION_WM_CLOSE_REQUEST:
-		print("QQ")
-		get_tree().quit()
-		pass
-	pass
-
 func to(d: float = 0.5):
 	return get_tree().create_timer(d).timeout
 	

@@ -17,3 +17,6 @@ func _physics_process(delta):
 		freeze_time -= delta;
 	pass
 	
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_WM_CLOSE_REQUEST:
+		get_tree().quit()

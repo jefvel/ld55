@@ -23,7 +23,6 @@ func shake():
 	tr.tween_property(self, "rotation", 0.0, 0.1)
 	pass
 
-
 func _physics_process(_delta):
 	if follow_target:
 		offset = _offset
@@ -37,14 +36,12 @@ func _physics_process(_delta):
 			position.y -= d;
 	_reresh_pos()
 	pass
-			
 
 func _reresh_pos():
 	if position.x + offset.x > wall_r:
 		position.x = wall_r - offset.x
 	if position.x + offset.x < wall_l:
 		position.x = wall_l - offset.x
-
 
 @export var wall_r = 900;
 @export var wall_l = -800;

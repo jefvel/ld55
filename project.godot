@@ -14,7 +14,7 @@ config/name="BIRD SOUP"
 config/description="BIRD SOUP"
 config/version="1"
 config/tags=PackedStringArray("gamejam")
-run/main_scene="res://main.tscn"
+run/main_scene="res://screens/initial_screen.tscn"
 config/auto_accept_quit=false
 config/features=PackedStringArray("4.3", "GL Compatibility")
 run/max_fps=120
@@ -39,7 +39,6 @@ window/size/always_on_top=true
 window/stretch/mode="viewport"
 window/stretch/scale=2.0
 window/dpi/allow_hidpi=false
-window/vsync/vsync_mode=2
 
 [editor_plugins]
 
