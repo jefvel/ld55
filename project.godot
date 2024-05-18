@@ -21,12 +21,14 @@ boot_splash/show_image=false
 boot_splash/fullsize=false
 boot_splash/use_filter=false
 config/icon="res://icon.png"
+config/tags=PackedStringArray("gamejam")
 
 [autoload]
 
 Game="*res://objects/game.gd"
 NG="*res://addons/newgrounds/scripts/newgrounds.tscn"
 NGCloudSave="*res://addons/newgrounds/scripts/newgrounds_cloudsave.gd"
+SaveData="*res://objects/save_data.gd"
 
 [display]
 
@@ -40,6 +42,12 @@ window/dpi/allow_hidpi=false
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/AsepriteWizard/plugin.cfg", "res://addons/PaletteTools/plugin.cfg", "res://addons/newgrounds/plugin.cfg")
+
+[file_customization]
+
+folder_colors={
+"res://addons/": "orange"
+}
 
 [global_group]
 
