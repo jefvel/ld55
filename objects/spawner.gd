@@ -49,15 +49,15 @@ func spawn():
 		min_spawns = 1
 	
 	if spawned > 5:
-		max_spawns = 4
+		max_spawns += 1
 	if spawned > 10:
-		max_spawns = 5;
+		max_spawns += 1;
 	if spawned > 14:
 		init_spawns += 1
 	if spawned > 4:
-		min_dist -= 3.0
+		min_dist -= 5.0
 	
-	min_dist = max(min_dist, 60);
+	min_dist = max(min_dist, 55);
 	
 	var items_to_spawn = randi_range(min_spawns, max_spawns)
 

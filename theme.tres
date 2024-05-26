@@ -1,0 +1,33 @@
+[gd_resource type="Theme" load_steps=5 format=3 uid="uid://drvryi8t15x2a"]
+
+[ext_resource type="FontFile" uid="uid://bfnnv2mvy0li8" path="res://fonts/FutilePro.ttf" id="1_2ehhl"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ki0x5"]
+bg_color = Color(0.27451, 0.054902, 0.168627, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vr4gt"]
+content_margin_left = 16.0
+content_margin_top = 8.0
+content_margin_right = 16.0
+content_margin_bottom = 8.0
+bg_color = Color(0.27451, 0.054902, 0.168627, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cjbe7"]
+content_margin_top = 8.0
+content_margin_bottom = 8.0
+
+[resource]
+default_font = ExtResource("1_2ehhl")
+default_font_size = 16
+Button/fonts/font = ExtResource("1_2ehhl")
+Button/styles/hover = SubResource("StyleBoxFlat_ki0x5")
+Button/styles/normal = SubResource("StyleBoxFlat_vr4gt")
+Label/styles/normal = SubResource("StyleBoxEmpty_cjbe7")

@@ -17,7 +17,7 @@ config/tags=PackedStringArray("gamejam")
 run/main_scene="res://screens/initial_screen.tscn"
 config/auto_accept_quit=false
 config/features=PackedStringArray("4.3", "GL Compatibility")
-run/max_fps=120
+run/max_fps=60
 boot_splash/bg_color=Color(0.486275, 0.0941176, 0.235294, 1)
 boot_splash/show_image=false
 boot_splash/fullsize=false
@@ -53,6 +53,10 @@ folder_colors={
 [global_group]
 
 CloudSave="Newgrounds Cloudsave"
+
+[gui]
+
+theme/custom="res://theme.tres"
 
 [input]
 

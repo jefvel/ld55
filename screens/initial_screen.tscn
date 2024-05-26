@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://bmphvja0j7sry"]
 
-[ext_resource type="PackedScene" uid="uid://yjybvr6kfrvo" path="res://addons/newgrounds/examples/example_login_screen.tscn" id="1_gv0uk"]
 [ext_resource type="Script" path="res://screens/initial_screen.gd" id="1_hoekp"]
+[ext_resource type="PackedScene" uid="uid://bg6y6qca8ah4q" path="res://screens/login_screen.tscn" id="2_a7e6d"]
 
 [node name="InitialScreen" type="Control"]
 layout_mode = 3
@@ -12,8 +12,18 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_hoekp")
 
-[node name="ExampleSignInForm" parent="." instance=ExtResource("1_gv0uk")]
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.486275, 0.0941176, 0.235294, 1)
+
+[node name="SignInScreen" parent="." instance=ExtResource("2_a7e6d")]
+visible = false
 layout_mode = 1
 
-[connection signal="on_sign_in_skipped" from="ExampleSignInForm" to="." method="_on_example_sign_in_form_on_sign_in_skipped"]
-[connection signal="on_signed_in" from="ExampleSignInForm" to="." method="_on_example_sign_in_form_on_signed_in"]
+[connection signal="on_sign_in_skipped" from="SignInScreen" to="." method="_on_sign_in_form_on_sign_in_skipped"]
+[connection signal="on_signed_in" from="SignInScreen" to="." method="_on_sign_in_form_on_signed_in"]

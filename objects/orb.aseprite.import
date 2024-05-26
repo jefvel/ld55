@@ -1,7 +1,7 @@
 [remap]
 
-importer="aseprite_wizard.plugin.noop"
-type="PackedDataContainer"
+importer="aseprite_wizard.plugin"
+type="SpriteFrames"
 uid="uid://c3mgtrdyn2vcs"
 path="res://.godot/imported/orb.aseprite-79815749dd35aecec1a46671025d193f.res"
 
@@ -12,3 +12,7 @@ dest_files=["res://.godot/imported/orb.aseprite-79815749dd35aecec1a46671025d193f
 
 [params]
 
+split_layers=false
+exclude_layers_pattern=""
+only_visible_layers=true
+sheet_type="Packed"

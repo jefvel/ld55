@@ -87,6 +87,8 @@ func finish():
 	if fff:return
 	fff = true
 	
+	SaveData.rounds_played += 1;
+	
 	if total == 0:
 		enable_retry()
 		return

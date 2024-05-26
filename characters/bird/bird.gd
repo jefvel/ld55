@@ -200,6 +200,11 @@ func flap():
 var flap_request = false;
 var flap_released = false;
 var time_since_punch_press = 100.0;
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action("FLAP"):
+		#print("WOOW")
+		pass
+
 func _physics_process(_delta):
 	time_since_punch_press += _delta;
 	var flap_pressed = Input.is_action_just_pressed("FLAP")
@@ -262,8 +267,10 @@ func _physics_process(_delta):
 		#move_and_collide(velocity)
 		var dv =  velocity * _delta * 60.0;
 		position += dv
-		
-		cur_thread -= velocity.length() * 0.0075
+		var thread_decrease_multiplier = 1.0;
+		if flap_down:
+			thread_decrease_multiplier *= 0.8
+		cur_thread -= velocity.length() * 0.0075 * thread_decrease_multiplier
 		
 		if rope_segments.size() > 0:
 			var top_rope = rope_segments[-1]
