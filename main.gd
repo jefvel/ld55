@@ -102,8 +102,19 @@ func finish():
 	await to(0.6)
 	bar.showw()
 	await to(0.4)
+	var total_score = bird.pickups;
+	SaveData.rounds_played += 1;
+	NGCloudSave.save_game()
 	NG.scoreboard_submit(NewgroundsIds.ScoreboardId.BestSoup, bird.pickups)
-	
+	if total_score >= 10:
+		NG.medal_unlock(NewgroundsIds.MedalId.Tenner)
+	if total_score >= 100:
+		NG.medal_unlock(NewgroundsIds.MedalId.Hundred)
+	if total_score >= 1000:
+		NG.medal_unlock(NewgroundsIds.MedalId.Thousand)
+	if SaveData.rounds_played >= 3:
+		NG.medal_unlock(NewgroundsIds.MedalId.Trisoup)
+		
 	#var bird_count = max(1, floor(float(total) / 10.0))
 	#for i in range(bird_count):
 	while total > 0:
@@ -177,4 +188,7 @@ func enable_retry():
 var can_retry = false;
 func _on_bird_on_died():
 	enable_retry()
+	SaveData.deaths += 1
+	NG.medal_unlock(NewgroundsIds.MedalId.FallFlat)
+	NGCloudSave.save_game()
 	pass # Replace with function body.

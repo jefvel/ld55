@@ -122,7 +122,6 @@ func _request_completed(result: int, response_code: int, headers: PackedStringAr
 	pending = false;
 	var resp = NewgroundsResponse.new()
 	
-	print(result);
 	if result != RESULT_SUCCESS:
 		resp.error = ERR_FAILED_REQUEST
 		resp.error_message = "Could not fulfill request."

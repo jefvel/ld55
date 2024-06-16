@@ -46,6 +46,7 @@ func reset_form():
 	
 func _on_skip_sign_in_pressed() -> void:
 	on_sign_in_skipped.emit()
+	NG.sign_out()
 
 func _on_cancel_sign_in_pressed() -> void:
 	NG.sign_in_cancel()
