@@ -34,8 +34,10 @@ func refresh_session():
 	if !NG.refreshing_session:
 		if NG.signed_in:
 			on_signed_in.emit();
-		else:
+		elif NG.session.id:
 			NG.refresh_session()
+		else:
+			on_not_signed_in.emit()
 	pass
 
 func _session_change(s: NewgroundsSession):

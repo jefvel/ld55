@@ -163,6 +163,7 @@ func sign_out():
 	on_signed_out.emit();
 	pass
 
+
 func refresh_session():
 	_p("refresh_session")
 	if !session.id: # No session id, no need to check if session is valid.
@@ -307,8 +308,9 @@ func medal_get_list(app_id_override: String="") -> Array[MedalResource]:
 
 ## Unlocks medal. emits on_medal_unlocked on success
 func medal_unlock(medal_id: int, silent: bool=false) -> bool:
+	var medal = get_medal_resource(medal_id);
+	if medal and medal.unlocked: return true
 	if offline_mode:
-		var medal = get_medal_resource(medal_id);
 		if medal:
 			medal.unlocked = true;
 		offline_data.add_failed_medal_unlock(medal_id)
@@ -320,7 +322,6 @@ func medal_unlock(medal_id: int, silent: bool=false) -> bool:
 	
 	if res.error:
 		if res.error != NewgroundsRequest.ERR_MEDAL_NOT_FOUND:
-			var medal = get_medal_resource(medal_id);
 			if medal:
 				medal.unlocked = true;
 			offline_data.add_failed_medal_unlock(medal_id)
@@ -331,7 +332,6 @@ func medal_unlock(medal_id: int, silent: bool=false) -> bool:
 	offline_data.set_medal_unlocked(medal_id, true)
 	
 	var m = res.data;
-	var medal = get_medal_resource(medal_id);
 	if medal:
 		medal.unlocked = true;
 	else:

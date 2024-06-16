@@ -164,6 +164,7 @@ var hurt_time = 0.0;
 @onready var hurt_sounds = [$audio/hurt1, $audio/hurt2, $audio/hurt3]
 func hurt():
 	# combo = 0;
+	punch_combo = 0;
 	hurting = true;
 	hurt_time = 0.1
 	cur_thread -= 10.0;
@@ -397,6 +398,7 @@ func _physics_process(_delta):
 								punchsfx.pitch_scale = randf_range(0.99, 1.02)
 								Game.hit_freeze()
 								cam.shake()
+								on_hit_punch()
 								pass
 						pass
 			
@@ -423,10 +425,25 @@ func _physics_process(_delta):
 	pass
 @onready var miss_sfx: AudioStreamPlayer = $audio/miss
 
+var punch_combo = 0;
+var has_hit_punch = false;
+var has_missed_punch = false;
+func on_hit_punch():
+	punch_combo += 1
+	if !has_hit_punch:
+		has_hit_punch = true
+		NG.medal_unlock(NewgroundsIds.MedalId.PunchNovice)
+	if punch_combo == 20:
+		NG.medal_unlock(NewgroundsIds.MedalId.MultiKill)
+	pass
+
 func missed_punch():
 	miss_sfx.play()
 	hit_something_during_punch = false;
 	anim.play("miss")
+	if !has_missed_punch:
+		has_missed_punch = true;
+		NG.medal_unlock(NewgroundsIds.MedalId.SelfOwn)
 
 @onready var smash_particle: Node2D = $Sprite/SmashParticle
 @onready var particles: CPUParticles2D = $Sprite/SmashParticle/Particles

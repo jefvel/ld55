@@ -435,6 +435,10 @@ bird = NodePath("../../World/Bird")
 script = SubResource("GDScript_gbj14")
 medal_id = 78662
 
+[node name="TEN" type="Node" parent="Medals"]
+script = SubResource("GDScript_gbj14")
+medal_id = 78989
+
 [connection signal="on_died" from="World/Bird" to="." method="_on_bird_on_died"]
 [connection signal="on_died" from="World/Bird" to="Music" method="_on_bird_on_died"]
 [connection signal="on_hit_wall" from="World/Bird" to="." method="_on_bird_on_hit_wall"]
