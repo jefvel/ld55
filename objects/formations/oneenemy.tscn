@@ -4,10 +4,8 @@
 
 [node name="Oneenemy" type="Node2D"]
 
-[node name="Ghost" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("1_5x703")]
+[node name="Ghost" parent="." instance=ExtResource("1_5x703")]
 position = Vector2(0, 41)
-sprite = NodePath("sprite")
 
-[node name="Ghost2" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("1_5x703")]
+[node name="Ghost2" parent="." instance=ExtResource("1_5x703")]
 position = Vector2(0, -40)
-sprite = NodePath("sprite")

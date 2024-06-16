@@ -56,6 +56,8 @@ func _physics_process(delta):
 			until_drop = 0.15;
 			if blobs.size() > 25:
 				until_drop = 0.05
+			if blobs.size() > 50:
+				until_drop = 0.02
 			elif blobs.size() > 10:
 				until_drop = 0.1
 			if blobs.size() > 0:

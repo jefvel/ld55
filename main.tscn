@@ -160,8 +160,8 @@ _data = {
 
 [sub_resource type="GDScript" id="GDScript_gbj14"]
 script/source = "@icon(\"res://addons/newgrounds/icons/medal.png\")
+extends Node
 ## A node used for unlocking/listening to a Newgrounds medal.
-class_name NewgroundsMedalUnlocker extends Node
 
 @export var medal_id: NewgroundsIds.MedalId = 0;
 

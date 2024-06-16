@@ -122,7 +122,6 @@ func _request_completed(result: int, response_code: int, headers: PackedStringAr
 	pending = false;
 	var resp = NewgroundsResponse.new()
 	
-	print(result);
 	if result != RESULT_SUCCESS:
 		resp.error = ERR_FAILED_REQUEST
 		resp.error_message = "Could not fulfill request."
@@ -188,4 +187,3 @@ func generate_iv() -> PackedByteArray:
 	for i in range(16):
 		arr.set(i, randi() % 0xff)
 	return arr
-

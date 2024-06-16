@@ -5,29 +5,25 @@
 
 [node name="Oneenemy" type="Node2D"]
 
-[node name="Ghost" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("1_yie16")]
+[node name="Ghost" parent="." instance=ExtResource("1_yie16")]
 position = Vector2(1, -142)
-sprite = NodePath("sprite")
 
 [node name="Ghost7" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("1_yie16")]
 position = Vector2(1, -49)
 sprite = NodePath("../Ghost/sprite")
 
-[node name="Ghost6" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("1_yie16")]
+[node name="Ghost6" parent="." instance=ExtResource("1_yie16")]
 position = Vector2(1, -98)
-sprite = NodePath("sprite")
 
 [node name="Ghost8" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("1_yie16")]
 position = Vector2(3, 98)
 sprite = NodePath("../Ghost6/sprite")
 
-[node name="Ghost5" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("1_yie16")]
+[node name="Ghost5" parent="." instance=ExtResource("1_yie16")]
 position = Vector2(1, 0)
-sprite = NodePath("sprite")
 
-[node name="Ghost3" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("1_yie16")]
+[node name="Ghost3" parent="." instance=ExtResource("1_yie16")]
 position = Vector2(1, 136)
-sprite = NodePath("sprite")
 
 [node name="Item2" parent="." instance=ExtResource("2_htt1m")]
 position = Vector2(0, 48)

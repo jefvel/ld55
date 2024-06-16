@@ -5,25 +5,21 @@
 
 [node name="Oneenemy" type="Node2D"]
 
-[node name="Ghost" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("1_jcrqj")]
+[node name="Ghost" parent="." instance=ExtResource("1_jcrqj")]
 position = Vector2(-52, -30)
-sprite = NodePath("sprite")
 
 [node name="Ghost7" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("1_jcrqj")]
 position = Vector2(-16, 42)
 sprite = NodePath("../Ghost/sprite")
 
-[node name="Ghost2" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("1_jcrqj")]
+[node name="Ghost2" parent="." instance=ExtResource("1_jcrqj")]
 position = Vector2(-52, 42)
-sprite = NodePath("sprite")
 
-[node name="Ghost4" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("1_jcrqj")]
+[node name="Ghost4" parent="." instance=ExtResource("1_jcrqj")]
 position = Vector2(20, 42)
-sprite = NodePath("sprite")
 
-[node name="Ghost6" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("1_jcrqj")]
+[node name="Ghost6" parent="." instance=ExtResource("1_jcrqj")]
 position = Vector2(11, -66)
-sprite = NodePath("sprite")
 
 [node name="Ghost8" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("1_jcrqj")]
 position = Vector2(42, -50)
@@ -33,13 +29,11 @@ sprite = NodePath("../Ghost6/sprite")
 position = Vector2(76, -37)
 sprite = NodePath("../Ghost6/sprite")
 
-[node name="Ghost5" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("1_jcrqj")]
+[node name="Ghost5" parent="." instance=ExtResource("1_jcrqj")]
 position = Vector2(57, 44)
-sprite = NodePath("sprite")
 
-[node name="Ghost3" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("1_jcrqj")]
+[node name="Ghost3" parent="." instance=ExtResource("1_jcrqj")]
 position = Vector2(-27, -59)
-sprite = NodePath("sprite")
 
 [node name="Item" parent="." instance=ExtResource("2_tro5b")]
 position = Vector2(-7, -16)

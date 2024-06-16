@@ -465,7 +465,7 @@ func _save_session():
 
 func _notification(what):
 	match what:
-		NOTIFICATION_WM_WINDOW_FOCUS_IN:
+		NOTIFICATION_WM_WINDOW_FOCUS_IN, NOTIFICATION_APPLICATION_FOCUS_IN:
 			if signing_in:
 				refresh_session.call_deferred()
 			pass

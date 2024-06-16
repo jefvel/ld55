@@ -38,7 +38,6 @@ window/size/viewport_height=666
 window/size/always_on_top=true
 window/stretch/mode="viewport"
 window/stretch/scale=2.0
-window/dpi/allow_hidpi=false
 
 [editor_plugins]
 
