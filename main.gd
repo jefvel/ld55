@@ -26,10 +26,7 @@ var left = 0;
 var total_blob_score = 0;
 var base_score = 0;
 func intoPot(level: int = 1):
-	var sprite = $World/Cauldron/sprite
-	sprite.rotation = randf_range(0.01, -0.01);
-	var t = get_tree().create_tween().set_trans(Tween.TRANS_ELASTIC)
-	t.tween_property(sprite, "rotation", 0, 0.1)
+	cauldron.nudge();
 	left -= 1;
 	var scr = bird.pickups
 
@@ -102,7 +99,7 @@ func finish():
 	cauldron.erupt();
 	camera.shake()
 	await to(0.6)
-	bar.showw()
+	#bar.showw()
 	await to(0.4)
 	var total_score = bird.pickups;
 	SaveData.rounds_played += 1;
@@ -127,14 +124,31 @@ func finish():
 		pass
 	
 	if current_birds >= required_score:
-		show_win();
+		#show_win();
+		pass
 	else:
 		enable_retry()
 	pass
 
 @onready var bar = $World/Cauldron/sprite/bar
-const BIG_BIRD = preload("res://objects/big_bird.tscn")
+
 const SMALL_BIRD = preload("res://objects/small_bird.tscn")
+const BIG_BIRD = preload("res://objects/big_bird.tscn")
+
+const SLUMBO = preload("res://objects/birds/slumbo.tscn")
+const LONG_BIRD = preload("res://objects/birds/long_bird.tscn")
+const GLEGG = preload("res://objects/birds/glegg.tscn")
+const GIGANTUS = preload("res://objects/birds/gigantus.tscn")
+
+const bird_map = {
+	1000: GIGANTUS,
+	750: BIG_BIRD,
+	500: LONG_BIRD,
+	300: GLEGG,
+	150: SLUMBO,
+	0: SMALL_BIRD,
+}
+
 func spawn_bird():
 	var b
 	if total >= 150:

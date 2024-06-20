@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://dgv666pluwssf"
+path="res://.godot/imported/glegg.aseprite-2de903bb6c79b23b2397c6e3ea12a54a.res"
+
+[deps]
+
+source_file="res://objects/birds/glegg.aseprite"
+dest_files=["res://.godot/imported/glegg.aseprite-2de903bb6c79b23b2397c6e3ea12a54a.res"]
+
+[params]
+

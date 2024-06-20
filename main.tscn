@@ -266,7 +266,6 @@ metadata/_edit_group_ = true
 [node name="Cauldron" type="Node2D" parent="World"]
 position = Vector2(333, 512)
 script = ExtResource("10_52bap")
-shaking = true
 
 [node name="bubbles" type="CPUParticles2D" parent="World/Cauldron"]
 texture_filter = 1

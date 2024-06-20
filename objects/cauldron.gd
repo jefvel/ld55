@@ -19,7 +19,13 @@ func erupt():
 	pass
 	
 @onready var cauldron: Sprite2D = $sprite
-	
+
+func nudge():
+	cauldron.rotation = randf_range(0.11, -0.11);
+	var t = get_tree().create_tween().set_trans(Tween.TRANS_ELASTIC)
+	t.tween_property(cauldron, "rotation", 0, 0.1)
+	pass
+
 var dt = 0.0;
 func _physics_process(delta: float) -> void:
 	if shaking:
@@ -29,3 +35,4 @@ func _physics_process(delta: float) -> void:
 
 func stop_shaking():
 	anim.play("RESET");
+	shaking = false;

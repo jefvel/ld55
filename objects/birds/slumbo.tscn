@@ -1,8 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://cko7obha47xid"]
+[gd_scene load_steps=9 format=3 uid="uid://bu7xl5fq3dwt4"]
 
-[ext_resource type="Script" path="res://objects/small_bird.gd" id="1_hqdc5"]
-[ext_resource type="Texture2D" uid="uid://cyku2i2yb7i0j" path="res://objects/smalbird.png" id="1_sgdqt"]
-[ext_resource type="AudioStream" uid="uid://pij1j0g1lh0s" path="res://sfx/chirp.wav" id="3_clyvu"]
+[ext_resource type="Script" path="res://objects/small_bird.gd" id="1_qkv6x"]
+[ext_resource type="Texture2D" uid="uid://7qegxmyuvgyw" path="res://objects/birds/glegg.png" id="2_o7j8p"]
+[ext_resource type="AudioStream" uid="uid://pij1j0g1lh0s" path="res://sfx/chirp.wav" id="3_josx6"]
 
 [sub_resource type="Animation" id="Animation_7b0re"]
 length = 0.1
@@ -74,14 +74,15 @@ _data = {
 "spawn": SubResource("Animation_nu7g7")
 }
 
-[node name="SmallBird" type="Node2D"]
-script = ExtResource("1_hqdc5")
-bird_name = "Small Bird"
+[node name="Slumbo" type="Node2D"]
+script = ExtResource("1_qkv6x")
+bird_name = "Gigantus"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
 position = Vector2(0, -5)
-texture = ExtResource("1_sgdqt")
+texture = ExtResource("2_o7j8p")
+offset = Vector2(0, -4)
 metadata/_aseprite_wizard_config_ = {
 "i_mode": -1,
 "keep_anim_length": false,
@@ -92,8 +93,9 @@ metadata/_aseprite_wizard_config_ = {
 "only_visible": false,
 "player": "aaaa",
 "slice": "",
-"source": "res://objects/smalbird.aseprite"
+"source": "res://objects/birds/glegg.aseprite"
 }
+metadata/_aseprite_wizard_source_file_hash_ = "289b4478090f72ec31e0dd644aaacf17"
 
 [node name="aaaa" type="AnimationPlayer" parent="."]
 libraries = {
@@ -106,5 +108,5 @@ libraries = {
 }
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("3_clyvu")
+stream = ExtResource("3_josx6")
 volume_db = -3.0
